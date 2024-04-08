@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SliderController;
 
 /*
@@ -90,3 +91,8 @@ Route::get('admin/editendlevelcategory', [CategoryController::class, 'viewediten
 Route::get('admin/managesliders', [SliderController::class, 'viewmanagesliderspage']);
 Route::get('admin/addsliders', [SliderController::class, 'viewaddesliderspage']);
 Route::get('admin/editsliders', [SliderController::class, 'vieweditesliderspage']);
+
+//SettingController
+
+Route::post('admin/savelogo', [SettingController::class, 'savelogo']);
+Route::put('admin/updatelogo/{id}', [SettingController::class, 'updatelogo']);
