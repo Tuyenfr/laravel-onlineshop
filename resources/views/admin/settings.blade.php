@@ -93,7 +93,7 @@ Web settings
                                         <label for="" class="col-sm-2 control-label">Existing Photo</label>
                                         <div class="col-sm-6" style="padding-top:6px;">
                                           @if($favicon)
-                                          <img src="{{asset('storage/favicon/'.$favicon->favicon_logo)}}" alt="{{$favicon->favicon_logo}}" class="existing-photo" style="height:80px;">                                         
+                                          <img src="{{asset('storage/favicon/'.$favicon->photo_favicon)}}" alt="{{$favicon->photo_favicon}}" class="existing-photo" style="height:80px;">                                         
                                          @else
                                          <img src="{{asset('storage/defaultimage/noimage.jpg')}}" alt="noimageforlogo" class="existing-photo" style="height:80px;">
                                          @endif
