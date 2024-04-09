@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Logo;
 use App\Models\Favicon;
+use App\Models\Information;
 
 class SettingController extends Controller
 {
@@ -141,6 +142,7 @@ class SettingController extends Controller
         $faviconimage->save();
 
         return back()->with('status', "The favicon image has been successfully saved !");
+    
     }
 
     public function updatefavicon(Request $request, $id) {
@@ -190,5 +192,53 @@ class SettingController extends Controller
 
         return back()->with('status', 'The favicon image has been succesfully updated !');
         
+    }
+
+    public function saveinformation(Request $request) {
+
+        $this->validate($request, [
+            'newsletter_on_off' => 'required',
+            'footer_copyright' => 'required',
+            'contact_address' => 'required',
+            'contact_email' => 'required',
+            'contact_phone' => 'required',
+            'contact_map_iframe' => 'required'
+        ]);
+
+        $information = new Information();
+        $information->newsletter_on_off = $request->input('newsletter_on_off');
+        $information->footer_copyright = $request->input('footer_copyright');
+        $information->contact_address = $request->input('contact_address');
+        $information->contact_email = $request->input('contact_email');
+        $information->contact_phone = $request->input('contact_phone');
+        $information->contact_map_iframe = $request->input('contact_map_iframe');
+
+        $information->save();
+
+        return back()->with("status", "The information has been saved successfully saved!");
+    }
+
+    public function updateinformation(Request $request, $id) {
+
+        $this->validate($request, [
+            'newsletter_on_off' => 'required',
+            'footer_copyright' => 'required',
+            'contact_address' => 'required',
+            'contact_email' => 'required',
+            'contact_phone' => 'required',
+            'contact_map_iframe' => 'required'
+        ]);
+
+        $information = Information::find($id);
+        $information->newsletter_on_off = $request->input('newsletter_on_off');
+        $information->footer_copyright = $request->input('footer_copyright');
+        $information->contact_address = $request->input('contact_address');
+        $information->contact_email = $request->input('contact_email');
+        $information->contact_phone = $request->input('contact_phone');
+        $information->contact_map_iframe = $request->input('contact_map_iframe');
+
+        $information->update();
+
+        return back()->with("status", "The information has been updated successfully saved!");
     }
 }
