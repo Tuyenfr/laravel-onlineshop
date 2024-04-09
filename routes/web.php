@@ -96,3 +96,5 @@ Route::get('admin/editsliders', [SliderController::class, 'vieweditesliderspage'
 
 Route::post('admin/savelogo', [SettingController::class, 'savelogo']);
 Route::put('admin/updatelogo/{id}', [SettingController::class, 'updatelogo']);
+Route::post('admin/savefavicon', [SettingController::class, 'savefavicon']);
+Route::put('admin/updatefavicon/{id}', [SettingController::class, 'updatefavicon']);

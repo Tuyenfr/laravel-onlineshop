@@ -81,25 +81,34 @@ Web settings
                             </form>
                          </div>
                          <div class="tab-pane" id="tab_2">
-                            <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-                               <div class="box box-info">
+                            <form class="form-horizontal" action="{{$favicon ? url('admin/updatefavicon', [$favicon->id]) : url('admin/savefavicon')}}" method="post" enctype="multipart/form-data">
+                              @csrf
+                              @if($favicon)
+                                 @method('PUT')
+                              @endif
+                            
+                              <div class="box box-info">
                                   <div class="box-body">
                                      <div class="form-group">
                                         <label for="" class="col-sm-2 control-label">Existing Photo</label>
                                         <div class="col-sm-6" style="padding-top:6px;">
-                                           <img src="{{asset('backend/uploads/favicon.png')}}" class="existing-photo" style="height:40px;">
+                                          @if($favicon)
+                                          <img src="{{asset('storage/favicon/'.$favicon->favicon_logo)}}" alt="{{$favicon->favicon_logo}}" class="existing-photo" style="height:80px;">                                         
+                                         @else
+                                         <img src="{{asset('storage/defaultimage/noimage.jpg')}}" alt="noimageforlogo" class="existing-photo" style="height:80px;">
+                                         @endif
                                         </div>
                                      </div>
                                      <div class="form-group">
                                         <label for="" class="col-sm-2 control-label">New Photo</label>
                                         <div class="col-sm-6" style="padding-top:6px;">
-                                           <input type="file" name="photo_favicon">
+                                           <input type="file" name="photo_favicon" required>
                                         </div>
                                      </div>
                                      <div class="form-group">
                                         <label for="" class="col-sm-2 control-label"></label>
                                         <div class="col-sm-6">
-                                           <button type="submit" class="btn btn-success pull-left" name="form2">Update Favicon</button>
+                                           <button type="submit" class="btn btn-success pull-left" name="form2">{{$favicon ? 'Update Favicon' : 'Save Favicon'}}</button>
                                         </div>
                                      </div>
                                   </div>

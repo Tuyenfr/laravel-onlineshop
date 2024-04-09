@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Logo;
+use App\Models\Favicon;
 
 class AdminController extends Controller
 {
@@ -15,7 +16,11 @@ class AdminController extends Controller
     public function viewadminsettings() {
         
         $logo = Logo::first();
-        return view('admin.settings')->with('logo', $logo);
+        $favicon = Favicon::first();
+
+        return view('admin.settings')
+                ->with('logo', $logo)
+                ->with('favicon', $favicon);
     }
 
     public function viewsizepage() {
