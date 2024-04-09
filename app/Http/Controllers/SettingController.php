@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Logo;
 use App\Models\Favicon;
 use App\Models\Information;
+use App\Models\Message;
 
 class SettingController extends Controller
 {
@@ -240,5 +241,45 @@ class SettingController extends Controller
         $information->update();
 
         return back()->with("status", "The information has been updated successfully saved!");
+    }
+
+    public function savemessage(Request $request) {
+
+        $this->validate($request, [
+            'receive_email' => 'required',
+            'receive_email_subject' => 'required',
+            'receive_email_thank_you_message' => 'required',
+            'forget_password_message' => 'required'
+        ]);
+
+        $message = new Message();
+        $message->receive_email = $request->input('receive_email');
+        $message->receive_email_subject = $request->input('receive_email_subject');
+        $message->receive_email_thank_you_message = $request->input('receive_email_thank_you_message');
+        $message->forget_password_message = $request->input('forget_password_message');
+
+        $message->save();
+
+        return back()->with('status', 'The message has been saved successfully !');
+    }
+
+    public function updatemessage(Request $request, $id) {
+
+        $this->validate($request, [
+            'receive_email' => 'required',
+            'receive_email_subject' => 'required',
+            'receive_email_thank_you_message' => 'required',
+            'forget_password_message' => 'required'
+        ]);
+
+        $message = Message::find($id);
+        $message->receive_email = $request->input('receive_email');
+        $message->receive_email_subject = $request->input('receive_email_subject');
+        $message->receive_email_thank_you_message = $request->input('receive_email_thank_you_message');
+        $message->forget_password_message = $request->input('forget_password_message');
+
+        $message->update();
+
+        return back()->with('status', 'The message has been updated successfully !');
     }
 }

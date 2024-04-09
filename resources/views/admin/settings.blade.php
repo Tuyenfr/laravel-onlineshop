@@ -187,37 +187,41 @@ Web settings
                             </form>
                          </div>
                          <div class="tab-pane" id="tab_4">
-                            <form class="form-horizontal" action="" method="post">
+                            <form class="form-horizontal" action="{{$message ? url('admin/updatemessage', [$message->id]) : url('admin/savemessage')}}" method="post">
+                              @csrf
+                              @if($message)
+                              @method('PUT')
+                              @endif
                                <div class="box box-info">
                                   <div class="box-body">
                                      <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Contact Email Address</label>
                                         <div class="col-sm-4">
-                                           <input type="text" class="form-control" name="receive_email" value="support@ecommercephp.com">
+                                           <input type="text" class="form-control" name="receive_email" value="{{$message ? $message->receive_email : ''}}" required>
                                         </div>
                                      </div>
                                      <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Contact Email Subject</label>
                                         <div class="col-sm-8">
-                                           <input type="text" class="form-control" name="receive_email_subject" value="Visitor Email Message from Ecommerce Site PHP">
+                                           <input type="text" class="form-control" name="receive_email_subject" value="{{$message ? $message->receive_email_subject : ''}}" required>
                                         </div>
                                      </div>
                                      <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Contact Email Thank you message</label>
                                         <div class="col-sm-8">
-                                           <textarea class="form-control" name="receive_email_thank_you_message">Thank you for sending email. We will contact you shortly.</textarea>
+                                           <textarea class="form-control" name="receive_email_thank_you_message" required>{{$message ? $message->receive_email_thank_you_message : ''}}</textarea>
                                         </div>
                                      </div>
                                      <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Forget password Message</label>
                                         <div class="col-sm-8">
-                                           <textarea class="form-control" name="forget_password_message">A confirmation link is sent to your email address. You will get the password reset information in there.</textarea>
+                                           <textarea class="form-control" name="forget_password_message" required>{{$message ? $message->forget_password_message : ''}}</textarea>
                                         </div>
                                      </div>
                                      <div class="form-group">
                                         <label for="" class="col-sm-3 control-label"></label>
                                         <div class="col-sm-5">
-                                           <button type="submit" class="btn btn-success pull-left" name="form4">Update</button>
+                                           <button type="submit" class="btn btn-success pull-left" name="form4">{{$message ? 'Update message' : 'Save message'}}</button>
                                         </div>
                                      </div>
                                   </div>

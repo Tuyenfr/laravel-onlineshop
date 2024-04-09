@@ -100,3 +100,5 @@ Route::post('admin/savefavicon', [SettingController::class, 'savefavicon']);
 Route::put('admin/updatefavicon/{id}', [SettingController::class, 'updatefavicon']);
 Route::post('admin/saveinformation', [SettingController::class, 'saveinformation']);
 Route::put('admin/updateinformation/{id}', [SettingController::class, 'updateinformation']);
+Route::post('admin/savemessage', [SettingController::class, 'savemessage']);
+Route::put('admin/updatemessage/{id}', [SettingController::class, 'updatemessage']);
