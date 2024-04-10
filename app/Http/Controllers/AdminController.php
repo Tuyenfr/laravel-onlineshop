@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Logo;
 use App\Models\Favicon;
+use App\Models\Featuredproduct;
 use App\Models\Information;
 use App\Models\Message;
 use App\Models\Metasection;
@@ -27,6 +28,7 @@ class AdminController extends Controller
         $productsettings = ProductSetting::first();
         $onoffsection = Onoffsection::first();
         $metasection = Metasection::first();
+        $featuredproduct = Featuredproduct::first();
 
         return view('admin.settings')
                 ->with('logo', $logo)
@@ -35,7 +37,8 @@ class AdminController extends Controller
                 ->with('message', $message)
                 ->with('productsettings', $productsettings)
                 ->with('onoffsection', $onoffsection)
-                ->with('metasection', $metasection);
+                ->with('metasection', $metasection)
+                ->with('featuredproduct', $featuredproduct);
 
     }
 

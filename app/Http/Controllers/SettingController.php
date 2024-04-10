@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Logo;
 use App\Models\Favicon;
+use App\Models\Featuredproduct;
 use App\Models\Information;
 use App\Models\Message;
 use App\Models\Metasection;
@@ -392,14 +393,46 @@ class SettingController extends Controller
             'meta_description_home' => 'required'
         ]);
 
-        $savemetasection = Metasection::find($id);
-        $savemetasection->meta_title_home = $request->input('meta_title_home');
-        $savemetasection->meta_keyword_home = $request->input('meta_keyword_home');
-        $savemetasection->meta_description_home = $request->input('meta_description_home');
+        $updatemetasection = Metasection::find($id);
+        $updatemetasection->meta_title_home = $request->input('meta_title_home');
+        $updatemetasection->meta_keyword_home = $request->input('meta_keyword_home');
+        $updatemetasection->meta_description_home = $request->input('meta_description_home');
 
-        $savemetasection->update();
+        $updatemetasection->update();
 
         return back()->with('status', "The meta section has been successfully updated !");
+    }
+
+    public function savefeaturedproduct(Request $request) {
+
+        $this->validate($request, [
+            'featured_product_title' => 'required',
+            'featured_product_subtitle' => 'required'
+        ]);
+
+        $savefeaturedproduct = new Featuredproduct();
+        $savefeaturedproduct->featured_product_title = $request->input('featured_product_title');
+        $savefeaturedproduct->featured_product_subtitle = $request->input('featured_product_subtitle');
+
+        $savefeaturedproduct->save();
+
+        return back()->with('status', 'The featured product section has been saved successfully !');
+    }
+
+    public function updatefeaturedproduct(Request $request, $id) {
+
+        $this->validate($request, [
+            'featured_product_title' => 'required',
+            'featured_product_subtitle' => 'required'
+        ]);
+
+        $updatefeaturedproduct = Featuredproduct::find($id);
+        $updatefeaturedproduct->featured_product_title = $request->input('featured_product_title');
+        $updatefeaturedproduct->featured_product_subtitle = $request->input('featured_product_subtitle');
+
+        $updatefeaturedproduct->update();
+
+        return back()->with('status', 'The featured product section has been successfully updated!');
     }
 
 }
