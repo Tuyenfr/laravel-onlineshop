@@ -102,3 +102,5 @@ Route::post('admin/saveinformation', [SettingController::class, 'saveinformation
 Route::put('admin/updateinformation/{id}', [SettingController::class, 'updateinformation']);
 Route::post('admin/savemessage', [SettingController::class, 'savemessage']);
 Route::put('admin/updatemessage/{id}', [SettingController::class, 'updatemessage']);
+Route::post('admin/saveproductsettings', [SettingController::class, 'saveproductsettings']);
+Route::put('admin/updateproductsettings/{id}', [SettingController::class, 'updateproductsettings']);

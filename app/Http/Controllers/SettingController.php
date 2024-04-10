@@ -8,6 +8,7 @@ use App\Models\Logo;
 use App\Models\Favicon;
 use App\Models\Information;
 use App\Models\Message;
+use App\Models\ProductSetting;
 
 class SettingController extends Controller
 {
@@ -281,5 +282,43 @@ class SettingController extends Controller
         $message->update();
 
         return back()->with('status', 'The message has been updated successfully !');
+    }
+
+    public function saveproductsettings(Request $request) {
+
+        $this->validate($request, [
+            'total_featured_product_home' => 'required',
+            'total_latest_product_home'  => 'required',
+            'total_popular_product_home'  => 'required'
+        ]);
+
+        $saveproductsettings = new ProductSetting();
+        $saveproductsettings->total_featured_product_home = $request->input('total_featured_product_home');
+        $saveproductsettings->total_latest_product_home = $request->input('total_latest_product_home');
+        $saveproductsettings->total_popular_product_home = $request->input('total_popular_product_home');
+
+        $saveproductsettings->save();
+
+        return back()->with('status', 'The product settings have been saved successfully!');
+    }
+
+    public function updateproductsettings(Request $request, $id) {
+
+        $this->validate($request, [
+            'total_featured_product_home' => 'required',
+            'total_latest_product_home' => 'required',
+            'total_popular_product_home' => 'required'
+        ]);
+
+        $updateproductsettings = ProductSetting::find($id);
+        $updateproductsettings->total_featured_product_home = $request->input('total_featured_product_home');
+        $updateproductsettings->total_latest_product_home = $request->input('total_latest_product_home');
+        $updateproductsettings->total_popular_product_home = $request->input('total_popular_product_home');
+
+        $updateproductsettings->update();
+
+        return back()->with('status', 'The product settings have been updated successfully!');
+
+
     }
 }

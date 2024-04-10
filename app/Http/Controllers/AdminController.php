@@ -8,6 +8,7 @@ use App\Models\Logo;
 use App\Models\Favicon;
 use App\Models\Information;
 use App\Models\Message;
+use App\Models\ProductSetting;
 
 class AdminController extends Controller
 {
@@ -21,12 +22,14 @@ class AdminController extends Controller
         $favicon = Favicon::first();
         $information = Information::first();
         $message = Message::first();
+        $productsettings = ProductSetting::first();
 
         return view('admin.settings')
                 ->with('logo', $logo)
                 ->with('favicon', $favicon)
                 ->with('information', $information)
-                ->with('message', $message);
+                ->with('message', $message)
+                ->with('productsettings', $productsettings);
     }
 
     public function viewsizepage() {
