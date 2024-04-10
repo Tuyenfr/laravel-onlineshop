@@ -316,7 +316,7 @@ Web settings
                                      <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Featured Product Section </label>
                                         <div class="col-sm-4">
-                                           <select name="home_featured_product_on_off" class="form-control" style="width:auto;">
+                                           <select name="home_featured_product_on_off" class="form-control" style="width:auto;" required>
                                              @if($onoffsection)
                                                 @if($onoffsection->home_featured_product_on_off == "1")
                                                    <option value="1" selected>On</option>
@@ -335,7 +335,7 @@ Web settings
                                      <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Latest Product Section </label>
                                         <div class="col-sm-4">
-                                           <select name="home_latest_product_on_off" class="form-control" style="width:auto;">
+                                           <select name="home_latest_product_on_off" class="form-control" style="width:auto;" required>
                                              @if($onoffsection)
                                                 @if($onoffsection->home_latest_product_on_off == "1")
                                                    <option value="1" selected>On</option>
@@ -354,7 +354,7 @@ Web settings
                                      <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Popular Product Section </label>
                                         <div class="col-sm-4">
-                                           <select name="home_popular_product_on_off" class="form-control" style="width:auto;">
+                                           <select name="home_popular_product_on_off" class="form-control" style="width:auto;" required>
                                              @if($onoffsection)
                                                 @if($onoffsection->home_popular_product_on_off == "1")
                                                    <option value="1" selected>On</option>
@@ -380,31 +380,36 @@ Web settings
                                </div>
                             </form>
                             <h3>Meta Section</h3>
-                            <form class="form-horizontal" action="" method="post">
-                               <div class="box box-info">
+                            <form class="form-horizontal" action="{{$metasection ? url('admin/updatemetasection', [$metasection->id]) : url('admin/savemetasection')}}" method="post">
+                              @csrf
+                              @if($metasection)
+                                 @method('PUT')
+                              @endif
+
+                              <div class="box box-info">
                                   <div class="box-body">
                                      <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Meta Title </label>
                                         <div class="col-sm-8">
-                                           <input type="text" name="meta_title_home" class="form-control" value="Ecommerce PHP">
+                                           <input type="text" name="meta_title_home" class="form-control" value="{{$metasection ? $metasection->meta_title_home : ""}}" required>
                                         </div>
                                      </div>
                                      <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Meta Keyword </label>
                                         <div class="col-sm-8">
-                                           <textarea class="form-control" name="meta_keyword_home" style="height:100px;">online fashion store, garments shop, online garments</textarea>
+                                           <textarea class="form-control" name="meta_keyword_home" style="height:100px;" required>{{$metasection ? $metasection->meta_keyword_home : ""}}</textarea>
                                         </div>
                                      </div>
                                      <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Meta Description </label>
                                         <div class="col-sm-8">
-                                           <textarea class="form-control" name="meta_description_home" style="height:200px;">ecommerce php project with mysql database</textarea>
+                                           <textarea class="form-control" name="meta_description_home" style="height:200px;" required>{{$metasection ? $metasection->meta_description_home : ""}}</textarea>
                                         </div>
                                      </div>
                                      <div class="form-group">
                                         <label for="" class="col-sm-3 control-label"></label>
                                         <div class="col-sm-6">
-                                           <button type="submit" class="btn btn-success pull-left" name="form6">Update</button>
+                                           <button type="submit" class="btn btn-success pull-left" name="form6" required>{{$metasection ? 'Update' : 'Save'}}</button>
                                         </div>
                                      </div>
                                   </div>

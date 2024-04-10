@@ -8,6 +8,7 @@ use App\Models\Logo;
 use App\Models\Favicon;
 use App\Models\Information;
 use App\Models\Message;
+use App\Models\Metasection;
 use App\Models\Onoffsection;
 use App\Models\ProductSetting;
 
@@ -363,8 +364,42 @@ class SettingController extends Controller
         $updateonoffsection->update();
 
         return back()->with('status', "The home sections settings have been successfully updated!");
+    }
 
+    public function savemetasection(Request $request) {
 
+        $this->validate($request, [
+            'meta_title_home' => 'required',
+            'meta_keyword_home' => 'required',
+            'meta_description_home' => 'required'
+        ]);
+
+        $savemetasection = new Metasection();
+        $savemetasection->meta_title_home = $request->input('meta_title_home');
+        $savemetasection->meta_keyword_home = $request->input('meta_keyword_home');
+        $savemetasection->meta_description_home = $request->input('meta_description_home');
+
+        $savemetasection->save();
+
+        return back()->with('status', "The meta section has been successfully saved !");
+    }
+
+    public function updatemetasection(Request $request, $id) {
+
+        $this->validate($request, [
+            'meta_title_home' => 'required',
+            'meta_keyword_home' => 'required',
+            'meta_description_home' => 'required'
+        ]);
+
+        $savemetasection = Metasection::find($id);
+        $savemetasection->meta_title_home = $request->input('meta_title_home');
+        $savemetasection->meta_keyword_home = $request->input('meta_keyword_home');
+        $savemetasection->meta_description_home = $request->input('meta_description_home');
+
+        $savemetasection->update();
+
+        return back()->with('status', "The meta section has been successfully updated !");
     }
 
 }

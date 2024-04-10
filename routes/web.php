@@ -106,3 +106,5 @@ Route::post('admin/saveproductsettings', [SettingController::class, 'saveproduct
 Route::put('admin/updateproductsettings/{id}', [SettingController::class, 'updateproductsettings']);
 Route::post('admin/saveonoffsection', [SettingController::class, 'saveonoffsection']);
 Route::put('admin/updateonoffsection/{id}', [SettingController::class, 'updateonoffsection']);
+Route::post('admin/savemetasection', [SettingController::class, 'savemetasection']);
+Route::put('admin/updatemetasection/{id}', [SettingController::class, 'updatemetasection']);
