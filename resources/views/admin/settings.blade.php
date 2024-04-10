@@ -267,15 +267,30 @@ Web settings
                          </div>
                          <div class="tab-pane" id="tab_6">
                             <h3>Sections On and Off</h3>
-                            <form class="form-horizontal" action="" method="post">
-                               <div class="box box-info">
+                            <form class="form-horizontal" action="{{$onoffsection ? url('admin/updateonoffsection', [$onoffsection->id]) : url('admin/saveonoffsection')}}" method="post">
+                              @csrf
+                              @if($onoffsection)
+                                 @method('PUT')
+                              @endif
+
+                              <div class="box box-info">
                                   <div class="box-body">
                                      <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Service Section </label>
                                         <div class="col-sm-4">
                                            <select name="home_service_on_off" class="form-control" style="width:auto;">
-                                              <option value="1" selected>On</option>
-                                              <option value="0" >Off</option>
+                                             @if($onoffsection)
+                                                @if($onoffsection->home_service_on_off == "1")
+                                                   <option value="1" selected>On</option>
+                                                   <option value="0" >Off</option>
+                                                @else
+                                                   <option value="1" >On</option>
+                                                   <option value="0" selected>Off</option>
+                                                @endif
+                                             @else
+                                                <option value="1" selected>On</option>
+                                                <option value="0" >Off</option>
+                                             @endif
                                            </select>
                                         </div>
                                      </div>
@@ -283,8 +298,18 @@ Web settings
                                         <label for="" class="col-sm-3 control-label">Welcome Section </label>
                                         <div class="col-sm-4">
                                            <select name="home_welcome_on_off" class="form-control" style="width:auto;">
-                                              <option value="1" selected>On</option>
-                                              <option value="0" >Off</option>
+                                             @if($onoffsection)
+                                                @if($onoffsection->home_welcome_on_off == "1")
+                                                   <option value="1" selected>On</option>
+                                                   <option value="0" >Off</option>
+                                                @else
+                                                   <option value="1" >On</option>
+                                                   <option value="0" selected>Off</option>
+                                                @endif
+                                             @else
+                                                <option value="1" selected>On</option>
+                                                <option value="0" >Off</option>
+                                             @endif
                                            </select>
                                         </div>
                                      </div>
@@ -292,8 +317,18 @@ Web settings
                                         <label for="" class="col-sm-3 control-label">Featured Product Section </label>
                                         <div class="col-sm-4">
                                            <select name="home_featured_product_on_off" class="form-control" style="width:auto;">
-                                              <option value="1" selected>On</option>
-                                              <option value="0" >Off</option>
+                                             @if($onoffsection)
+                                                @if($onoffsection->home_featured_product_on_off == "1")
+                                                   <option value="1" selected>On</option>
+                                                   <option value="0" >Off</option>
+                                                @else
+                                                   <option value="1" >On</option>
+                                                   <option value="0" selected>Off</option>
+                                                @endif
+                                             @else
+                                                <option value="1" selected>On</option>
+                                                <option value="0" >Off</option>
+                                             @endif
                                            </select>
                                         </div>
                                      </div>
@@ -301,8 +336,18 @@ Web settings
                                         <label for="" class="col-sm-3 control-label">Latest Product Section </label>
                                         <div class="col-sm-4">
                                            <select name="home_latest_product_on_off" class="form-control" style="width:auto;">
-                                              <option value="1" selected>On</option>
-                                              <option value="0" >Off</option>
+                                             @if($onoffsection)
+                                                @if($onoffsection->home_latest_product_on_off == "1")
+                                                   <option value="1" selected>On</option>
+                                                   <option value="0" >Off</option>
+                                                @else
+                                                   <option value="1" >On</option>
+                                                   <option value="0" selected>Off</option>
+                                                @endif
+                                             @else
+                                                <option value="1" selected>On</option>
+                                                <option value="0" >Off</option>
+                                             @endif
                                            </select>
                                         </div>
                                      </div>
@@ -310,15 +355,25 @@ Web settings
                                         <label for="" class="col-sm-3 control-label">Popular Product Section </label>
                                         <div class="col-sm-4">
                                            <select name="home_popular_product_on_off" class="form-control" style="width:auto;">
-                                              <option value="1" selected>On</option>
-                                              <option value="0" >Off</option>
+                                             @if($onoffsection)
+                                                @if($onoffsection->home_popular_product_on_off == "1")
+                                                   <option value="1" selected>On</option>
+                                                   <option value="0" >Off</option>
+                                                @else
+                                                   <option value="1" >On</option>
+                                                   <option value="0" selected>Off</option>
+                                                @endif
+                                             @else
+                                                <option value="1" selected>On</option>
+                                                <option value="0" >Off</option>
+                                             @endif
                                            </select>
                                         </div>
                                      </div>
                                      <div class="form-group">
                                         <label for="" class="col-sm-3 control-label"></label>
                                         <div class="col-sm-6">
-                                           <button type="submit" class="btn btn-success pull-left" name="form6_0">Update</button>
+                                           <button type="submit" class="btn btn-success pull-left" name="form6_0">{{$onoffsection ? 'Update' : 'Save'}}</button>
                                         </div>
                                      </div>
                                   </div>

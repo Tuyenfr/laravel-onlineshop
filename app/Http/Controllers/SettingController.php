@@ -8,6 +8,7 @@ use App\Models\Logo;
 use App\Models\Favicon;
 use App\Models\Information;
 use App\Models\Message;
+use App\Models\Onoffsection;
 use App\Models\ProductSetting;
 
 class SettingController extends Controller
@@ -318,7 +319,52 @@ class SettingController extends Controller
         $updateproductsettings->update();
 
         return back()->with('status', 'The product settings have been updated successfully!');
+    }
+
+    public function saveonoffsection(Request $request) {
+
+        $this->validate($request, [
+            'home_service_on_off' => 'required',
+            'home_welcome_on_off'=> 'required',
+            'home_featured_product_on_off' => 'required',
+            'home_latest_product_on_off' => 'required',
+            'home_popular_product_on_off' => 'required'
+        ]);
+
+        $saveonoffsection = new Onoffsection();
+        $saveonoffsection->home_service_on_off = $request->input('home_service_on_off');
+        $saveonoffsection->home_welcome_on_off = $request->input('home_welcome_on_off');
+        $saveonoffsection->home_featured_product_on_off = $request->input('home_featured_product_on_off');
+        $saveonoffsection->home_latest_product_on_off = $request->input('home_latest_product_on_off');
+        $saveonoffsection->home_popular_product_on_off = $request->input('home_popular_product_on_off');
+
+        $saveonoffsection->save();
+
+        return back()->with('status', 'The home sections settings have been saved successfully!');
+    }
+
+    public function updateonoffsection(Request $request, $id) {
+
+        $this->validate($request, [
+            'home_service_on_off' => 'required',
+            'home_welcome_on_off'=> 'required',
+            'home_featured_product_on_off' => 'required',
+            'home_latest_product_on_off' => 'required',
+            'home_popular_product_on_off' => 'required'
+        ]);
+
+        $updateonoffsection = Onoffsection::find($id);
+        $updateonoffsection->home_service_on_off = $request->input('home_service_on_off');
+        $updateonoffsection->home_welcome_on_off = $request->input('home_welcome_on_off');
+        $updateonoffsection->home_featured_product_on_off = $request->input('home_featured_product_on_off');
+        $updateonoffsection->home_latest_product_on_off = $request->input('home_latest_product_on_off');
+        $updateonoffsection->home_popular_product_on_off = $request->input('home_popular_product_on_off');
+
+        $updateonoffsection->update();
+
+        return back()->with('status', "The home sections settings have been successfully updated!");
 
 
     }
+
 }
