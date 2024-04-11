@@ -110,3 +110,13 @@ Route::post('admin/savemetasection', [SettingController::class, 'savemetasection
 Route::put('admin/updatemetasection/{id}', [SettingController::class, 'updatemetasection']);
 Route::post('admin/savefeaturedproduct', [SettingController::class, 'savefeaturedproduct']);
 Route::put('admin/updatefeaturedproduct/{id}', [SettingController::class, 'updatefeaturedproduct']);
+Route::post('admin/savelatestproduct', [SettingController::class, 'savelatestproduct']);
+Route::put('admin/updatelatestproduct/{id}', [SettingController::class, 'updatelatestproduct']);
+Route::post('admin/savepopularproduct', [SettingController::class, 'savepopularproduct']);
+Route::put('admin/updatepopularproduct/{id}', [SettingController::class, 'updatepopularproduct']);
+Route::post('admin/savenewsletter', [SettingController::class, 'savenewsletter']);
+Route::put('admin/updatenewsletter/{id}', [SettingController::class, 'updatenewsletter']);
+Route::post('admin/savebanner', [SettingController::class, 'savebanner']);
+Route::put('admin/updatebanner/{id}', [SettingController::class, 'updatebanner']);
+Route::post('admin/savepaymentsettings', [SettingController::class, 'savepaymentsettings']);
+Route::put('admin/updatepaymentsettings/{id}', [SettingController::class, 'updatepaymentsettings']);

@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Logo;
 use App\Models\Favicon;
 use App\Models\Featuredproduct;
 use App\Models\Information;
+use App\Models\Latestproduct;
 use App\Models\Message;
 use App\Models\Metasection;
+use App\Models\Newsletter;
 use App\Models\Onoffsection;
+use App\Models\Paymentsetting;
 use App\Models\ProductSetting;
+use App\Models\Popularproduct;
 
 class SettingController extends Controller
 {
@@ -435,4 +440,223 @@ class SettingController extends Controller
         return back()->with('status', 'The featured product section has been successfully updated!');
     }
 
+    public function savelatestproduct(Request $request) {
+
+        $this->validate($request, [
+            'latest_product_title' => 'required',
+            'latest_product_subtitle' => 'required'
+        ]);
+
+        $savelatestproduct = new Latestproduct();
+        $savelatestproduct->latest_product_title = $request->input('latest_product_title');
+        $savelatestproduct->latest_product_subtitle = $request->input('latest_product_subtitle');
+
+        $savelatestproduct->save();
+
+        return back()->with('status', 'The latest product section has been saved successfully !');
+    }
+
+    public function updatelatestproduct(Request $request, $id) {
+
+        $this->validate($request, [
+            'latest_product_title' => 'required',
+            'latest_product_subtitle' => 'required'
+        ]);
+
+        $updatelatestproduct = Latestproduct::find($id);
+        $updatelatestproduct->latest_product_title = $request->input('latest_product_title');
+        $updatelatestproduct->latest_product_subtitle = $request->input('latest_product_subtitle');
+
+        $updatelatestproduct->update();
+
+        return back()->with('status', 'The latest product section has been updated successfully !');
+    }
+
+    public function savepopularproduct(Request $request) {
+
+        $this->validate($request, [
+            'popular_product_title' => 'required',
+            'popular_product_subtitle' => 'required'
+        ]);
+
+        $savepopularproduct = new Popularproduct();
+        $savepopularproduct->popular_product_title = $request->input('popular_product_title');
+        $savepopularproduct->popular_product_subtitle = $request->input('popular_product_subtitle');
+
+        $savepopularproduct->save();
+
+        return back()->with('status', 'The popular product section has been saved successfully !');
+    }
+
+    public function updatepopularproduct(Request $request, $id) {
+
+        $this->validate($request, [
+            'popular_product_title' => 'required',
+            'popular_product_subtitle' => 'required'
+        ]);
+
+        $updatepopularproduct = Popularproduct::find($id);
+        $updatepopularproduct->popular_product_title = $request->input('popular_product_title');
+        $updatepopularproduct->popular_product_subtitle = $request->input('popular_product_subtitle');
+
+        $updatepopularproduct->update();
+
+        return back()->with('status', 'The popular product section has been updated successfully !');
+    }
+
+    
+    public function savenewsletter(Request $request) {
+
+        $this->validate($request, [
+            'newsletter_text' => 'required',
+          ]);
+
+        $savenewsletter = new Newsletter();
+        $savenewsletter->newsletter_text = $request->input('newsletter_text');
+
+        $savenewsletter->save();
+
+        return back()->with('status', 'The newsletter section has been saved successfully !');
+    }
+
+    public function updatenewsletter(Request $request, $id) {
+
+        $this->validate($request, [
+            'newsletter_text' => 'required',
+        ]);
+
+        $savenewsletter = Newsletter::find($id);
+        $savenewsletter->newsletter_text = $request->input('newsletter_text');
+
+        $savenewsletter->update();
+
+        return back()->with('status', 'The newsletter section has been successfully updated !');
+    }
+
+
+    public function savebanner(Request $request) {
+
+        $this->validate($request, [
+            'photo' => 'image|nullable|max:1999|required']);
+
+        // 1 : file name with extension
+
+        $fileNameWithExt = $request->file('photo')->getClientOriginalName();
+        
+        // print('<h1>'.$fileNameWithExt.'</h1>');
+
+        // 2 : file name
+
+        $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+        // print('<h1>'.$fileName.'</h1>');
+
+        // 3 : file extension
+
+        $ext = $request->file('photo')->getClientOriginalExtension();
+
+        // print('<h1>'.$ext.'</h1>');
+
+        // 4 : file name to store
+
+        $fileNameToStore = $fileName.'-'.time().'.'.$ext;
+
+        // print('<h1>'.$fileNameToStore.'</h1>');
+
+        // 5 : upload image dans le projet laravel sous storage/app/public et dans la bdd
+
+        $path = $request->file('photo')->storeAs('public/banner', $fileNameToStore);
+
+        $banner = new Banner();
+
+        $banner->photo = $fileNameToStore;
+
+        $banner->save();
+
+        return back()->with('status', "The banner has been successfully saved !");
+
+    }
+
+    public function updatebanner(Request $request, $id) {
+
+        $this->validate($request, [
+            'photo' => 'image|nullable|max:1999|required']);
+
+        // 1 : file name with extension
+
+        $fileNameWithExt = $request->file('photo')->getClientOriginalName();
+        
+        print('<h1>'.$fileNameWithExt.'</h1>');
+
+        // 2 : file name
+
+        $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+        print('<h1>'.$fileName.'</h1>');
+
+        // 3 : file extension
+
+        $ext = $request->file('photo')->getClientOriginalExtension();
+
+        print('<h1>'.$ext.'</h1>');
+
+        // 4 : file name to store
+
+        $fileNameToStore = $fileName.'-'.time().'.'.$ext;
+
+        print('<h1>'.$fileNameToStore.'</h1>');
+
+        // 5 : delete old image
+
+        $banner = Banner::find($id);
+
+        print($banner->photo);
+
+        Storage::delete("public/banner/$banner->photo");
+
+        // 6 : upload image dans le projet laravel sous storage/app/banner et dans la bdd
+
+        $path = $request->file('photo')->storeAs('public/banner', $fileNameToStore);
+        
+        $banner->photo = $fileNameToStore;
+
+        $banner->update();
+
+        return back()->with('status', 'The banner has been succesfully updated !');
+        
+    }
+
+    public function savepaymentsettings(Request $request) {
+
+        $this->validate($request, [
+            'paypal_email' => 'required',
+            'bank_detail' => 'required'
+        ]);
+
+        $savepaymentsettings = new Paymentsetting();
+        $savepaymentsettings->paypal_email = $request->input('paypal_email');
+        $savepaymentsettings->bank_detail = $request->input('bank_detail');
+
+        $savepaymentsettings->save();
+
+        return back()->with('status', 'The payment settings have been successfully saved !');
+
+    }
+
+    public function updatepaymentsettings(Request $request, $id) {
+
+        $this->validate($request, [
+            'paypal_email' => 'required',
+            'bank_detail' => 'required'
+        ]);
+
+        $updatepaymentsettings = Paymentsetting::find($id);
+        $updatepaymentsettings->paypal_email = $request->input('paypal_email');
+        $updatepaymentsettings->bank_detail = $request->input('bank_detail');
+
+        $updatepaymentsettings->udpate();
+
+        return back()->with('status', 'The payment settings have been successfully updated !');
+
+    }
 }

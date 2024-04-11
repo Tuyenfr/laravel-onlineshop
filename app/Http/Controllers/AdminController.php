@@ -8,10 +8,15 @@ use App\Models\Logo;
 use App\Models\Favicon;
 use App\Models\Featuredproduct;
 use App\Models\Information;
+use App\Models\Latestproduct;
 use App\Models\Message;
 use App\Models\Metasection;
+use App\Models\Newsletter;
 use App\Models\Onoffsection;
+use App\Models\Popularproduct;
 use App\Models\ProductSetting;
+use App\Models\Banner;
+use App\Models\Paymentsetting;
 
 class AdminController extends Controller
 {
@@ -29,6 +34,11 @@ class AdminController extends Controller
         $onoffsection = Onoffsection::first();
         $metasection = Metasection::first();
         $featuredproduct = Featuredproduct::first();
+        $latestproduct = Latestproduct::first();
+        $popularproduct = Popularproduct::first();
+        $newsletter = Newsletter::first();
+        $banner = Banner::first();
+        $paymentsettings = Paymentsetting::first();
 
         return view('admin.settings')
                 ->with('logo', $logo)
@@ -38,8 +48,12 @@ class AdminController extends Controller
                 ->with('productsettings', $productsettings)
                 ->with('onoffsection', $onoffsection)
                 ->with('metasection', $metasection)
-                ->with('featuredproduct', $featuredproduct);
-
+                ->with('featuredproduct', $featuredproduct)
+                ->with('latestproduct', $latestproduct)
+                ->with('popularproduct', $popularproduct)
+                ->with('newsletter', $newsletter)
+                ->with('banner', $banner)
+                ->with('paymentsettings', $paymentsettings);
     }
 
     public function viewsizepage() {
