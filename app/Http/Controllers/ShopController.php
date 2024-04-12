@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Color;
 use App\Models\Country;
+use App\Models\Shippingcost;
 use Illuminate\Http\Request;
 use App\Models\Size;
 
@@ -107,6 +108,41 @@ class ShopController extends Controller
         $country->delete();
 
         return back()->with('status', 'The country has been deleted with success !');
+    }
+
+    public function saveshippingcost(Request $request) {
+        
+        $shippingcost = new Shippingcost();
+        $shippingcost->country_id = $request->input('country_id');
+        $shippingcost->amount = $request->input('amount');
+
+        $shippingcost->save();
+
+        return back()->with('status', 'The shipping cost of has been saved with success!');
+    }
+
+    public function vieweditshippingcostpage($id) {
+            $shippingcost = Shippingcost::find($id);
+            return view('admin.editshippingcost')->with('shippingcost', $shippingcost);
+    }
+
+    public function updateshippingcost(Request $request, $id) {
+        $shippingcost = Shippingcost::find($id);
+        $shippingcost->amount = $request->input('amount');
+
+        $shippingcost->update();
+
+        return back()->with('status', 'The shipping cost has been updated with success !');
+        
+    }
+
+    public function deleteshippingcost(Request $request, $id) {
+
+        $shippingcost = Shippingcost::find($id);
+
+        $shippingcost->delete();
+
+        return back()->with('status', 'The shipping cost has been deleted with success');
     }
 
 }

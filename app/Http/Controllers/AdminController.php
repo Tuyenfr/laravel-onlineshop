@@ -20,6 +20,7 @@ use App\Models\Paymentsetting;
 use App\Models\Size;
 use App\Models\Color;
 use App\Models\Country;
+use App\Models\Shippingcost;
 
 class AdminController extends Controller
 {
@@ -90,11 +91,9 @@ class AdminController extends Controller
     }
 
      public function viewshippingcostpage() {
-        return view('admin.shippingcost');
-    }
-
-    public function vieweditshippingcostpage() {
-        return view('admin.editshippingcost');
+        $countries = Country::get();
+        $shippingcosts = Shippingcost::get();
+        return view('admin.shippingcost')->with('shippingcosts', $shippingcosts)->with('countries', $countries);
     }
 
     public function viewproductmanagementpage() {

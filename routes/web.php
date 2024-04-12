@@ -54,7 +54,6 @@ Route::get('admin/addcolor', [AdminController::class, 'viewaddcolorpage']);
 Route::get('admin/country', [AdminController::class, 'viewcountrypage']);
 Route::get('admin/addcountry', [AdminController::class, 'viewaddcountrypage']);
 Route::get('admin/shippingcost', [AdminController::class, 'viewshippingcostpage']);
-Route::get('admin/editshippingcost', [AdminController::class, 'vieweditshippingcostpage']);
 Route::get('admin/productmanagement', [AdminController::class, 'viewproductmanagementpage']);
 Route::get('admin/ordermanagement', [AdminController::class, 'viewordermanagementpage']);
 Route::get('admin/services', [AdminController::class, 'viewservicespage']);
@@ -136,3 +135,8 @@ Route::post('admin/savecountry', [ShopController::class, 'savecountry']);
 Route::get('admin/editcountry/{id}', [ShopController::class, 'vieweditcountrypage']);
 Route::put('admin/updatecountry/{id}', [ShopController::class, 'updatecountry']);
 Route::delete('admin/deletecountry/{id}', [ShopController::class, 'deletecountry']);
+
+Route::post('admin/saveshippingcost', [ShopController::class, 'saveshippingcost']);
+Route::get('admin/editshippingcost/{id}', [ShopController::class, 'vieweditshippingcostpage']);
+Route::put('admin/updateshippingcost/{id}', [ShopController::class, 'updateshippingcost']);
+Route::delete('admin/deleteshippingcost/{id}', [ShopController::class, 'deleteshippingcost']);
