@@ -18,6 +18,7 @@ use App\Models\ProductSetting;
 use App\Models\Banner;
 use App\Models\Paymentsetting;
 use App\Models\Size;
+use App\Models\Color;
 
 class AdminController extends Controller
 {
@@ -68,15 +69,13 @@ class AdminController extends Controller
     }
 
     public function viewcolorpage() {
-        return view('admin.color');
+        $colors = Color::get();
+        $increment = 1;
+        return view('admin.color')->with('colors', $colors)->with('increment', $increment);
     }
 
     public function viewaddcolorpage() {
         return view('admin.addcolor');
-    }
-
-    public function vieweditcolorpage() {
-        return view('admin.editcolor');
     }
 
     public function viewcountrypage() {

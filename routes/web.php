@@ -51,7 +51,6 @@ Route::get('admin/size', [AdminController::class, 'viewsizepage']);
 Route::get('admin/addsize', [AdminController::class, 'viewaddsizepage']);
 Route::get('admin/color', [AdminController::class, 'viewcolorpage']);
 Route::get('admin/addcolor', [AdminController::class, 'viewaddcolorpage']);
-Route::get('admin/editcolor', [AdminController::class, 'vieweditcolorpage']);
 Route::get('admin/country', [AdminController::class, 'viewcountrypage']);
 Route::get('admin/editcountry', [AdminController::class, 'vieweditcountrypage']);
 Route::get('admin/shippingcost', [AdminController::class, 'viewshippingcostpage']);
@@ -127,3 +126,8 @@ Route::post('admin/savesize', [ShopController::class, 'savesize']);
 Route::get('admin/editsize/{id}', [ShopController::class, 'vieweditsizepage']);
 Route::put('admin/updatesize/{id}', [ShopController::class, 'updatesize']);
 Route::delete('admin/deletesize/{id}', [ShopController::class, 'deletesize']);
+
+Route::post('admin/savecolor', [ShopController::class, 'savecolor']);
+Route::get('admin/editcolor/{id}', [ShopController::class, 'vieweditcolorpage']);
+Route::put('admin/updatecolor/{id}', [ShopController::class, 'updatecolor']);
+Route::delete('admin/deletecolor/{id}', [ShopController::class, 'deletecolor']);
