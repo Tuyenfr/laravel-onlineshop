@@ -17,6 +17,7 @@ use App\Models\Popularproduct;
 use App\Models\ProductSetting;
 use App\Models\Banner;
 use App\Models\Paymentsetting;
+use App\Models\Size;
 
 class AdminController extends Controller
 {
@@ -57,15 +58,13 @@ class AdminController extends Controller
     }
 
     public function viewsizepage() {
-        return view('admin.size');
+        $sizes = Size::get();
+        $increment = 1;
+        return view('admin.size')->with('sizes', $sizes)->with('increment', $increment);
     }
 
     public function viewaddsizepage() {
         return view('admin.addsize');
-    }
-
-    public function vieweditsizepage() {
-        return view('admin.editsize');
     }
 
     public function viewcolorpage() {
