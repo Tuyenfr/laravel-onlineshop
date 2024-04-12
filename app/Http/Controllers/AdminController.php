@@ -19,6 +19,7 @@ use App\Models\Banner;
 use App\Models\Paymentsetting;
 use App\Models\Size;
 use App\Models\Color;
+use App\Models\Country;
 
 class AdminController extends Controller
 {
@@ -79,14 +80,16 @@ class AdminController extends Controller
     }
 
     public function viewcountrypage() {
-        return view('admin.country');
+        $countries = Country::get();
+        $increment = 1;
+        return view('admin.country')->with('countries', $countries)->with('increment', $increment);
     }
 
-    public function vieweditcountrypage() {
-        return view('admin.editcountry');
+    public function viewaddcountrypage() {
+        return view('admin.addcountry');
     }
 
-    public function viewshippingcostpage() {
+     public function viewshippingcostpage() {
         return view('admin.shippingcost');
     }
 

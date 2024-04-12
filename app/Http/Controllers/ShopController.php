@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Color;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Models\Size;
 
@@ -76,4 +77,36 @@ class ShopController extends Controller
         return back()->with('status', 'The color has been successfully deleted !');
 
     }
+
+    public function savecountry(Request $request) {
+        $country = new Country();
+        $country->country_name = $request->input('country_name');
+
+        $country->save();
+
+        return back()->with("status", "The country has been saved with success !");
+    }
+
+    public function vieweditcountrypage($id) {
+        $country = Country::find($id);
+        return view('admin.editcountry')->with('country', $country);
+    }
+
+    public function updatecountry(Request $request, $id) {
+        $country = Country::find($id);
+        $country->country_name =$request->input('country_name');
+
+        $country->update();
+
+        return back()->with('status', 'The country has been updated with success!');
+    }
+
+    public function deletecountry($id) {
+        $country = Country::find($id);
+
+        $country->delete();
+
+        return back()->with('status', 'The country has been deleted with success !');
+    }
+
 }
