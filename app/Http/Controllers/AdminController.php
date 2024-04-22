@@ -90,10 +90,11 @@ class AdminController extends Controller
         return view('admin.addcountry');
     }
 
-     public function viewshippingcostpage() {
+    public function viewshippingcostpage() {
         $countries = Country::get();
         $shippingcosts = Shippingcost::get();
-        return view('admin.shippingcost')->with('shippingcosts', $shippingcosts)->with('countries', $countries);
+        $rows = Shippingcost::where('country_id', 'Rest of the world')->get();
+        return view('admin.shippingcost')->with('shippingcosts', $shippingcosts)->with('countries', $countries)->with('rows', $rows);
     }
 
     public function viewproductmanagementpage() {

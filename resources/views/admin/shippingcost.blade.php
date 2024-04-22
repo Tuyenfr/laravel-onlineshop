@@ -113,19 +113,27 @@ Shipping cost
       <section class="content">
       <div class="row">
       <div class="col-md-12">
-      <form class="form-horizontal" action="" method="post">
+
+      @foreach($rows as $row)
+
+      <form class="form-horizontal" action="{{url('admin/updateshippingcost', [$row->id])}}" method="post">
+         @csrf
+         @method('PUT')
       <div class="box box-info">
       <div class="box-body">
       <div class="form-group">
       <label for="" class="col-sm-2 control-label">Amount <span>*</span></label>
       <div class="col-sm-4">
-      <input type="text" class="form-control" name="amount" value="100">
+      <input type="text" class="form-control" name="amount" value="{{$row->amount}}">
       </div>
       </div>
       <div class="form-group">
       <label for="" class="col-sm-2 control-label"></label>
       <div class="col-sm-6">
       <button type="submit" class="btn btn-success pull-left" name="form2">Update</button>
+
+      @endforeach
+
       </div>
       </div>
       </div>
