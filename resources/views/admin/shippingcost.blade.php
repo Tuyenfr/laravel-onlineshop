@@ -124,7 +124,7 @@ Shipping cost
       <div class="form-group">
       <label for="" class="col-sm-2 control-label">Amount <span>*</span></label>
       <div class="col-sm-4">
-      <input type="text" class="form-control" name="amount" value="{{$row->amount}}">
+      <input type="number" class="form-control" name="amount" value="{{$row->amount}}">
       </div>
       </div>
       <div class="form-group">

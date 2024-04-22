@@ -74,7 +74,10 @@ Route::get('admin/pagesettings', [AdminController::class, 'viewadminpagesettings
 
 Route::get('admin/toplevelcategory', [CategoryController::class, 'viewtoplevelcategorypage']);
 Route::get('admin/addtoplevelcategory', [CategoryController::class, 'viewaddtoplevelcategorypage']);
-Route::get('admin/edittoplevelcategory', [CategoryController::class, 'viewedittoplevelcategorypage']);
+Route::get('admin/edittoplevelcategory/{id}', [CategoryController::class, 'viewedittoplevelcategorypage']);
+Route::post('admin/savetoplevelcategory', [CategoryController::class, 'savetoplevelcategory']);
+Route::put('admin/updatetoplevelcategory/{id}', [CategoryController::class, 'updatetoplevelcategory']);
+Route::delete('admin/deletetoplevelcategory/{id}', [CategoryController::class, 'deletetoplevelcategory']);
 
 Route::get('admin/midlevelcategory', [CategoryController::class, 'viewmidlevelcategorypage']);
 Route::get('admin/addmidlevelcategory', [CategoryController::class, 'viewaddmidlevelcategorypage']);
@@ -83,6 +86,8 @@ Route::get('admin/editmidlevelcategory', [CategoryController::class, 'vieweditmi
 Route::get('admin/endlevelcategory', [CategoryController::class, 'viewendlevelcategorypage']);
 Route::get('admin/addendlevelcategory', [CategoryController::class, 'viewaddendlevelcategorypage']);
 Route::get('admin/editendlevelcategory', [CategoryController::class, 'vieweditendlevelcategorypage']);
+
+
 
 //SliderController
 
@@ -140,3 +145,4 @@ Route::post('admin/saveshippingcost', [ShopController::class, 'saveshippingcost'
 Route::get('admin/editshippingcost/{id}', [ShopController::class, 'vieweditshippingcostpage']);
 Route::put('admin/updateshippingcost/{id}', [ShopController::class, 'updateshippingcost']);
 Route::delete('admin/deleteshippingcost/{id}', [ShopController::class, 'deleteshippingcost']);
+
