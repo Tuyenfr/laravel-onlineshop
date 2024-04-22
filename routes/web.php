@@ -81,7 +81,10 @@ Route::delete('admin/deletetoplevelcategory/{id}', [CategoryController::class, '
 
 Route::get('admin/midlevelcategory', [CategoryController::class, 'viewmidlevelcategorypage']);
 Route::get('admin/addmidlevelcategory', [CategoryController::class, 'viewaddmidlevelcategorypage']);
-Route::get('admin/editmidlevelcategory', [CategoryController::class, 'vieweditmidlevelcategorypage']);
+Route::get('admin/editmidlevelcategory/{id}', [CategoryController::class, 'vieweditmidlevelcategorypage']);
+Route::post('admin/savemidlevelcategory', [CategoryController::class, 'savemidlevelcategory']);
+Route::put('admin/updatemidlevelcategory/{id}', [CategoryController::class, 'updatemidlevelcategory']);
+Route::delete('admin/deletemidlevelcategory/{id}', [CategoryController::class, 'deletetmidlevelcategory']);
 
 Route::get('admin/endlevelcategory', [CategoryController::class, 'viewendlevelcategorypage']);
 Route::get('admin/addendlevelcategory', [CategoryController::class, 'viewaddendlevelcategorypage']);

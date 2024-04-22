@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Midlevelcategory;
 use Illuminate\Http\Request;
 use App\Models\Toplevelcategory;
 
@@ -55,15 +56,47 @@ class CategoryController extends Controller
     }
 
     public function viewmidlevelcategorypage() {
-        return view('admin.midlevelcategory');
+        $midlevelcategories = Midlevelcategory::get();
+        $increment = 1;
+        return view('admin.midlevelcategory')->with('midlevelcategories', $midlevelcategories)->with('increment', $increment);
     }
 
     public function viewaddmidlevelcategorypage() {
-        return view('admin.addmidlevelcategory');
+        $toplevelcategories = Toplevelcategory::get();
+        return view('admin.addmidlevelcategory')->with('toplevelcategories', $toplevelcategories);
     }
 
-    public function vieweditmidlevelcategorypage() {
-        return view('admin.editmidlevelcategory');
+    public function vieweditmidlevelcategorypage($id) {
+        $toplevelcategories = Toplevelcategory::get();
+        $midlevelcategory = Midlevelcategory::find($id);
+        return view('admin.editmidlevelcategory')->with('toplevelcategories', $toplevelcategories)->with('midlevelcategory', $midlevelcategory);
+    }
+
+    public function savemidlevelcategory(Request $request) {
+        $midlevelcategory = new Midlevelcategory();
+        $midlevelcategory->mcat_name = $request->input('mcat_name');
+        $midlevelcategory->tcat_id = $request->input('tcat_id');
+
+        $midlevelcategory->save();
+
+        return back()->with('status', 'The mid level category has been added with success !');
+    }
+
+    public function updatemidlevelcategory(Request $request, $id) {
+        $midlevelcategory = Midlevelcategory::find($id);
+        $midlevelcategory->tcat_id = $request->input('tcat_id');
+        $midlevelcategory->mcat_name = $request->input('mcat_name');
+
+        $midlevelcategory->update();
+
+        return back()->with('status', 'The mid level category has been updated with success !');
+    }
+
+    public function deletetmidlevelcategory(Request $request, $id) {
+        $midlevelcategory = Midlevelcategory::find($id);
+        $midlevelcategory->delete();
+
+        return back()->with('status', 'The mid level category has been deleted with success !');
     }
 
     public function viewendlevelcategorypage() {
