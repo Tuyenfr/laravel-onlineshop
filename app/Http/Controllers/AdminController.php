@@ -97,10 +97,6 @@ class AdminController extends Controller
         return view('admin.shippingcost')->with('shippingcosts', $shippingcosts)->with('countries', $countries)->with('rows', $rows);
     }
 
-    public function viewproductmanagementpage() {
-        return view('admin.productmanagement');
-    }
-
     public function viewordermanagementpage() {
         return view('admin.ordermanagement');
     }

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\SliderController;
@@ -54,7 +55,6 @@ Route::get('admin/addcolor', [AdminController::class, 'viewaddcolorpage']);
 Route::get('admin/country', [AdminController::class, 'viewcountrypage']);
 Route::get('admin/addcountry', [AdminController::class, 'viewaddcountrypage']);
 Route::get('admin/shippingcost', [AdminController::class, 'viewshippingcostpage']);
-Route::get('admin/productmanagement', [AdminController::class, 'viewproductmanagementpage']);
 Route::get('admin/ordermanagement', [AdminController::class, 'viewordermanagementpage']);
 Route::get('admin/services', [AdminController::class, 'viewservicespage']);
 Route::get('admin/addservices', [AdminController::class, 'viewaddservicespage']);
@@ -151,4 +151,11 @@ Route::post('admin/saveshippingcost', [ShopController::class, 'saveshippingcost'
 Route::get('admin/editshippingcost/{id}', [ShopController::class, 'vieweditshippingcostpage']);
 Route::put('admin/updateshippingcost/{id}', [ShopController::class, 'updateshippingcost']);
 Route::delete('admin/deleteshippingcost/{id}', [ShopController::class, 'deleteshippingcost']);
+
+//Product Controller
+
+Route::get('admin/productmanagement', [ProductController::class, 'viewproductmanagementpage']);
+Route::get('admin/addproduct', [ProductController::class, 'viewaddproductpage']);
+Route::post('admin/saveproduct', [ProductController::class, 'saveproduct']);
+Route::get('admin/editproduct', [ProductController::class, 'vieweditproductpage']);
 
