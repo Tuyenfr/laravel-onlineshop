@@ -113,9 +113,10 @@ class CategoryController extends Controller
     }
 
     public function vieweditendlevelcategorypage($id) {
-        $toplevelcategories = Toplevelcategory::get();
-        $midlevelcategories = Midlevelcategory::get();
+        
         $endlevelcategory = Endlevelcategory::find($id);
+        $toplevelcategories = Toplevelcategory::where("tcat_name", "!=", $endlevelcategory->tcat_id)->get();
+        $midlevelcategories = Midlevelcategory::where("mcat_name", "!=", $endlevelcategory->mcat_id)->get();
         return view('admin.editendlevelcategory')->with('toplevelcategories', $toplevelcategories)->with('midlevelcategories', $midlevelcategories)->with('endlevelcategory', $endlevelcategory);
     }
 
