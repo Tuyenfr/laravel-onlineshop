@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Endlevelcategory;
 use App\Models\Midlevelcategory;
 use Illuminate\Http\Request;
 use App\Models\Toplevelcategory;
@@ -100,15 +101,51 @@ class CategoryController extends Controller
     }
 
     public function viewendlevelcategorypage() {
-        return view('admin.endlevelcategory');
+        $endlevelcategories = Endlevelcategory::get();
+        $increment = 1;
+        return view('admin.endlevelcategory')->with('endlevelcategories', $endlevelcategories)->with('increment', $increment);
     }
 
     public function viewaddendlevelcategorypage() {
-        return view('admin.addendlevelcategory');
+        $toplevelcategories = Toplevelcategory::get();
+        $midlevelcategories = Midlevelcategory::get();
+        return view('admin.addendlevelcategory')->with('toplevelcategories', $toplevelcategories)->with('midlevelcategories', $midlevelcategories);
     }
 
-    public function vieweditendlevelcategorypage() {
-        return view('admin.editendlevelcategory');
+    public function vieweditendlevelcategorypage($id) {
+        $toplevelcategories = Toplevelcategory::get();
+        $midlevelcategories = Midlevelcategory::get();
+        $endlevelcategory = Endlevelcategory::find($id);
+        return view('admin.editendlevelcategory')->with('toplevelcategories', $toplevelcategories)->with('midlevelcategories', $midlevelcategories)->with('endlevelcategory', $endlevelcategory);
+    }
+
+    public function saveendlevelcategory(Request $request) {
+        $endlevelcategory = new Endlevelcategory();
+        $endlevelcategory->tcat_id = $request->input('tcat_id');
+        $endlevelcategory->mcat_id = $request->input('mcat_id');
+        $endlevelcategory->ecat_name = $request->input('ecat_name');
+
+        $endlevelcategory->save();
+
+        return back()->with('status', 'The end level category has been saved with success !');
+    }
+
+    public function updateendlevelcategory(Request $request, $id) {
+        $endlevelcategory = Endlevelcategory::find($id);
+        $endlevelcategory->tcat_id = $request->input('tcat_id');
+        $endlevelcategory->mcat_id = $request->input('mcat_id');
+        $endlevelcategory->ecat_name = $request->input('ecat_name');
+
+        $endlevelcategory->update();
+
+        return back()->with('status', 'The end level category has been updated with success !');
+    }
+
+    public function deleteendlevelcategory($id) {
+        $endlevelcategory = Endlevelcategory::find($id);
+        $endlevelcategory->delete();
+
+        return back()->with('status', 'The end level category has been deleted with success !');
     }
 
 }
