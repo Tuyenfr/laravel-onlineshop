@@ -138,6 +138,7 @@ class CategoryController extends Controller
         $endlevelcategory->ecat_name = $request->input('ecat_name');
 
         $endlevelcategory->update();
+        //$endlevelcategory->update($request->all())
 
         return back()->with('status', 'The end level category has been updated with success !');
     }
