@@ -13,7 +13,8 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function viewproductmanagementpage() {
-        return view('admin.productmanagement');
+        $products = Product::all();
+        return view('admin.productmanagement')->with('products', $products);
     }
 
     public function viewaddproductpage() {
@@ -49,8 +50,8 @@ class ProductController extends Controller
             'color' => 'required|array',
             'color.*' => 'required|string',
             'p_featured_photo' => 'required|image|nullable|max:1999',
-            'photo' => 'required|array',
-            'photo.*' => 'required|image|nullable|max:1999',
+            'photo' => 'array|nullable',
+            'photo.*' => 'image|nullable|max:1999',
             'p_description' => 'required|string',
             'p_short_description' => 'required|string',
             'p_feature' => 'required|string',
@@ -78,6 +79,7 @@ class ProductController extends Controller
     }
 
         // Getting photo
+        if($photos != null) {
         foreach($photos as $photo) {
             // 1 : file name with extension
 
@@ -101,13 +103,17 @@ class ProductController extends Controller
 
         $fileNameToStore = $fileName.'-'.time().'.'.$ext;
 
-        // print('<h1>'.$fileNameToStore.'</h1>');
+        // print('<h1>'.$fileNameToStore.'</h1>')
+
+        $imagedata = $imagedata.$fileNameToStore."*";
 
         // 5 : upload image dans le projet laravel sous storage/app/public et dans la bdd
 
         $path = $photo->storeAs('public/productimages', $fileNameToStore);
 
         }
+    }
+        
 
         // 1 : file name with extension
 
@@ -132,8 +138,6 @@ class ProductController extends Controller
         $fileNameToStore = $fileName.'-'.time().'.'.$ext;
 
         // print('<h1>'.$fileNameToStore.'</h1>')
-
-        $imagedata = $imagedata.$fileNameToStore."*";
 
         // 5 : upload image dans le projet laravel sous storage/app/public et dans la bdd
 

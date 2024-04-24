@@ -132,7 +132,7 @@ Add product
                                           <tr>
                                              <td>
                                                 <div class="upload-btn">
-                                                   <input type="file" name="photo[]" style="margin-bottom:5px;" required>
+                                                   <input type="file" name="photo[]" style="margin-bottom:5px;">
                                                 </div>
                                              </td>
                                              <td style="width:28px;"><a href="javascript:void()" class="Delete btn btn-danger btn-xs">X</a></td>
