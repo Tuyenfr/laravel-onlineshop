@@ -102,7 +102,7 @@ Add product
                                  <div class="col-sm-4">
                                     <select name="size[]" class="form-control select2" multiple="multiple" required>
                                       @foreach($sizes as $size)
-                                        <option value="1">{{$size->size_name}}</option>
+                                        <option value="{{$size->size_name}}">{{$size->size_name}}</option>
                                       @endforeach
                                     </select>
                                  </div>
@@ -112,7 +112,7 @@ Add product
                                  <div class="col-sm-4">
                                     <select name="color[]" class="form-control select2" multiple="multiple" required>
                                       @foreach($colors as $color)
-                                      <option value="1">{{$color->color_name}}</option>
+                                      <option value="{{$color->color_name}}">{{$color->color_name}}</option>
                                       @endforeach
                                        
                                     </select>
