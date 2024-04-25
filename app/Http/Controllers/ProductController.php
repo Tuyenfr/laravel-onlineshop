@@ -379,7 +379,22 @@ class ProductController extends Controller
         $product->update();
 
         return back();
+    }
 
+    public function deleteproduct($id) {
+
+        $product = Product::find($id);
+        Storage::delete("public/productimages/$product->p_featured_photo");
+
+        $photos = explode("*", $product->photo);
+        
+        foreach($photos as $photo) {
+            Storage::delete("public/productimages/$photo");
+        }
+
+        $product->delete();
+
+        return back()->with('status', 'The product has been deleted with success !');
     }
 
 }
