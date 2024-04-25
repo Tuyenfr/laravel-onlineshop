@@ -157,5 +157,5 @@ Route::delete('admin/deleteshippingcost/{id}', [ShopController::class, 'deletesh
 Route::get('admin/productmanagement', [ProductController::class, 'viewproductmanagementpage']);
 Route::get('admin/addproduct', [ProductController::class, 'viewaddproductpage']);
 Route::post('admin/saveproduct', [ProductController::class, 'saveproduct']);
-Route::get('admin/editproduct', [ProductController::class, 'vieweditproductpage']);
+Route::get('admin/editproduct/{id}', [ProductController::class, 'vieweditproductpage']);
 

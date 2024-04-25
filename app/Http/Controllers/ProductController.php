@@ -14,7 +14,8 @@ class ProductController extends Controller
 {
     public function viewproductmanagementpage() {
         $products = Product::all();
-        return view('admin.productmanagement')->with('products', $products);
+        $increment = 1;
+        return view('admin.productmanagement')->with('products', $products)->with('increment', $increment);
     }
 
     public function viewaddproductpage() {
@@ -32,7 +33,44 @@ class ProductController extends Controller
 
     public function vieweditproductpage($id) {
         $product = Product::find($id);
-        return view('admin.editproduct')->with('product', $product);
+        $toplevelcategories = Toplevelcategory::where('tcat_name', '!=', $product->tcat_id)->get();
+        $midlevelcategories = Midlevelcategory::where('mcat_name', '!=', $product->mcat_id)->get();
+        $endlevelcategories = Endlevelcategory::where('ecat_name', '!=', $product->ecat_id)->get();
+
+        $selectedsizes = explode("*", $product->size);
+        array_pop($selectedsizes);
+        $selectedcolors = explode("*", $product->color);
+        array_pop($selectedcolors);
+        $selectedphotos = explode("*", $product->photo);
+        array_pop($selectedphotos);
+
+        $sizes = array();
+        $sizes1 = Size::get();
+
+        foreach ($sizes1 as $size1) {
+            if(!(in_array($size1->size_name, $selectedsizes))) {
+                array_push($sizes, $size1->size_name);
+            }
+        }
+
+        $colors = array();
+        $colors1 = Color::get();
+
+        foreach ($colors1 as $color1) {
+            if(!(in_array($color1->color_name, $selectedcolors))) {
+                array_push($colors, $color1->color_name);
+            }
+        }
+
+        return view('admin.editproduct')->with('product', $product)
+                                        ->with('toplevelcategories', $toplevelcategories)
+                                        ->with('midlevelcategories', $midlevelcategories)
+                                        ->with('endlevelcategories', $endlevelcategories)
+                                        ->with('selectedsizes', $selectedsizes)
+                                        ->with('selectedcolors', $selectedcolors)
+                                        ->with('selectedphotos', $selectedphotos)
+                                        ->with('sizes', $sizes)
+                                        ->with('colors', $colors);
     }
 
     public function saveproduct(Request $request) {
@@ -85,7 +123,7 @@ class ProductController extends Controller
 
         $fileNameWithExt = $photo->getClientOriginalName();
         
-        // print('<h1>'.$fileNameWithExt.'</h1>');
+        // print('<h1>'.$fileNameWithExt.'</h1>')
 
         // 2 : file name
 
