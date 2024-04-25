@@ -106,6 +106,7 @@ class ProductController extends Controller
         $photos = $request->file('photo');
         $sizedata = "";
         $colordata = "";
+        $increment = 0;
 
         // Getting sizes
         foreach($sizes as $size) {
@@ -140,7 +141,7 @@ class ProductController extends Controller
 
         // 4 : file name to store
 
-        $fileNameToStore = $fileName.'-'.time().'.'.$ext;
+        $fileNameToStore = $fileName.'-'.time().$increment.'.'.$ext;
 
         // print('<h1>'.$fileNameToStore.'</h1>')
 
@@ -149,6 +150,8 @@ class ProductController extends Controller
         // 5 : upload image dans le projet laravel sous storage/app/public et dans la bdd
 
         $path = $photo->storeAs('public/productimages', $fileNameToStore);
+
+        $increment++;
 
         }
     }
@@ -283,6 +286,7 @@ class ProductController extends Controller
         $photos = $request->file('photo');
         $sizedata = "";
         $colordata = "";
+        $increment = 0;
 
         foreach ($sizes as $size) {
             $sizedata = $sizedata.$size."*";
@@ -319,7 +323,7 @@ class ProductController extends Controller
 
                     // 4 : file name to store
 
-                    $fileNameToStore = $fileName.'-'.time().'.'.$ext;
+                    $fileNameToStore = $fileName.'-'.time().$increment.'.'.$ext;
 
                     // print('<h1>'.$fileNameToStore.'</h1>')
 
@@ -328,6 +332,8 @@ class ProductController extends Controller
                     // 5 : upload image dans le projet laravel sous storage/app/public et dans la bdd
 
                     $path = $photo->storeAs('public/productimages', $fileNameToStore);
+
+                    $increment++;
 
                 }
                 
