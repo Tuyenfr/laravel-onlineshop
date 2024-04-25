@@ -9,6 +9,7 @@ use App\Models\Size;
 use App\Models\Color;
 use App\Models\Toplevelcategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -206,5 +207,153 @@ class ProductController extends Controller
         $product->save();
         
         return back()->with('status', 'The product has been saved with success !');
+    }
+
+    public function updateproduct(Request $request, $id) {
+
+        $this->validate($request, [
+            'tcat_id' => 'required|string',
+            'mcat_id' => 'required|string',
+            'ecat_id' => 'required|string',
+            'p_name' => 'required|string',
+            'p_old_price' => 'required|integer',
+            'p_current_price' => 'required|integer',
+            'p_qty' => 'required|integer',
+            'size' => 'required|array',
+            'size.*' => 'required|string',
+            'color' => 'required|array',
+            'color.*' => 'required|string',
+            'p_featured_photo' => 'image|nullable|max:1999',
+            'photo' => 'array|nullable',
+            'photo.*' => 'image|nullable|max:1999',
+            'p_description' => 'required|string',
+            'p_short_description' => 'required|string',
+            'p_feature' => 'required|string',
+            'p_condition' => 'required|string',
+            'p_return_policy' => 'required|string',
+            'p_is_featured' => 'required|integer',
+            'p_is_active' => 'required|integer'
+        ]);
+
+        $product = Product::find($id);
+
+        if($request->file("p_featured_photo")) {
+
+            $this->validate($request, [
+            'p_featured_photo' => 'image|nullable|max:1999',
+            ]);
+
+                // 1 : file name with extension
+
+                $fileNameWithExt = $request->file('p_featured_photo')->getClientOriginalName();
+                
+                // print('<h1>'.$fileNameWithExt.'</h1>');
+
+                // 2 : file name
+
+                $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+                // print('<h1>'.$fileName.'</h1>');
+
+                // 3 : file extension
+
+                $ext = $request->file('p_featured_photo')->getClientOriginalExtension();
+
+                // print('<h1>'.$ext.'</h1>');
+
+                // 4 : file name to store
+
+                $fileNameToStore = $fileName.'-'.time().'.'.$ext;
+
+                // print('<h1>'.$fileNameToStore.'</h1>')
+
+                // delete old image
+                Storage::delete("public/productimages/$product->p_featured_photo");
+
+                // 5 : upload image dans le projet laravel sous storage/app/public et dans la bdd
+
+                $path = $request->file('p_featured_photo')->storeAs('public/productimages', $fileNameToStore);
+
+            $product->p_featured_photo = $fileNameToStore;
+        }
+
+        $imagedata = "";
+        $sizes = $request->input('size');
+        $colors = $request->input('color');
+        $photos = $request->file('photo');
+        $sizedata = "";
+        $colordata = "";
+
+        foreach ($sizes as $size) {
+            $sizedata = $sizedata.$size."*";
+        }
+
+        foreach ($colors as $color) {
+            $colordata = $colordata.$color."*";
+        }
+
+        if($photos) {
+            $this->validate($request, [
+                'photo' => 'array|nullable',
+                'photo.*' => 'image|nullable|max:1999'
+                ]);
+
+                foreach ($photos as $photo) {
+                    // 1 : file name with extension
+
+                    $fileNameWithExt = $photo->getClientOriginalName();
+                    
+                    // print('<h1>'.$fileNameWithExt.'</h1>')
+
+                    // 2 : file name
+
+                    $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+                    // print('<h1>'.$fileName.'</h1>');
+
+                    // 3 : file extension
+
+                    $ext = $photo->getClientOriginalExtension();
+
+                    // print('<h1>'.$ext.'</h1>');
+
+                    // 4 : file name to store
+
+                    $fileNameToStore = $fileName.'-'.time().'.'.$ext;
+
+                    // print('<h1>'.$fileNameToStore.'</h1>')
+
+                    $imagedata = $imagedata.$fileNameToStore."*";
+
+                    // 5 : upload image dans le projet laravel sous storage/app/public et dans la bdd
+
+                    $path = $photo->storeAs('public/productimages', $fileNameToStore);
+
+                }
+                
+                $product->photo = $product->photo.$imagedata;
+        }
+
+        $product->tcat_id = $request->input('tcat_id');
+        $product->mcat_id = $request->input('mcat_id');
+        $product->ecat_id = $request->input('ecat_id');
+        $product->p_name = $request->input('p_name');
+        $product->p_old_price = $request->input('p_old_price');
+        $product->p_current_price = $request->input('p_current_price');
+        $product->p_qty = $request->input('p_qty');
+        $product->size = $sizedata;
+        $product->color = $colordata;
+        $product->p_description = $request->input('p_description');
+        $product->p_short_description = $request->input('p_short_description');
+        $product->p_feature = $request->input('p_feature');
+        $product->p_condition = $request->input('p_condition');
+        $product->p_return_policy = $request->input('p_return_policy');
+        $product->p_is_featured = $request->input('p_is_featured');
+        $product->p_is_active = $request->input('p_is_active');
+
+        $product->update();
+        
+        return back()->with('status', 'The product has been updated with success !');
+
     }
 }

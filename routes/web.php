@@ -158,4 +158,5 @@ Route::get('admin/productmanagement', [ProductController::class, 'viewproductman
 Route::get('admin/addproduct', [ProductController::class, 'viewaddproductpage']);
 Route::post('admin/saveproduct', [ProductController::class, 'saveproduct']);
 Route::get('admin/editproduct/{id}', [ProductController::class, 'vieweditproductpage']);
+Route::put('admin/updateproduct/{id}', [ProductController::class, 'updateproduct']);
 
