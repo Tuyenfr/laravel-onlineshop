@@ -141,16 +141,17 @@ Edit product
                        <div class="col-sm-4" style="padding-top:4px;">
                           <table id="ProductTable" style="width:100%;">
                              <tbody>
+                              @foreach($selectedphotos as $selectedphoto)
                                 <tr>
-                                   <td>
-                                    @foreach($selectedphotos as $selectedphoto)
-                                      <img src="{{asset('storage/productimages/'.$selectedphoto)}}" alt="" style="width:150px;margin-bottom:5px;">
-                                    @endforeach
-                                    </td>
-                                   <td style="width:28px;">
-                                      <a onclick="return confirmDelete();" href="product-other-photo-delete.php?id=132&id1=102" class="btn btn-danger btn-xs">X</a>
-                                   </td>
+                                 <td>
+                                    <img src="{{asset('storage/productimages/'.$selectedphoto)}}" alt="" style="width:150px;margin-bottom:5px;">
+                                 </td>
+         
+                                 <td style="width:28px;">
+                                    <a href="{{url('admin/deletephoto', [$product->id, $selectedphoto])}}" class="btn btn-danger btn-xs">X</a>
+                                 </td>
                                 </tr>
+                                @endforeach
                              </tbody>
                           </table>
                        </div>

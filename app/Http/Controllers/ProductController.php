@@ -360,6 +360,26 @@ class ProductController extends Controller
         $product->update();
         
         return back()->with('status', 'The product has been updated with success !');
+    }
+
+    public function deletephoto($id, $photo) {
+        $product = Product::find($id);
+        $imagedata = "";
+        $updatedphotos = explode($photo."*", $product->photo); //retire la photo de l'array mais reste le numéro de l'array vide
+
+        //retire le numéro de l'array vide
+        foreach($updatedphotos as $updatedphoto) {
+            if($updatedphoto) {
+                $imagedata = $imagedata.$updatedphoto;
+            }
+        }
+
+        $product->photo = $imagedata;
+        Storage::delete("public/productimages/$photo");
+        $product->update();
+
+        return back();
 
     }
+
 }
