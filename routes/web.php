@@ -99,7 +99,10 @@ Route::delete('admin/deleteendlevelcategory/{id}', [CategoryController::class, '
 
 Route::get('admin/managesliders', [SliderController::class, 'viewmanagesliderspage']);
 Route::get('admin/addsliders', [SliderController::class, 'viewaddesliderspage']);
-Route::get('admin/editsliders', [SliderController::class, 'vieweditesliderspage']);
+Route::get('admin/editsliders/{id}', [SliderController::class, 'vieweditesliderspage']);
+Route::post('admin/saveslider',  [SliderController::class, 'saveslider']);
+Route::put('admin/updateslider/{id}', [SliderController::class, 'updateslider']);
+Route::delete('admin/deleteslider/{id}', [SliderController::class, 'deleteslider']);
 
 //SettingController
 

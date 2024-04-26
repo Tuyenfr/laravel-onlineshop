@@ -17,20 +17,35 @@ Edit sliders
             <h1>Edit Slider</h1>
          </div>
          <div class="content-header-right">
-            <a href="slider.php" class="btn btn-primary btn-sm">View All</a>
+            <a href="{{url('admin/managesliders')}}" class="btn btn-primary btn-sm">View All</a>
          </div>
       </section>
+      @if(Session::has('status'))
+          
+      <section class="content" style="min-height:auto;margin-bottom: -30px;">
+     
+         <div class="row">
+            <div class="col-md-12">
+               <div class="callout callout-success">
+                  <p>{{Session::get('status')}}</p>
+               </div>
+            </div>
+         </div>
+      </section>
+      @endif
       <section class="content">
          <div class="row">
             <div class="col-md-12">
-               <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-                  <input type="hidden" name="current_photo" value="slider-1.png">
+               <form class="form-horizontal" action="{{url('admin/updateslider', [$slider->id])}}" method="post" enctype="multipart/form-data">
+                  @csrf
+                  @method('PUT')
+                  <input type="hidden" name="current_photo" value="{{$slider->photo}}">
                   <div class="box box-info">
                      <div class="box-body">
                         <div class="form-group">
                            <label for="" class="col-sm-2 control-label">Existing Photo</label>
                            <div class="col-sm-9" style="padding-top:5px">
-                              <img src="{{asset('backend/uploads/slider-1.png')}}" alt="Slider Photo" style="width:400px;">
+                              <img src="{{asset('storage/sliders/'.$slider->photo)}}" alt="Slider Photo" style="width:400px;">
                            </div>
                         </div>
                         <div class="form-group">
@@ -42,34 +57,46 @@ Edit sliders
                         <div class="form-group">
                            <label for="" class="col-sm-2 control-label">Heading </label>
                            <div class="col-sm-6">
-                              <input type="text" autocomplete="off" class="form-control" name="heading" value="Welcome to Ecommerce PHP">
+                              <input type="text" autocomplete="off" class="form-control" name="heading" value="{{$slider->heading}}" required>
                            </div>
                         </div>
                         <div class="form-group">
                            <label for="" class="col-sm-2 control-label">Content </label>
                            <div class="col-sm-6">
-                              <textarea class="form-control" name="content" style="height:140px;">Shop Online for Latest Women Accessories</textarea>
+                              <textarea class="form-control" name="content" style="height:140px;" required>{{$slider->content}}</textarea>
                            </div>
                         </div>
                         <div class="form-group">
                            <label for="" class="col-sm-2 control-label">Button Text </label>
                            <div class="col-sm-6">
-                              <input type="text" autocomplete="off" class="form-control" name="button_text" value="View Women Accessories">
+                              <input type="text" autocomplete="off" class="form-control" name="button_text" value="{{$slider->button_text}}" required>
                            </div>
                         </div>
                         <div class="form-group">
                            <label for="" class="col-sm-2 control-label">Button URL </label>
                            <div class="col-sm-6">
-                              <input type="text" autocomplete="off" class="form-control" name="button_url" value="product-category.php?id=4&type=mid-category">
+                              <input type="text" autocomplete="off" class="form-control" name="button_url" value="{{$slider->button_url}}" required>
                            </div>
                         </div>
                         <div class="form-group">
                            <label for="" class="col-sm-2 control-label">Position </label>
                            <div class="col-sm-6">
-                              <select name="position" class="form-control">
+                              <select name="position" class="form-control" required>
+                                 @if($slider->position == 'Left')
+                                 <option value="{{$slider->position}}" selected>{{$slider->position}}</option>
+                                 <option value="Center">Center</option>
+                                 <option value="Right">Right</option>
+                                 @elseif($slider->position == 'Center')
+                                 <option value="{{$slider->position}}" selected>{{$slider->position}}</option>
                                  <option value="Left" >Left</option>
-                                 <option value="Center" selected>Center</option>
                                  <option value="Right" >Right</option>
+                                 @else
+                                 <option value="{{$slider->position}}" selected>{{$slider->position}}</option>
+                                 <option value="Left" >Left</option>
+                                 <option value="Center" >Center</option>
+
+                                 @endif
+         
                               </select>
                            </div>
                         </div>

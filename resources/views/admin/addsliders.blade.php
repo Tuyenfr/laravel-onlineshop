@@ -17,13 +17,27 @@ Add sliders
           <h1>Add Slider</h1>
        </div>
        <div class="content-header-right">
-          <a href="slider.php" class="btn btn-primary btn-sm">View All</a>
+          <a href="{{url('admin/managesliders')}}" class="btn btn-primary btn-sm">View All</a>
        </div>
     </section>
+    @if(Session::has('status'))
+          
+    <section class="content" style="min-height:auto;margin-bottom: -30px;">
+   
+       <div class="row">
+          <div class="col-md-12">
+             <div class="callout callout-success">
+                <p>{{Session::get('status')}}</p>
+             </div>
+          </div>
+       </div>
+    </section>
+    @endif
     <section class="content">
        <div class="row">
           <div class="col-md-12">
-             <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+             <form class="form-horizontal" action="{{url('admin/saveslider')}}" method="post" enctype="multipart/form-data">
+               @csrf
                 <div class="box box-info">
                    <div class="box-body">
                       <div class="form-group">
