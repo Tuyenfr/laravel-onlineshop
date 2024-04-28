@@ -19,6 +19,19 @@ Services
           <a href="{{ url('admin/addservices')}}" class="btn btn-primary btn-sm">Add Service</a>
        </div>
     </section>
+    @if(Session::has('status'))
+          
+    <section class="content" style="min-height:auto;margin-bottom: -30px;">
+   
+       <div class="row">
+          <div class="col-md-12">
+             <div class="callout callout-success">
+                <p>{{Session::get('status')}}</p>
+             </div>
+          </div>
+       </div>
+    </section>
+    @endif
     <section class="content">
        <div class="row">
           <div class="col-md-12">
@@ -35,66 +48,20 @@ Services
                          </tr>
                       </thead>
                       <tbody>
+                        @foreach ($services as $service)
                          <tr>
-                            <td>1</td>
-                            <td style="width:130px;"><img src="{{asset('backend/uploads/service-5.png')}}" alt="Easy Returns" style="width:120px;"></td>
-                            <td>Easy Returns</td>
-                            <td>Return any item before 15 days!</td>
-                            <td>										
-                               <a href="service-edit.php?id=5" class="btn btn-primary btn-xs">Edit</a>
-                               <a href="#" class="btn btn-danger btn-xs" data-href="service-delete.php?id=5" data-toggle="modal" data-target="#confirm-delete">Delete</a>  
-                            </td>
-                         </tr>
-                         <tr>
-                            <td>2</td>
-                            <td style="width:130px;"><img src="{{asset('backend/uploads/service-6.png')}}" alt="Free Shipping" style="width:120px;"></td>
-                            <td>Free Shipping</td>
-                            <td>Enjoy free shipping inside US.</td>
-                            <td>										
-                               <a href="service-edit.php?id=6" class="btn btn-primary btn-xs">Edit</a>
-                               <a href="#" class="btn btn-danger btn-xs" data-href="service-delete.php?id=6" data-toggle="modal" data-target="#confirm-delete">Delete</a>  
-                            </td>
-                         </tr>
-                         <tr>
-                            <td>3</td>
-                            <td style="width:130px;"><img src="{{asset('backend/uploads/service-7.png')}}" alt="Fast Shipping" style="width:120px;"></td>
-                            <td>Fast Shipping</td>
-                            <td>Items are shipped within 24 hours.</td>
-                            <td>										
-                               <a href="service-edit.php?id=7" class="btn btn-primary btn-xs">Edit</a>
-                               <a href="#" class="btn btn-danger btn-xs" data-href="service-delete.php?id=7" data-toggle="modal" data-target="#confirm-delete">Delete</a>  
-                            </td>
-                         </tr>
-                         <tr>
-                            <td>4</td>
-                            <td style="width:130px;"><img src="{{asset('backend/uploads/service-8.png')}}" alt="Satisfaction Guarantee" style="width:120px;"></td>
-                            <td>Satisfaction Guarantee</td>
-                            <td>We guarantee you with our quality satisfaction.</td>
-                            <td>										
-                               <a href="service-edit.php?id=8" class="btn btn-primary btn-xs">Edit</a>
-                               <a href="#" class="btn btn-danger btn-xs" data-href="service-delete.php?id=8" data-toggle="modal" data-target="#confirm-delete">Delete</a>  
-                            </td>
-                         </tr>
-                         <tr>
-                            <td>5</td>
-                            <td style="width:130px;"><img src="{{asset('backend/uploads/service-9.png')}}" alt="Secure Checkout" style="width:120px;"></td>
-                            <td>Secure Checkout</td>
-                            <td>Providing Secure Checkout Options for all</td>
-                            <td>										
-                               <a href="service-edit.php?id=9" class="btn btn-primary btn-xs">Edit</a>
-                               <a href="#" class="btn btn-danger btn-xs" data-href="service-delete.php?id=9" data-toggle="modal" data-target="#confirm-delete">Delete</a>  
-                            </td>
-                         </tr>
-                         <tr>
-                            <td>6</td>
-                            <td style="width:130px;"><img src="{{asset('backend/uploads/service-10.png')}}" alt="Money Back Guarantee" style="width:120px;"></td>
-                            <td>Money Back Guarantee</td>
-                            <td>Offer money back guarantee on our products</td>
-                            <td>										
-                               <a href="service-edit.php?id=10" class="btn btn-primary btn-xs">Edit</a>
-                               <a href="#" class="btn btn-danger btn-xs" data-href="service-delete.php?id=10" data-toggle="modal" data-target="#confirm-delete">Delete</a>  
-                            </td>
-                         </tr>
+                            <td>{{$increment++}}</td>
+                            <td style="width:130px;"><img src="{{asset('storage/serviceimages/'.$service->photo)}}" alt="Easy Returns" style="width:120px;"></td>
+                            <td>{{$service->title}}</td>
+                            <td>{{$service->content}}</td>
+                            <td style="display: flex">										
+                               <a href="{{url('admin/editservices', [$service->id])}}" class="btn btn-primary btn-xs">Edit</a>
+                               <form action="{{url('admin/deleteservices', [$service->id])}}", method="post">
+                                 @csrf
+                                 @method('DELETE')
+                               <input type="submit"class="btn btn-danger btn-xs" value="Delete" style="margin-left: 5px">                              </form>
+                              </td>
+                        @endforeach
                       </tbody>
                    </table>
                 </div>

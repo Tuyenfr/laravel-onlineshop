@@ -58,7 +58,10 @@ Route::get('admin/shippingcost', [AdminController::class, 'viewshippingcostpage'
 Route::get('admin/ordermanagement', [AdminController::class, 'viewordermanagementpage']);
 Route::get('admin/services', [AdminController::class, 'viewservicespage']);
 Route::get('admin/addservices', [AdminController::class, 'viewaddservicespage']);
-Route::get('admin/editservices', [AdminController::class, 'vieweditservicespage']);
+Route::get('admin/editservices/{id}', [AdminController::class, 'vieweditservicespage']);
+Route::post('admin/saveservices', [AdminController::class, 'saveservices']);
+Route::put('admin/updateservices/{id}', [AdminController::class, 'updateservices']);
+Route::delete('admin/deleteservices/{id}', [AdminController::class, 'deleteservices']);
 Route::get('admin/faq', [AdminController::class, 'viewfaqpage']);
 Route::get('admin/addfaq', [AdminController::class, 'viewaddfaqpage']);
 Route::get('admin/editfaq', [AdminController::class, 'vieweditfaqpage']);

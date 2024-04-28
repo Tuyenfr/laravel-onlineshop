@@ -20,7 +20,9 @@ use App\Models\Paymentsetting;
 use App\Models\Size;
 use App\Models\Color;
 use App\Models\Country;
+use App\Models\Service;
 use App\Models\Shippingcost;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -102,15 +104,87 @@ class AdminController extends Controller
     }
 
     public function viewservicespage() {
-        return view('admin.services');
+        $services = Service::get();
+        $increment = 1;
+        return view('admin.services')->with('services', $services)->with('increment', $increment);
     }
 
     public function viewaddservicespage() {
         return view('admin.addservices');
     }
 
-    public function vieweditservicespage() {
-        return view('admin.editservices');
+    public function vieweditservicespage($id) {
+        $service = Service::find($id);
+        return view('admin.editservices')->with('service', $service);
+    }
+
+    public function saveservices(Request $request) {
+
+        $service = new Service();
+
+        $this->validate($request, [
+
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'photo' => 'required|image|nullable|max:1999',
+        ]);
+
+        $photoFileName = $request->file('photo')->getClientOriginalName();
+        $photoPathName = pathinfo($photoFileName, PATHINFO_FILENAME);
+        $photoFileExt = $request->file('photo')->getClientOriginalExtension();
+        $photoFileToStore = $photoPathName.'-'.time().".".$photoFileExt;
+
+        $path = $request->file('photo')->storeAs('public/serviceimages', $photoFileToStore);
+
+        $service->photo = $photoFileToStore;
+        $service->title = $request->input('title');
+        $service->content = $request->input('content');
+
+        $service->save();
+
+        return back()->with('status', 'The Service has been saved with success!');
+        
+    }
+
+    public function updateservices(Request $request, $id) {
+        $service = Service::find($id);
+
+        $this->validate($request, [
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        if($request->file('photo')) {
+
+            $this->validate($request, [
+                'photo' => 'image|nullable|max:1999'
+            ]);
+
+            $photoFileName = $request->file('photo')->getClientOriginalName();
+            $photoPathName = pathinfo($photoFileName, PATHINFO_FILENAME);
+            $photoFileExt = $request->file('photo')->getClientOriginalExtension();
+            $photoFileToStore = $photoPathName.'-'.time().'.'.$photoFileExt;
+            Storage::delete("public/serviceimages/$service->photo");
+            $path = $request->file('photo')->storeAs('public/serviceimages', $photoFileToStore);
+
+            $service->photo = $photoFileToStore;
+        }
+
+        $service->title = $request->input('title');
+        $service->content = $request->input('content');
+
+        $service->update();
+
+        return back()->with('status', 'The service has been updated with success!');
+    }
+
+    public function deleteservices($id) {
+        $service = Service::find($id);
+        Storage::delete("public/serviceimages/$service->photo");
+
+        $service->delete();
+
+        return back()->with('status', 'The service has been deleted with success!');
     }
 
     public function viewfaqpage() {
@@ -144,4 +218,5 @@ class AdminController extends Controller
     public function viewadminprofilepage() {
         return view('admin.adminprofile');
     }
+
 }
