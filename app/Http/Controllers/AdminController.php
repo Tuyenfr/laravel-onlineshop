@@ -20,6 +20,7 @@ use App\Models\Paymentsetting;
 use App\Models\Size;
 use App\Models\Color;
 use App\Models\Country;
+use App\Models\Faq;
 use App\Models\Service;
 use App\Models\Shippingcost;
 use Illuminate\Support\Facades\Storage;
@@ -188,15 +189,44 @@ class AdminController extends Controller
     }
 
     public function viewfaqpage() {
-        return view('admin.faq');
+        $faqs = Faq::all();
+        $increment = 1;
+        return view('admin.faq')->with('faqs', $faqs)->with('increment', $increment);
     }
 
     public function viewaddfaqpage() {
         return view('admin.addfaq');
     }
 
-    public function vieweditfaqpage() {
-        return view('admin.editfaq');
+    public function savefaq(Request $request) {
+        $faq = new Faq();
+        $faq->faq_title = $request->input('faq_title');
+        $faq->faq_content = $request->input('faq_content');
+
+        $faq->save();
+        return back()->with('status', 'The faq has been saved with success !');
+    }
+
+    public function vieweditfaqpage($id) {
+        $faq = Faq::find($id);
+        return view('admin.editfaq')->with('faq', $faq);
+    }
+
+    public function updatefaq(Request $request, $id) {
+        $faq = Faq::find($id);
+        $faq->faq_title = $request->input('faq_title');
+        $faq->faq_content = $request->input('faq_content');
+
+        $faq->update();
+
+        return back()->with('status', 'The Faq has been updated with success!');
+    }
+
+    public function deletefaq($id) {
+        $faq = Faq::find($id);
+        $faq->delete();
+
+        return back()->with('status', 'The Faq has been deleted with success !');
     }
 
     public function viewregisteredcustomer() {
