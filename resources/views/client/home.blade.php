@@ -169,142 +169,26 @@ Home
             <div class="row">
                <div class="col-md-12">
                   <div class="product-carousel">
+                     @foreach($popularproducts as $popularproduct)
                      <div class="item">
                         <div class="thumb">
-                           <div class="photo" style="background-image:url({{asset('frontend/assets/uploads/product-featured-84.jpg')}});"></div>
+                           <div class="photo" style="background-image:url({{asset('storage/productimages/'.$popularproduct->p_featured_photo)}});"></div>
                            <div class="overlay"></div>
                         </div>
                         <div class="text">
-                           <h3><a href="product.php?id=84">Loose-fit One-Shoulder Cutout Rib Knit Maxi Dress</a></h3>
+                           <h3><a href="product.php?id=84">{{$popularproduct->p_name}}</a></h3>
                            <h4>
-                              $39
+                              {{$popularproduct->p_current_price}}
                               <del>
-                              $51                                    </del>
+                              {{$popularproduct->p_old_price}}
+                              </del>
                            </h4>
                            <div class="rating">
                            </div>
                            <p><a href="product.php?id=84"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
                         </div>
                      </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url({{asset('frontend/assets/uploads/product-featured-92.jpg')}});"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=92">Travelpro Laptop Carry-on Travel Tote Bag</a></h3>
-                           <h4>
-                              $91
-                              <del>
-                              $110                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=92"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url({{asset('frontend/assets/uploads/product-featured-95.jpg')}});"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=95">Bose QuietComfort 45 Bluetooth Wireless Headphones</a></h3>
-                           <h4>
-                              $279
-                              <del>
-                              $329                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=95"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url({{asset('frontend/assets/uploads/product-featured-97.jpg')}});"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=97">Women's Tea Length Dress with Rosette Detail (Petite & Regular)</a></h3>
-                           <h4>
-                              $67
-                              <del>
-                              $87                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=97"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url({{asset('frontend/assets/uploads/product-featured-96.jpg')}});"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=96">Men's Loose Fit Heavyweight Long-Sleeve Pocket T-Shirt</a></h3>
-                           <h4>
-                              $23
-                              <del>
-                              $29                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=96"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url({{asset('frontend/assets/uploads/product-featured-102.jpg')}});"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=102">Women's Plus-Size Shirt Dress with Gold Hardware</a></h3>
-                           <h4>
-                              $169 
-                              <del>
-                              $190                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=102"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url({{asset('frontend/assets/uploads/product-featured-86.jpg')}});"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=86">Amazfit GTS 3 Smart Watch for Android iPhone</a></h3>
-                           <h4>
-                              $179 
-                              <del>
-                              $199                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=86"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url({{asset('frontend/assets/uploads/product-featured-94.jpg')}});"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=94">WD 5TB Elements Portable External Hard Drive HDD</a></h3>
-                           <h4>
-                              $149 
-                              <del>
-                              $160                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=94"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
+                     @endforeach
                   </div>
                </div>
             </div>

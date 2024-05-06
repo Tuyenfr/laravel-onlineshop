@@ -20,7 +20,8 @@ class ClientController extends Controller
         $services = Service::all();
         $countproduct = ProductSetting::first();
         $featuredproducts = Product::limit($countproduct->total_featured_product_home)->where('p_is_featured', 1)->get();
-        $latestproducts = Product::limit($countproduct->total_latest_product_home)->where('p_is_active', 1)->get();
+        $latestproducts = Product::limit($countproduct->total_latest_product_home)->orderBy('created_at', 'desc')->get();
+        $popularproducts = Product::limit($countproduct->total_popular_product_home)->orderBy('soldqty', 'desc')->get();
         $increment = 0;
         $increment1 = 0;
 
@@ -31,7 +32,8 @@ class ClientController extends Controller
             ->with('increment', $increment)
             ->with('increment1', $increment1)
             ->with('featuredproducts', $featuredproducts)
-            ->with('latestproducts', $latestproducts);
+            ->with('latestproducts', $latestproducts)
+            ->with('popularproducts', $popularproducts);
     }
 
     public function viewaboutpage() {
