@@ -128,108 +128,26 @@ Home
             <div class="row">
                <div class="col-md-12">
                   <div class="product-carousel">
+                     @foreach($latestproducts as $latestproduct)
                      <div class="item">
                         <div class="thumb">
-                           <div class="photo" style="background-image:url({{asset('frontend/assets/uploads/product-featured-102.jpg')}});"></div>
+                           <div class="photo" style="background-image:url({{asset('storage/productimages/'.$latestproduct->p_featured_photo)}});"></div>
                            <div class="overlay"></div>
                         </div>
                         <div class="text">
-                           <h3><a href="product.php?id=102">Women's Plus-Size Shirt Dress with Gold Hardware</a></h3>
+                           <h3><a href="product.php?id=102">{{$latestproduct->p_name}}</a></h3>
                            <h4>
-                              $169 
+                              {{$latestproduct->p_current_price}}
                               <del>
-                              $190                                    </del>
+                              {{$latestproduct->p_old_price}}
+                              </del>
                            </h4>
                            <div class="rating">
                            </div>
                            <p><a href="product.php?id=102"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
                         </div>
                      </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url({{asset('frontend/assets/uploads/product-featured-101.jpg')}});"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=101">Digital Infrared Thermometer for Adults and Kids</a></h3>
-                           <h4>
-                              $70 
-                              <del>
-                              $79                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=101"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url({{asset('frontend/assets/uploads/product-featured-100.jpg')}});"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=100">Men's Long Cuffed Jogger Yoga Sweat Pant</a></h3>
-                           <h4>
-                              $95 
-                              <del>
-                              $105                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=100"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url({{asset('frontend/assets/uploads/product-featured-99.jpg')}});"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=99">Oculus Quest 2 - Advanced All-In-One Virtual Reality Headset</a></h3>
-                           <h4>
-                              $495 
-                              <del>
-                              $512                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=99"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url({{asset('frontend/assets/uploads/product-featured-98.jpg')}});"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=98">Women's Fuzzy Fleece Lapel Open Front Long Cardigan Coat</a></h3>
-                           <h4>
-                              $43 
-                              <del>
-                              $52                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=98"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url({{asset('frontend/assets/uploads/product-featured-97.jpg')}});"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=97">Women's Tea Length Dress with Rosette Detail (Petite & Regular)</a></h3>
-                           <h4>
-                              $67
-                              <del>
-                              $87                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=97"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
+                     @endforeach
                   </div>
                </div>
             </div>
