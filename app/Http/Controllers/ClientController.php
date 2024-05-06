@@ -9,6 +9,7 @@ use App\Models\Slider;
 use App\Models\Slidermanager;
 use App\Models\Toplevelcategory;
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class ClientController extends Controller
 {
@@ -16,6 +17,7 @@ class ClientController extends Controller
     
         $sliders = Slidermanager::all();
         $services = Service::all();
+        $featuredproducts = Product::where('p_is_featured', 1)->get();
         $increment = 0;
         $increment1 = 0;
 
@@ -24,7 +26,8 @@ class ClientController extends Controller
             ->with('sliders', $sliders)
             ->with('services', $services)
             ->with('increment', $increment)
-            ->with('increment1', $increment1);
+            ->with('increment1', $increment1)
+            ->with('featuredproducts', $featuredproducts);
     }
 
     public function viewaboutpage() {
