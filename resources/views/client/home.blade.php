@@ -30,7 +30,7 @@ Home
                      <div class="slide-text slide_style_center">
                         <h1 data-animation="animated flipInX">{{$slider->heading}}</h1>
                         <p data-animation="animated fadeInDown">{{$slider->content}}</p>
-                        <a href="{{$slider->button_url}}" target="_blank"  class="btn btn-primary" data-animation="animated fadeInDown">{{$slider->button_text}}</a>
+                        <a href="{{$slider->button_url}}" target="_blank" class="btn btn-primary" data-animation="animated fadeInDown">{{$slider->button_text}}</a>
                      </div>
                   </div>
                </div>
@@ -59,60 +59,15 @@ Home
       <div class="service bg-gray">
          <div class="container">
             <div class="row">
+               @foreach($services as $service)
                <div class="col-md-4">
                   <div class="item">
-                     <div class="photo"><img src="{{asset('frontend/assets/uploads/service-5.png')}}" width="150px" alt="Easy Returns"></div>
-                     <h3>Easy Returns</h3>
-                     <p>
-                        Return any item before 15 days!                            
-                     </p>
+                     <div class="photo"><img src="{{asset('storage/serviceimages/'.$service->photo)}}" width="150px" alt="Easy Returns"></div>
+                     <h3>{{$service->title}}</h3>
+                     <p>{{$service->content}}</p>
                   </div>
                </div>
-               <div class="col-md-4">
-                  <div class="item">
-                     <div class="photo"><img src="{{asset('frontend/assets/uploads/service-6.png')}}" width="150px" alt="Free Shipping"></div>
-                     <h3>Free Shipping</h3>
-                     <p>
-                        Enjoy free shipping inside US.                            
-                     </p>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="item">
-                     <div class="photo"><img src="{{asset('frontend/assets/uploads/service-7.png')}}" width="150px" alt="Fast Shipping"></div>
-                     <h3>Fast Shipping</h3>
-                     <p>
-                        Items are shipped within 24 hours.                            
-                     </p>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="item">
-                     <div class="photo"><img src="{{asset('frontend/assets/uploads/service-8.png')}}" width="150px" alt="Satisfaction Guarantee"></div>
-                     <h3>Satisfaction Guarantee</h3>
-                     <p>
-                        We guarantee you with our quality satisfaction.                            
-                     </p>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="item">
-                     <div class="photo"><img src="{{asset('frontend/assets/uploads/service-9.png')}}" width="150px" alt="Secure Checkout"></div>
-                     <h3>Secure Checkout</h3>
-                     <p>
-                        Providing Secure Checkout Options for all                            
-                     </p>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="item">
-                     <div class="photo"><img src="{{asset('frontend/assets/uploads/service-10.png')}}" width="150px" alt="Money Back Guarantee"></div>
-                     <h3>Money Back Guarantee</h3>
-                     <p>
-                        Offer money back guarantee on our products                            
-                     </p>
-                  </div>
-               </div>
+               @endforeach
             </div>
          </div>
       </div>
@@ -140,7 +95,7 @@ Home
                         <div class="text">
                            <h3><a href="product.php?id=84">Loose-fit One-Shoulder Cutout Rib Knit Maxi Dress</a></h3>
                            <h4>
-                              $39 
+                              $39
                               <del>
                               $51                                    </del>
                            </h4>
@@ -331,7 +286,7 @@ Home
                         <div class="text">
                            <h3><a href="product.php?id=97">Women's Tea Length Dress with Rosette Detail (Petite & Regular)</a></h3>
                            <h4>
-                              $67 
+                              $67
                               <del>
                               $87                                    </del>
                            </h4>
@@ -369,7 +324,7 @@ Home
                         <div class="text">
                            <h3><a href="product.php?id=84">Loose-fit One-Shoulder Cutout Rib Knit Maxi Dress</a></h3>
                            <h4>
-                              $39 
+                              $39
                               <del>
                               $51                                    </del>
                            </h4>
@@ -386,7 +341,7 @@ Home
                         <div class="text">
                            <h3><a href="product.php?id=92">Travelpro Laptop Carry-on Travel Tote Bag</a></h3>
                            <h4>
-                              $91 
+                              $91
                               <del>
                               $110                                    </del>
                            </h4>
@@ -403,7 +358,7 @@ Home
                         <div class="text">
                            <h3><a href="product.php?id=95">Bose QuietComfort 45 Bluetooth Wireless Headphones</a></h3>
                            <h4>
-                              $279 
+                              $279
                               <del>
                               $329                                    </del>
                            </h4>
@@ -420,7 +375,7 @@ Home
                         <div class="text">
                            <h3><a href="product.php?id=97">Women's Tea Length Dress with Rosette Detail (Petite & Regular)</a></h3>
                            <h4>
-                              $67 
+                              $67
                               <del>
                               $87                                    </del>
                            </h4>
@@ -437,7 +392,7 @@ Home
                         <div class="text">
                            <h3><a href="product.php?id=96">Men's Loose Fit Heavyweight Long-Sleeve Pocket T-Shirt</a></h3>
                            <h4>
-                              $23 
+                              $23
                               <del>
                               $29                                    </del>
                            </h4>
