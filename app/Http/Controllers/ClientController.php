@@ -2,12 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Endlevelcategory;
+use App\Models\Midlevelcategory;
+use App\Models\Service;
+use App\Models\Slider;
+use App\Models\Slidermanager;
+use App\Models\Toplevelcategory;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
     public function viewhomepage() {
-        return view('client.home');
+    
+        $sliders = Slidermanager::all();
+        $services = Service::all();
+        $increment = 0;
+        $increment1 = 0;
+
+        return view('client.home')
+        
+            ->with('sliders', $sliders)
+            ->with('services', $services)
+            ->with('increment', $increment)
+            ->with('increment1', $increment1);
     }
 
     public function viewaboutpage() {

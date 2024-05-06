@@ -1,5 +1,5 @@
 <header class="main-header">
-  <a href="../index.php" class="logo">
+  <a href="{{ url('/')}}" class="logo">
   <span class="logo-lg">eCommerce PHP</span>
   </a>
   <nav class="navbar navbar-static-top">
@@ -18,7 +18,7 @@
               <ul class="dropdown-menu">
                  <li class="user-footer">
                     <div>
-                       <a href="{{ url('/admin/adminprofile')}}" class="btn btn-default btn-flat">Edit Profile</a>
+                       <a href="{{ url('admin/adminprofile')}}" class="btn btn-default btn-flat">Edit Profile</a>
                     </div>
                     <div>
                        <a href="logout.php" class="btn btn-default btn-flat">Log out</a>

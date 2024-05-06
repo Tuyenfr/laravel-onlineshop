@@ -12,51 +12,33 @@ Home
       <!-- ********************* start content ******************** -->
 
       <!-- start sliders -->
+
       <div id="bootstrap-touch-slider" class="carousel bs-slider fade control-round indicators-line" data-ride="carousel" data-pause="hover" data-interval="false" >
          <!-- Indicators -->
          <ol class="carousel-indicators">
-            <li data-target="#bootstrap-touch-slider" data-slide-to="0" class="active"></li>
-            <li data-target="#bootstrap-touch-slider" data-slide-to="1" ></li>
-            <li data-target="#bootstrap-touch-slider" data-slide-to="2" ></li>
+            @foreach($sliders as $slider)
+            <li data-target="#bootstrap-touch-slider" class="{{$increment == 0 ? 'active' : ""}}" data-slide-to="{{$increment++}}"></li>
+            @endforeach
          </ol>
          <!-- Wrapper For Slides -->
          <div class="carousel-inner" role="listbox">
-            <div class="item active" style="background-image:url({{asset('frontend/assets/uploads/slider-1.png')}});">
+            @foreach ($sliders as $slider)
+            <div class="item {{$increment1 == 0 ? 'active' : ""}}" style="background-image:url({{asset('storage/sliders/'.$slider->photo)}});">
                <div class="bs-slider-overlay"></div>
                <div class="container">
                   <div class="row">
                      <div class="slide-text slide_style_center">
-                        <h1 data-animation="animated flipInX">Welcome to Ecommerce PHP</h1>
-                        <p data-animation="animated fadeInDown">Shop Online for Latest Women Accessories</p>
-                        <a href="product-category.php?id=4&type=mid-category" target="_blank"  class="btn btn-primary" data-animation="animated fadeInDown">View Women Accessories</a>
+                        <h1 data-animation="animated flipInX">{{$slider->heading}}</h1>
+                        <p data-animation="animated fadeInDown">{{$slider->content}}</p>
+                        <a href="{{$slider->button_url}}" target="_blank"  class="btn btn-primary" data-animation="animated fadeInDown">{{$slider->button_text}}</a>
                      </div>
                   </div>
                </div>
             </div>
-            <div class="item " style="background-image:url({{asset('frontend/assets/uploads/slider-2.jpg')}});">
-               <div class="bs-slider-overlay"></div>
-               <div class="container">
-                  <div class="row">
-                     <div class="slide-text slide_style_center">
-                        <h1 data-animation="animated flipInX">50% Discount on All Products</h1>
-                        <p data-animation="animated fadeInDown">Lorem ipsum dolor sit amet, an labores explicari qui, eu nostrum copiosae argumentum has.</p>
-                        <a href="#" target="_blank"  class="btn btn-primary" data-animation="animated fadeInDown">Read More</a>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="item " style="background-image:url({{asset('frontend/assets/uploads/slider-3.png')}});">
-               <div class="bs-slider-overlay"></div>
-               <div class="container">
-                  <div class="row">
-                     <div class="slide-text slide_style_right">
-                        <h1 data-animation="animated zoomInRight">24 Hours Customer Support</h1>
-                        <p data-animation="animated fadeInRight">Lorem ipsum dolor sit amet, an labores explicari qui, eu nostrum copiosae argumentum has.</p>
-                        <a href="#" target="_blank"  class="btn btn-primary" data-animation="animated fadeInRight">Read More</a>
-                     </div>
-                  </div>
-               </div>
-            </div>
+            @php
+            $increment1++;
+            @endphp
+            @endforeach
          </div>
          <!-- Slider Left Control -->
          <a class="left carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="prev">
@@ -68,7 +50,9 @@ Home
          <span class="fa fa-angle-right" aria-hidden="true"></span>
          <span class="sr-only">Next</span>
          </a>
+      
       </div>
+    
       <!-- end sliders -->
 
       <!-- start services -->

@@ -54,9 +54,10 @@ Add end level category
                            <label for="" class="col-sm-3 control-label">Mid Level Category Name <span>*</span></label>
                            <div class="col-sm-4">
                               <select name="mcat_id" class="form-control select2 mid-cat" required>
+         
                                  <option value="">Select Mid Level Category</option>
                                  @foreach($midlevelcategories as $midlevelcategory)
-                                 <option value="{{$midlevelcategory->mcat_name}}">{{$midlevelcategory->mcat_name}}</option>
+                                    <option value="{{$midlevelcategory->mcat_name}}">{{$midlevelcategory->mcat_name}}</option>
                                  @endforeach
                               </select>
                            </div>

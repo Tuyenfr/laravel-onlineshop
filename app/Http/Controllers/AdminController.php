@@ -189,7 +189,7 @@ class AdminController extends Controller
     }
 
     public function viewfaqpage() {
-        $faqs = Faq::all();
+        $faqs = Faq::all(); // ou Faq::get()
         $increment = 1;
         return view('admin.faq')->with('faqs', $faqs)->with('increment', $increment);
     }
