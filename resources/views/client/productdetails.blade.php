@@ -101,7 +101,7 @@ Product Details
                            <input type="hidden" name="p_featured_photo" value="product-featured-86.jpg">
                            <div class="p-quantity">
                               Quantity <br>
-                              <input type="number" class="input-text qty" step="1" min="1" max="" name="p_qty" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric">
+                              <input type="number" class="input-text qty" step="1" min="1" max="{{$product->p_qty}}" name="p_qty" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric">
                            </div>
                            <div class="btn-cart btn-cart1">
                               <input type="submit" value="Add to Cart" name="form_add_to_cart">
