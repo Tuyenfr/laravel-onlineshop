@@ -76,8 +76,55 @@ class ClientController extends Controller
         return view('client.billingdetails');
     }
 
-    public function viewproductbycategorypage() {
-        return view('client.viewproductbycategory');
+    public function productbytopcategory($id) {
+        $toplevelcategoryname = Toplevelcategory::find($id);
+        $toplevelcategories = Toplevelcategory::get();
+        $midlevelcategories = Midlevelcategory::get();
+        $endlevelcategories = Endlevelcategory::get();
+        $products = Product::where('tcat_id', $toplevelcategoryname->tcat_name)->get();
+
+        return view('client.productbycategory')
+            ->with('toplevelcategoryname', $toplevelcategoryname)
+            ->with('toplevelcategories', $toplevelcategories)
+            ->with('midlevelcategories', $midlevelcategories)
+            ->with('endlevelcategories', $endlevelcategories)
+            ->with('products', $products);
+    }
+
+    public function productbymidcategory($id, $mcatid) {
+        $toplevelcategoryname = Toplevelcategory::find($id);
+        $midlevelcategoryname = Midlevelcategory::find($mcatid);
+        $toplevelcategories = Toplevelcategory::get();
+        $midlevelcategories = Midlevelcategory::get();
+        $endlevelcategories = Endlevelcategory::get();
+        $products = Product::where('tcat_id', $toplevelcategoryname->tcat_name)->where('mcat_id', $midlevelcategoryname->mcat_name)->get();
+
+        return view('client.productbycategory')
+            ->with('toplevelcategoryname', $toplevelcategoryname)
+            ->with('midlevelcategoryname', $midlevelcategoryname)
+            ->with('toplevelcategories', $toplevelcategories)
+            ->with('midlevelcategories', $midlevelcategories)
+            ->with('endlevelcategories', $endlevelcategories)
+            ->with('products', $products);
+    }
+
+    public function productbyendcategory($id, $mcatid, $ecatid) {
+        $toplevelcategoryname = Toplevelcategory::find($id);
+        $midlevelcategoryname = Midlevelcategory::find($mcatid);
+        $endlevelcategoryname = Endlevelcategory::find($ecatid);
+        $toplevelcategories = Toplevelcategory::get();
+        $midlevelcategories = Midlevelcategory::get();
+        $endlevelcategories = Endlevelcategory::get();
+        $products = Product::where('tcat_id', $toplevelcategoryname->tcat_name)->where('mcat_id', $midlevelcategoryname->mcat_name)->where('ecat_id', $endlevelcategoryname->ecat_name)->get();
+
+        return view('client.productbycategory')
+            ->with('toplevelcategoryname', $toplevelcategoryname)
+            ->with('midlevelcategoryname', $midlevelcategoryname)
+            ->with('endlevelcategoryname', $endlevelcategoryname)
+            ->with('toplevelcategories', $toplevelcategories)
+            ->with('midlevelcategories', $midlevelcategories)
+            ->with('endlevelcategories', $endlevelcategories)
+            ->with('products', $products);
     }
 
     public function viewpasswordpage() {
