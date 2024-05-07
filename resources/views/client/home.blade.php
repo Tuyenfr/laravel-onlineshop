@@ -89,12 +89,14 @@ Home
                   <div class="product-carousel">
                      @foreach ($featuredproducts as $featuredproduct)
                      <div class="item">
+                        <a href="{{url('productdetails', [$featuredproduct->id])}}">
                         <div class="thumb">
                            <div class="photo" style="background-image:url({{asset('storage/productimages/'.$featuredproduct->p_featured_photo)}});"></div>
                            <div class="overlay"></div>
                         </div>
+                        </a>
                         <div class="text">
-                           <h3><a href="product.php?id=84">{{$featuredproduct->p_name}}</a></h3>
+                           <h3>{{$featuredproduct->p_name}}</h3>
                            <h4>
                               {{$featuredproduct->p_current_price}}
                               <del>
@@ -103,7 +105,7 @@ Home
                            </h4>
                            <div class="rating">
                            </div>
-                           <p><a href="product.php?id=84"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
+                           <p><a href="{{url('productdetails', [$featuredproduct->id])}}"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
                         </div>
                      </div>
                      @endforeach
@@ -130,12 +132,14 @@ Home
                   <div class="product-carousel">
                      @foreach($latestproducts as $latestproduct)
                      <div class="item">
+                        <a href="{{url('productdetails', [$latestproduct->id])}}">
                         <div class="thumb">
                            <div class="photo" style="background-image:url({{asset('storage/productimages/'.$latestproduct->p_featured_photo)}});"></div>
                            <div class="overlay"></div>
                         </div>
+                        </a>
                         <div class="text">
-                           <h3><a href="product.php?id=102">{{$latestproduct->p_name}}</a></h3>
+                           <h3>{{$latestproduct->p_name}}</h3>
                            <h4>
                               {{$latestproduct->p_current_price}}
                               <del>
@@ -144,7 +148,7 @@ Home
                            </h4>
                            <div class="rating">
                            </div>
-                           <p><a href="product.php?id=102"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
+                           <p><a href="{{url('productdetails', [$latestproduct->id])}}"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
                         </div>
                      </div>
                      @endforeach
@@ -171,12 +175,14 @@ Home
                   <div class="product-carousel">
                      @foreach($popularproducts as $popularproduct)
                      <div class="item">
+                        <a href="{{url('productdetails', [$popularproduct->id])}}">
                         <div class="thumb">
                            <div class="photo" style="background-image:url({{asset('storage/productimages/'.$popularproduct->p_featured_photo)}});"></div>
                            <div class="overlay"></div>
                         </div>
+                        </a>
                         <div class="text">
-                           <h3><a href="product.php?id=84">{{$popularproduct->p_name}}</a></h3>
+                           <h3>{{$popularproduct->p_name}}</h3>
                            <h4>
                               {{$popularproduct->p_current_price}}
                               <del>
@@ -185,7 +191,7 @@ Home
                            </h4>
                            <div class="rating">
                            </div>
-                           <p><a href="product.php?id=84"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
+                           <p><a href="{{url('productdetails', [$popularproduct->id])}}"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
                         </div>
                      </div>
                      @endforeach

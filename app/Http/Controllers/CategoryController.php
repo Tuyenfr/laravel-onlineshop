@@ -132,6 +132,14 @@ class CategoryController extends Controller
     }
 
     public function updateendlevelcategory(Request $request, $id) {
+
+        $this->validate($request, [
+            'tcat_id' => 'required',
+            'mcat_id' => 'required',
+            'ecat_name' => 'required'
+            ]
+        );
+
         $endlevelcategory = Endlevelcategory::find($id);
         $endlevelcategory->tcat_id = $request->input('tcat_id');
         $endlevelcategory->mcat_id = $request->input('mcat_id');

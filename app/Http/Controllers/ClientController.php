@@ -139,8 +139,25 @@ class ClientController extends Controller
         return view('client.searchproduct');
     }
 
-    public function viewproductdetails() {
-        return view('client.viewproductdetails');
+    public function viewproductdetails($id) {
+        $product = Product::find($id);
+        $increment = 1;
+
+        $selectedsizes = explode("*", $product->size);
+        array_pop($selectedsizes);
+
+        $selectedcolors = explode("*", $product->color);
+        array_pop($selectedcolors);
+
+        $selectedphotos = explode("*", $product->photo);
+        array_pop($selectedphotos);
+
+        return view('client.productdetails')
+            ->with('product', $product)
+            ->with('increment', $increment)
+            ->with('selectedsizes', $selectedsizes)
+            ->with('selectedcolors', $selectedcolors)
+            ->with('selectedphotos', $selectedphotos);
     }
 
     public function viewcategorypage() {

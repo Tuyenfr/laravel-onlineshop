@@ -43,7 +43,7 @@ Route::get('/productbyendcategory/{id}/{mcatid}/{ecatid}', [ClientController::cl
 Route::get('/password', [ClientController::class, 'viewpasswordpage']);
 Route::get('/history', [ClientController::class, 'viewhistorypage']);
 Route::get('/searchproduct', [ClientController::class, 'viewsearchproductpage']);
-Route::get('/productdetails', [ClientController::class, 'viewproductdetails']);
+Route::get('/productdetails/{id}', [ClientController::class, 'viewproductdetails']);
 Route::get('/category', [ClientController::class, 'viewcategorypage']);
 
 //AdminController

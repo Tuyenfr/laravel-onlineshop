@@ -44,7 +44,7 @@ Edit end level category
                          <label for="" class="col-sm-3 control-label">Top Level Category Name <span>*</span></label>
                          <div class="col-sm-4">
                             <select name="tcat_id" class="form-control select2 top-cat" required>
-                               <option value="" selected>{{$endlevelcategory->tcat_id}}</option>
+                               <option value="{{$endlevelcategory->tcat_id}}" selected>{{$endlevelcategory->tcat_id}}</option>
                                @foreach($toplevelcategories as $toplevelcategory)
                                <option value="{{$toplevelcategory->tcat_name}}">{{$toplevelcategory->tcat_name}}</option>
                                @endforeach
@@ -55,7 +55,7 @@ Edit end level category
                          <label for="" class="col-sm-3 control-label">Mid Level Category Name <span>*</span></label>
                          <div class="col-sm-4">
                             <select name="mcat_id" class="form-control select2 mid-cat" required>
-                               <option value="" selected>{{$endlevelcategory->mcat_id}}</option>
+                               <option value="{{$endlevelcategory->mcat_id}}" selected>{{$endlevelcategory->mcat_id}}</option>
                                @foreach($midlevelcategories as $midlevelcategory)
                                <option value="{{$midlevelcategory->mcat_name}}">{{$midlevelcategory->mcat_name}}</option>
                                @endforeach
