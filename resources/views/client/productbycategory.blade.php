@@ -14,7 +14,7 @@ View Product by Category
     <!-- start banner -->
     <div class="page-banner" style="background-image: url({{asset('frontend/assets/uploads/banner_product_category.jpg')}})">
       <div class="inner">
-         <h1>Category: <a style="color: white" href="{{url('productbytopcategory', [$toplevelcategoryname->id])}}">{{$toplevelcategoryname->tcat_name}}</a></h1>
+         <h1>Category: <a style="color: white" href="{{url('productbytopcategory', [$toplevelcategoryname])}}">{{$toplevelcategoryname}}</a></h1>
       </div>
   </div>
    <!-- end banner -->
@@ -34,7 +34,7 @@ View Product by Category
                   <ul id="menu-group-1" class="nav menu">
                      @foreach($toplevelcategories as $toplevelcategory)
                      <li class="cat-level-1 deeper parent">
-                        <a class="" href="{{url('productbytopcategory', [$toplevelcategory->id])}}">
+                        <a class="" href="{{url('productbytopcategory', [$toplevelcategory->tcat_name])}}">
                         <span data-toggle="collapse" data-parent="#menu-group-1" href="#cat-lvl1-id-{{$increment}}" class="sign"><i class="fa fa-plus"></i></span>
                         <span class="lbl">{{$toplevelcategory->tcat_name}}</span>
                         </a>
@@ -42,7 +42,7 @@ View Product by Category
                            @foreach($midlevelcategories as $midlevelcategory)
                               <li class="deeper parent">
                                  @if($midlevelcategory->tcat_id == $toplevelcategory->tcat_name)
-                              <a class="" href="{{url('productbymidcategory', [$toplevelcategory->id, $midlevelcategory->id])}}">
+                              <a class="" href="{{url('productbymidcategory', [$toplevelcategory->tcat_name, $midlevelcategory->mcat_name])}}">
                               <span data-toggle="collapse" data-parent="#menu-group-1" href="#cat-lvl2-id-{{$increment1}}" class="sign"><i class="fa fa-plus"></i></span>
                               <span class="lbl lbl1">{{$midlevelcategory->mcat_name}}</span>
                               </a>
@@ -50,7 +50,7 @@ View Product by Category
                                  @foreach($endlevelcategories as $endlevelcategory)
                                  <li class="item-111">
                                     @if($endlevelcategory->tcat_id == $toplevelcategory->tcat_name && $endlevelcategory->mcat_id == $midlevelcategory->mcat_name)
-                                    <a class="" href="{{url('productbyendcategory', [$toplevelcategory->id, $midlevelcategory->id, $endlevelcategory->id])}}">
+                                    <a class="" href="{{url('productbyendcategory', [$toplevelcategory->tcat_name, $midlevelcategory->mcat_name, $endlevelcategory->ecat_name])}}">
                                     <span class="sign"></span>
                                     <span class="lbl lbl1">{{$endlevelcategory->ecat_name}}</span>
                                     </a>
@@ -74,14 +74,14 @@ View Product by Category
                </div>
             </div>
             <div class="col-md-9">
-               @if(isset($endlevelcategoryname->ecat_name))
-               <h3>All Products Under "<a style="color: black" href="{{url('productbymidcategory', [$toplevelcategoryname->id, $midlevelcategoryname->id])}}">{{$midlevelcategoryname->mcat_name}}</a>-->{{$endlevelcategoryname->ecat_name}}"</h3>
-               @elseif(isset($midlevelcategoryname->mcat_name))
+               @if(isset($endlevelcategoryname))
+               <h3>All Products Under "<a style="color: black" href="{{url('productbymidcategory', [$toplevelcategoryname, $midlevelcategoryname])}}">{{$midlevelcategoryname}}</a>-->{{$endlevelcategoryname}}"</h3>
+               @elseif(isset($midlevelcategoryname))
                <h3>All Products Under "
-               {{$midlevelcategoryname->mcat_name}}
+               {{$midlevelcategoryname}}
                "</h3>
-               @elseif($toplevelcategoryname->tcat_name)
-               <h3>All Products Under "{{$toplevelcategoryname->tcat_name}}"</h3>
+               @elseif($toplevelcategoryname)
+               <h3>All Products Under "{{$toplevelcategoryname}}"</h3>
                @endif
                @foreach($products as $product)
                <div class="product product-cat">

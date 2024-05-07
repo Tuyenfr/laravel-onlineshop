@@ -76,12 +76,12 @@ class ClientController extends Controller
         return view('client.billingdetails');
     }
 
-    public function productbytopcategory($id) {
-        $toplevelcategoryname = Toplevelcategory::find($id);
+    public function productbytopcategory($tcatid) {
+        $toplevelcategoryname = $tcatid;
         $toplevelcategories = Toplevelcategory::get();
         $midlevelcategories = Midlevelcategory::get();
         $endlevelcategories = Endlevelcategory::get();
-        $products = Product::where('tcat_id', $toplevelcategoryname->tcat_name)->get();
+        $products = Product::where('tcat_id', $toplevelcategoryname)->get();
 
         return view('client.productbycategory')
             ->with('toplevelcategoryname', $toplevelcategoryname)
@@ -91,13 +91,13 @@ class ClientController extends Controller
             ->with('products', $products);
     }
 
-    public function productbymidcategory($id, $mcatid) {
-        $toplevelcategoryname = Toplevelcategory::find($id);
-        $midlevelcategoryname = Midlevelcategory::find($mcatid);
+    public function productbymidcategory($tcatid, $mcatid) {
+        $toplevelcategoryname = $tcatid;
+        $midlevelcategoryname = $mcatid;
         $toplevelcategories = Toplevelcategory::get();
         $midlevelcategories = Midlevelcategory::get();
         $endlevelcategories = Endlevelcategory::get();
-        $products = Product::where('tcat_id', $toplevelcategoryname->tcat_name)->where('mcat_id', $midlevelcategoryname->mcat_name)->get();
+        $products = Product::where('tcat_id', $toplevelcategoryname)->where('mcat_id', $midlevelcategoryname)->get();
 
         return view('client.productbycategory')
             ->with('toplevelcategoryname', $toplevelcategoryname)
@@ -108,14 +108,14 @@ class ClientController extends Controller
             ->with('products', $products);
     }
 
-    public function productbyendcategory($id, $mcatid, $ecatid) {
-        $toplevelcategoryname = Toplevelcategory::find($id);
-        $midlevelcategoryname = Midlevelcategory::find($mcatid);
-        $endlevelcategoryname = Endlevelcategory::find($ecatid);
+    public function productbyendcategory($tcatid, $mcatid, $ecatid) {
+        $toplevelcategoryname = $tcatid;
+        $midlevelcategoryname = $mcatid;
+        $endlevelcategoryname = $ecatid;
         $toplevelcategories = Toplevelcategory::get();
         $midlevelcategories = Midlevelcategory::get();
         $endlevelcategories = Endlevelcategory::get();
-        $products = Product::where('tcat_id', $toplevelcategoryname->tcat_name)->where('mcat_id', $midlevelcategoryname->mcat_name)->where('ecat_id', $endlevelcategoryname->ecat_name)->get();
+        $products = Product::where('tcat_id', $toplevelcategoryname)->where('mcat_id', $midlevelcategoryname)->where('ecat_id', $endlevelcategoryname)->get();
 
         return view('client.productbycategory')
             ->with('toplevelcategoryname', $toplevelcategoryname)

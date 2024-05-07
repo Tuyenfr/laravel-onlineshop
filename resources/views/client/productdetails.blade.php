@@ -20,13 +20,13 @@ Product Details
                   <ul>
                      <li><a href="">Home</a></li>
                      <li>></li>
-                     <li><a href="product-category.php?id=1&type=top-category">Men</a></li>
+                     <li><a href="{{url('productbytopcategory', [$product->tcat_id])}}">{{$product->tcat_id}}</a></li>
                      <li>></li>
-                     <li><a href="product-category.php?id=1&type=mid-category">Men Accessories</a></li>
+                     <li><a href="{{url('productbymidcategory', [$product->tcat_id, $product->mcat_id])}}">{{$product->mcat_id}}</a></li>
                      <li>></li>
-                     <li><a href="product-category.php?id=3&type=end-category">Watches</a></li>
+                     <li><a href="{{url('productbyendcategory', [$product->tcat_id, $product->mcat_id, $product->ecat_id])}}">{{$product->ecat_id}}</a></li>
                      <li>></li>
-                     <li>Amazfit GTS 3 Smart Watch for Android iPhone</li>
+                     <li>{{$product->p_name}}</li>
                   </ul>
                </div>
                <div class="product">
