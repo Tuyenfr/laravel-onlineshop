@@ -14,7 +14,7 @@ View Product by Category
     <!-- start banner -->
     <div class="page-banner" style="background-image: url({{asset('frontend/assets/uploads/banner_product_category.jpg')}})">
       <div class="inner">
-         <h1>Category: {{$toplevelcategoryname->tcat_name}}</h1>
+         <h1>Category: <a style="color: white" href="{{url('productbytopcategory', [$toplevelcategoryname->id])}}">{{$toplevelcategoryname->tcat_name}}</a></h1>
       </div>
   </div>
    <!-- end banner -->
@@ -75,7 +75,7 @@ View Product by Category
             </div>
             <div class="col-md-9">
                @if(isset($endlevelcategoryname->ecat_name))
-               <h3>All Products Under "{{$midlevelcategoryname->mcat_name}}-->{{$endlevelcategoryname->ecat_name}}"</h3>
+               <h3>All Products Under "<a style="color: black" href="{{url('productbymidcategory', [$toplevelcategoryname->id, $midlevelcategoryname->id])}}">{{$midlevelcategoryname->mcat_name}}</a>-->{{$endlevelcategoryname->ecat_name}}"</h3>
                @elseif(isset($midlevelcategoryname->mcat_name))
                <h3>All Products Under "
                {{$midlevelcategoryname->mcat_name}}
