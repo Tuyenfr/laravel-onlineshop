@@ -22,7 +22,6 @@ View Product by Category
    @php
    $increment = 1;
    $increment1 = 1;
-   $increment2 = 1;
    @endphp
 
   <!-- start page content -->
@@ -41,7 +40,6 @@ View Product by Category
                         </a>
                         <ul class="children nav-child unstyled small collapse" id="cat-lvl1-id-{{$increment}}">
                            @foreach($midlevelcategories as $midlevelcategory)
-                          
                               <li class="deeper parent">
                                  @if($midlevelcategory->tcat_id == $toplevelcategory->tcat_name)
                               <a class="" href="{{url('productbymidcategory', [$toplevelcategory->id, $midlevelcategory->id])}}">
@@ -52,7 +50,6 @@ View Product by Category
                                  @foreach($endlevelcategories as $endlevelcategory)
                                  <li class="item-111">
                                     @if($endlevelcategory->tcat_id == $toplevelcategory->tcat_name && $endlevelcategory->mcat_id == $midlevelcategory->mcat_name)
-
                                     <a class="" href="{{url('productbyendcategory', [$toplevelcategory->id, $midlevelcategory->id, $endlevelcategory->id])}}">
                                     <span class="sign"></span>
                                     <span class="lbl lbl1">{{$endlevelcategory->ecat_name}}</span>
@@ -77,7 +74,13 @@ View Product by Category
                </div>
             </div>
             <div class="col-md-9">
+               @if(isset($midlevelcategoryname->mcat_name))
+               <h3>All Products Under "
+               {{$midlevelcategoryname->mcat_name}}
+               "</h3>
+               @elseif($toplevelcategoryname->tcat_name)
                <h3>All Products Under "{{$toplevelcategoryname->tcat_name}}"</h3>
+               @endif
                @foreach($products as $product)
                <div class="product product-cat">
                   <div class="row">
