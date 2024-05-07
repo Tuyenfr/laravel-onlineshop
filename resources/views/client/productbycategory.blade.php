@@ -88,12 +88,14 @@ View Product by Category
                   <div class="row">
                      <div class="col-md-4 item item-product-cat">
                         <div class="inner">
+                           <a href="{{url('productdetails', [$product->id])}}">
                            <div class="thumb">
                               <div class="photo" style="background-image:url({{asset('storage/productimages/'.$product->p_featured_photo)}});"></div>
                               <div class="overlay"></div>
                            </div>
+                           </a>
                            <div class="text">
-                              <h3><a href="product.php?id=86">{{$product->p_name}}</a></h3>
+                              <h3>{{$product->p_name}}</h3>
                               <h4>
                                  {{$product->p_current_price}}
                                  <del>
