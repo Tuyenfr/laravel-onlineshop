@@ -74,7 +74,9 @@ View Product by Category
                </div>
             </div>
             <div class="col-md-9">
-               @if(isset($midlevelcategoryname->mcat_name))
+               @if(isset($endlevelcategoryname->ecat_name))
+               <h3>All Products Under "{{$midlevelcategoryname->mcat_name}}-->{{$endlevelcategoryname->ecat_name}}"</h3>
+               @elseif(isset($midlevelcategoryname->mcat_name))
                <h3>All Products Under "
                {{$midlevelcategoryname->mcat_name}}
                "</h3>
