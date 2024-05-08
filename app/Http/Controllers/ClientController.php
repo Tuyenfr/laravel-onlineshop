@@ -96,6 +96,11 @@ class ClientController extends Controller
 
         Session::put('cart', $cart);
         Session::put('topCart', $cart->items);
+
+        if(count(Session::get('topCart')) == 0)
+        {
+            Session::forget('cart');
+        }
     
         return back();
         

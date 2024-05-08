@@ -24,8 +24,14 @@ Cart
    <div class="page">
       <div class="container">
          <div class="row">
+            @if(!Session::has('cart'))
+
             <div class="col-md-12">
-               
+               <h3 class="text-center">Cart is empty !!</h3>
+            </div>
+
+            @else
+            <div class="col-md-12">
                   <div class="cart">
                      <table class="table table-responsive table-hover table-bordered">
                         <tr>
@@ -44,7 +50,6 @@ Cart
                         $increment = 1;
                         @endphp
 
-                        @if(Session::has('cart'))
                         @foreach(Session::get('topCart') as $item)
                         <tr>
                            <td>{{$increment++}}</td>
@@ -81,8 +86,6 @@ Cart
                            <th class="total-amount">${{Session::get('cart')->totalPrice}}</th>
                            <th></th>
                         </tr>
-                        
-                        @endif
                      </table>
                   </div>
                   <div class="cart-buttons">
@@ -92,6 +95,7 @@ Cart
                      </ul>
                   </div>
             </div>
+            @endif
          </div>
       </div>
    </div>
