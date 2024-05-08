@@ -76,10 +76,21 @@
                   <a href="{{ url('/')}}"><img src="{{asset('frontend/assets/uploads/logo.png')}}" alt="logo image"></a>
                </div>
                <div class="col-md-5 right">
+
                   <ul>
+                     @if (Session::has('customer'))
+
+                     <li><i class="fa fa-user"></i> Logged in as {{Session::get('customer')->cust_name}}</a></li>
+                     <li><a href="{{ url('dashboard')}}"><i class="fa fa-home"></i> Dashboard</a></li>
+
+                     @else
                      <li><a href="{{ url('login') }}"><i class="fa fa-sign-in"></i> Login</a></li>
                      <li><a href="{{ url('register')}}"><i class="fa fa-user-plus"></i> Register</a></li>
+
+                     @endif
+
                      <li><a href="{{ url('cart') }}"><i class="fa fa-shopping-cart"></i> Cart (${{Session::has('cart') ? Session::get('cart')->totalPrice : '0.00'}})</a></li>
+                     
                   </ul>
                </div>
                <div class="col-md-3 search-area">

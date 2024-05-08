@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Endlevelcategory;
 use App\Models\Midlevelcategory;
 use App\Models\Service;
-use App\Models\Slider;
 use App\Models\Slidermanager;
 use App\Models\Toplevelcategory;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductSetting;
 use App\Models\Cart;
+use App\Models\Country;
 use Illuminate\Support\Facades\Session;
+use App\Models\Customer;
 
 class ClientController extends Controller
 {
@@ -55,7 +56,45 @@ class ClientController extends Controller
     }
 
     public function viewregisterpage() {
-        return view('client.register');
+        $countries = Country::get();
+        return view('client.register')->with('countries', $countries);
+
+    }
+
+    public function registercustomer(Request $request) {
+
+            $this->validate($request, [
+                'cust_name' => 'required',
+                'cust_cname' => 'required',
+                'cust_email' => 'required',
+                'cust_phone' => 'required',
+                'cust_address' => 'required',
+                'cust_country' => 'required',
+                'cust_city' => 'required',
+                'cust_state' => 'required',
+                'cust_zip' => 'required',
+                'cust_password' => 'required'
+            ]);
+
+            $customer = new Customer();
+
+            $customer->cust_name = $request->input('cust_name');
+            $customer->cust_cname = $request->input('cust_cname');
+            $customer->cust_email = $request->input('cust_email');
+            $customer->cust_phone = $request->input('cust_phone');
+            $customer->cust_address = $request->input('cust_address');
+            $customer->cust_country = $request->input('cust_country');
+            $customer->cust_city = $request->input('cust_city');
+            $customer->cust_state = $request->input('cust_state');
+            $customer->cust_zip = $request->input('cust_zip');
+            $customer->cust_password = bcrypt($request->input('cust_password'));
+
+            $customer->save();
+
+            Session::put('customer', $customer);
+
+            return back()->with('status', 'Your account has been created with success !');
+
     }
 
     public function addproducttocart(Request $request, $id) {
@@ -100,6 +139,7 @@ class ClientController extends Controller
         if(count(Session::get('topCart')) == 0)
         {
             Session::forget('cart');
+            Session::forget('topCart');
         }
     
         return back();

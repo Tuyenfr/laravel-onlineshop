@@ -32,6 +32,7 @@ Route::get('/faq', [ClientController::class, 'viewfaqpage']);
 Route::get('/contact', [ClientController::class, 'viewcontactpage']);
 Route::get('/login', [ClientController::class, 'viewloginpage']);
 Route::get('/register', [ClientController::class, 'viewregisterpage']);
+Route::post('/registercustomer', [ClientController::class, 'registercustomer']);
 Route::post('/addproducttocart/{id}', [ClientController::class, 'addproducttocart']);
 Route::put('/updateproductqty/{id}', [ClientController::class, 'updateproductqty']);
 Route::delete('removeproduct/{id}', [ClientController::class, 'removeproduct']);
