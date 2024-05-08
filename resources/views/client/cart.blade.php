@@ -25,9 +25,7 @@ Cart
       <div class="container">
          <div class="row">
             <div class="col-md-12">
-               <form action="" method="post">
-                  @csrf
-                  <input type="hidden" name="_csrf" value="305e2e05d29f55b50a14ad09db8b623c" />
+               
                   <div class="cart">
                      <table class="table table-responsive table-hover table-bordered">
                         <tr>
@@ -58,9 +56,12 @@ Cart
                            <td>{{$item['color']}}</td>
                            <td>${{$item['product_price']}}</td>
                            <td>
-                              <input type="hidden" name="product_id" value="{{$item['product_id']}}">
-                              <input type="hidden" name="product_name" value="{{$item['product_name']}}">
-                              <input type="number" class="input-text qty text" step="1" min="1" max="" name="quantity[]" value="{{$item['qty']}}" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric">
+                              <form action="{{url('updateproductqty', [$item['product_id']])}}" method="post">
+                                 @csrf
+                                 @method('PUT')
+                              <input type="number" class="input-text qty text" step="1" min="1" max="" name="quantity" value="{{$item['qty']}}" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric">
+                              <input type="submit" value="Update Cart" class="btn btn-primary">
+                              </form>
                            </td>
                            <td class="text-right">
                               ${{$item['product_price']*$item['qty']}}
@@ -81,12 +82,10 @@ Cart
                   </div>
                   <div class="cart-buttons">
                      <ul>
-                        <li><input type="submit" value="Update Cart" class="btn btn-primary" name="form1"></li>
                         <li><a href="{{ url('/')}}" class="btn btn-primary">Continue Shopping</a></li>
                         <li><a href="{{ url('checkout')}}" class="btn btn-primary">Proceed to Checkout</a></li>
                      </ul>
                   </div>
-               </form>
             </div>
          </div>
       </div>

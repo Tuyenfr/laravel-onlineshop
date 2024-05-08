@@ -70,9 +70,21 @@ class ClientController extends Controller
         Session::put('cart', $cart);
         Session::put('topCart', $cart->items);
     
-        //dd($cart)
-
         return back();
+    }
+
+    public function updateproductqty(Request $request, $id) {
+
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+
+        $cart->updateQty($id, $request->quantity);
+
+        Session::put('cart', $cart);
+        Session::put('topCart', $cart->items);
+    
+        return back();
+        
     }
 
     public function viewcartpage() {

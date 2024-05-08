@@ -33,6 +33,7 @@ Route::get('/contact', [ClientController::class, 'viewcontactpage']);
 Route::get('/login', [ClientController::class, 'viewloginpage']);
 Route::get('/register', [ClientController::class, 'viewregisterpage']);
 Route::post('/addproducttocart/{id}', [ClientController::class, 'addproducttocart']);
+Route::put('/updateproductqty/{id}', [ClientController::class, 'updateproductqty']);
 Route::get('/cart', [ClientController::class, 'viewcartpage']);
 Route::get('/dashboard', [ClientController::class, 'viewdashboardpage']);
 Route::get('/checkout', [ClientController::class, 'viewcheckoutpage']);
