@@ -34,6 +34,7 @@ Route::get('/login', [ClientController::class, 'viewloginpage']);
 Route::get('/register', [ClientController::class, 'viewregisterpage']);
 Route::post('/addproducttocart/{id}', [ClientController::class, 'addproducttocart']);
 Route::put('/updateproductqty/{id}', [ClientController::class, 'updateproductqty']);
+Route::delete('removeproduct/{id}', [ClientController::class, 'removeproduct']);
 Route::get('/cart', [ClientController::class, 'viewcartpage']);
 Route::get('/dashboard', [ClientController::class, 'viewdashboardpage']);
 Route::get('/checkout', [ClientController::class, 'viewcheckoutpage']);

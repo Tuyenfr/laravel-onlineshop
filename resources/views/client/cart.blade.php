@@ -67,7 +67,12 @@ Cart
                               ${{$item['product_price']*$item['qty']}}
                            </td>
                            <td class="text-center">
-                              <a onclick="return confirmDelete();" href="cart-item-delete.php?id=86&size=26&color=2" class="trash"><i class="fa fa-trash" style="color:red;"></i></a>
+
+                              <form action="{{url('removeproduct', [$item['product_id']])}}" method="post">
+                                 @csrf
+                                 @method('DELETE')
+                                 <input type="submit" value="Delete" class="btn btn-danger">
+                              </form>
                            </td>
                         </tr>
                         @endforeach

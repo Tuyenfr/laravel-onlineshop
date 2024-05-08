@@ -87,6 +87,21 @@ class ClientController extends Controller
         
     }
 
+    public function removeproduct($id) {
+
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+
+        $cart->removeItem($id);
+
+        Session::put('cart', $cart);
+        Session::put('topCart', $cart->items);
+    
+        return back();
+        
+    }
+
+
     public function viewcartpage() {
         
         return view('client.cart');
