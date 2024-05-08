@@ -11,6 +11,8 @@ use App\Models\Toplevelcategory;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductSetting;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Session;
 
 class ClientController extends Controller
 {
@@ -56,7 +58,25 @@ class ClientController extends Controller
         return view('client.register');
     }
 
+    public function addproducttocart(Request $request, $id) {
+
+        $product = Product::find($id);
+
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+
+        $cart->add($product, $request->input('size_id'), $request->input('color_id'), $request->input('p_qty'));
+
+        Session::put('cart', $cart);
+        Session::put('topCart', $cart->items);
+    
+        //dd($cart)
+
+        return back();
+    }
+
     public function viewcartpage() {
+        
         return view('client.cart');
     }
 

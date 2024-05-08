@@ -32,6 +32,7 @@ Route::get('/faq', [ClientController::class, 'viewfaqpage']);
 Route::get('/contact', [ClientController::class, 'viewcontactpage']);
 Route::get('/login', [ClientController::class, 'viewloginpage']);
 Route::get('/register', [ClientController::class, 'viewregisterpage']);
+Route::post('/addproducttocart/{id}', [ClientController::class, 'addproducttocart']);
 Route::get('/cart', [ClientController::class, 'viewcartpage']);
 Route::get('/dashboard', [ClientController::class, 'viewdashboardpage']);
 Route::get('/checkout', [ClientController::class, 'viewcheckoutpage']);

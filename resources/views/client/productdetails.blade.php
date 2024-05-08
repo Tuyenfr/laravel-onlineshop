@@ -68,7 +68,7 @@ Product Details
                            </p>
                            </p>
                         </div>
-                        <form action="" method="post">
+                        <form action="{{url('addproducttocart', [$product->id])}}" method="post">
                            @csrf
                            <div class="p-quantity">
                               <div class="row">
@@ -96,9 +96,9 @@ Product Details
                               <del>{{$product->p_old_price}}</del>
                               {{$product->p_current_price}}  </span>
                            </div>
-                           <input type="hidden" name="p_current_price" value="179">
-                           <input type="hidden" name="p_name" value="Amazfit GTS 3 Smart Watch for Android iPhone">
-                           <input type="hidden" name="p_featured_photo" value="product-featured-86.jpg">
+                           <input type="hidden" name="p_current_price" value="{{$product->p_current_price}}">
+                           <input type="hidden" name="p_name" value="{{$product->p_name}}">
+                           <input type="hidden" name="p_featured_photo" value="{{asset('storage/productimages/'.$product->p_featured_photo)}}">
                            <div class="p-quantity">
                               Quantity <br>
                               <input type="number" class="input-text qty" step="1" min="1" max="{{$product->p_qty}}" name="p_qty" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric">

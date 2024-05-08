@@ -79,7 +79,7 @@
                   <ul>
                      <li><a href="{{ url('login') }}"><i class="fa fa-sign-in"></i> Login</a></li>
                      <li><a href="{{ url('register')}}"><i class="fa fa-user-plus"></i> Register</a></li>
-                     <li><a href="{{ url('cart') }}"><i class="fa fa-shopping-cart"></i> Cart ($0.00)</a></li>
+                     <li><a href="{{ url('cart') }}"><i class="fa fa-shopping-cart"></i> Cart (${{Session::has('cart') ? Session::get('cart')->totalPrice : '0.00'}})</a></li>
                   </ul>
                </div>
                <div class="col-md-3 search-area">

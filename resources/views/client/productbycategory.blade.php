@@ -103,7 +103,7 @@ View Product by Category
                               </h4>
                               <div class="rating">
                               </div>
-                              <p><a href="product.php?id=86"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
+                              <p><a href="{{url('productdetails', [$product->id])}}"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
                            </div>
                         </div>
                      </div>
