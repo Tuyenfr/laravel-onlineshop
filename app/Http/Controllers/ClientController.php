@@ -14,6 +14,7 @@ use App\Models\Cart;
 use App\Models\Country;
 use Illuminate\Support\Facades\Session;
 use App\Models\Customer;
+use Illuminate\Support\Facades\Hash;
 
 class ClientController extends Controller
 {
@@ -53,6 +54,32 @@ class ClientController extends Controller
 
     public function viewloginpage() {
         return view('client.login');
+    }
+
+    public function connect(Request $request) {
+
+        $this->validate($request, [
+            'cust_email' => 'required|email',
+            'cust_password' => 'required'
+        ]);
+
+        $customer = Customer::where('cust_email', $request->input('cust_email'))->first();
+
+        if(!$customer || !Hash::check($request->input('cust_password'), $customer->cust_password)) {
+
+            return back()->with('error', 'Bad email or password');
+        }
+
+        Session::put('customer', $customer);
+
+        return redirect('dashboard');
+
+    }
+
+    public function logout() {
+        Session::forget('customer');
+
+        return redirect('login');
     }
 
     public function viewregisterpage() {
@@ -161,7 +188,40 @@ class ClientController extends Controller
     }
 
     public function viewprofilepage() {
-        return view('client.profile');
+        $customer = Customer::find(Session::get('customer')->id);
+        $countries = Country::get();
+        return view('client.profile')->with('customer', $customer)->with('countries', $countries);
+    }
+
+    public function updateprofile(Request $request, $id) {
+
+         $this->validate($request, [
+                'cust_name' => 'required',
+                'cust_cname' => 'required',
+                'cust_phone' => 'required',
+                'cust_address' => 'required',
+                'cust_country' => 'required',
+                'cust_city' => 'required',
+                'cust_state' => 'required',
+                'cust_zip' => 'required',
+            ]);
+
+            $customer = Customer::find($id);
+
+            $customer->cust_name = $request->input('cust_name');
+            $customer->cust_cname = $request->input('cust_cname');
+            $customer->cust_phone = $request->input('cust_phone');
+            $customer->cust_address = $request->input('cust_address');
+            $customer->cust_country = $request->input('cust_country');
+            $customer->cust_city = $request->input('cust_city');
+            $customer->cust_state = $request->input('cust_state');
+            $customer->cust_zip = $request->input('cust_zip');
+
+            $customer->save();
+
+            Session::put('customer', $customer);
+
+            return back()->with('status', 'Your account has been updated with success !');
     }
 
     public function viewbillingdetailspage() {

@@ -24,21 +24,37 @@ Login
  <!-- start page content -->
    <div class="page">
       <div class="container">
+
+         @if(Session::has('error'))
+            
+         <section class="content" style="min-height:auto;margin-bottom: -30px;">
+         
+            <div class="row">
+               <div class="col-md-6 col-md-offset-3">
+                  <div class="alert alert-danger">
+                     <p>{{Session::get('error')}}</p>
+                  </div>
+               </div>
+            </div>
+         </section>
+         
+         @endif
+
          <div class="row">
             <div class="col-md-12">
                <div class="user-content">
-                  <form action="" method="post">
-                     <input type="hidden" name="_csrf" value="305e2e05d29f55b50a14ad09db8b623c" />                  
+                  <form action="{{url('connect')}}" method="post">
+                     @csrf
                      <div class="row">
                         <div class="col-md-4"></div>
                         <div class="col-md-4">
                            <div class="form-group">
                               <label for="">Email Address *</label>
-                              <input type="email" class="form-control" name="cust_email">
+                              <input type="email" class="form-control" name="cust_email" required>
                            </div>
                            <div class="form-group">
                               <label for="">Password *</label>
-                              <input type="password" class="form-control" name="cust_password">
+                              <input type="password" class="form-control" name="cust_password" required>
                            </div>
                            <div class="form-group">
                               <label for=""></label>
