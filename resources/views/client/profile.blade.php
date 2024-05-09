@@ -72,8 +72,8 @@ Profile
                              <select name="cust_country" class="form-control" required>
                                 <option value="{{$customer->cust_country}}" >{{$customer->cust_country}}</option>
                                 @foreach($countries as $country)
-                                 @if($country->country_name != {{$customer->cust_country}})
-                                    <option value="{{$country->country_name}}" >{{$country->country_name}}</option>
+                                 @if($country->country_name !== $customer->cust_country)
+                                    <option value="{{$country->country_name}}">{{$country->country_name}}</option>
                                  @endif
                                 @endforeach
                         

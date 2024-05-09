@@ -93,14 +93,14 @@ class ClientController extends Controller
             $this->validate($request, [
                 'cust_name' => 'required',
                 'cust_cname' => 'required',
-                'cust_email' => 'required',
+                'cust_email' => 'required|email|unique:customers,cust_email',
                 'cust_phone' => 'required',
                 'cust_address' => 'required',
                 'cust_country' => 'required',
                 'cust_city' => 'required',
                 'cust_state' => 'required',
                 'cust_zip' => 'required',
-                'cust_password' => 'required'
+                'cust_password' => 'required|confirmed'
             ]);
 
             $customer = new Customer();
@@ -116,7 +116,7 @@ class ClientController extends Controller
             $customer->cust_zip = $request->input('cust_zip');
             $customer->cust_password = bcrypt($request->input('cust_password'));
 
-            $customer->save();
+           $customer->save();
 
             Session::put('customer', $customer);
 

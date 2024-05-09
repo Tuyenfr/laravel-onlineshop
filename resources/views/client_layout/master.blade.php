@@ -33,6 +33,19 @@
      <script src="{{asset('frontend/assets/js/bootstrap-touch-slider.js')}}"></script>
      <script src="{{asset('frontend/assets/js/select2.full.min.js')}}"></script>
      <script src="{{asset('frontend/assets/js/custom.js')}}"></script>
+
+    <script language='javascript' type='text/javascript'>
+
+        function check(input) {
+            if (input.value != document.getElementById('password').value) {
+                input.setCustomValidity('Password must be matching')
+            } else {
+                input.setCustomValidity('');
+            }
+        }
+
+    </script>
+
      <script>
         function confirmDelete()
         {
