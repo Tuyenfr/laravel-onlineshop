@@ -29,7 +29,7 @@ Checkout
                 <div class="alert alert-success">
                   <h3 style="margin-top: 20px">{{Session::get('status')}}</h3>
                 </div>
-                <a href="{{url('dashboard')}}" class="btn btn-success">Return back to Dashboqrd</a>
+                <a href="{{url('dashboard')}}" class="btn btn-success">Return back to Dashboard</a>
               @endif
             </p>
           </div>
