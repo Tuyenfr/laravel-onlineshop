@@ -44,19 +44,19 @@ Billing Details
                              <h3>Update Billing Address</h3>
                              <div class="form-group">
                                 <label for="">Full Name</label>
-                                <input type="text" class="form-control" name="cust_b_name" value="{{ $billingaddress ? $billingaddress->cust_b_name : $customer->cust_name}}">
+                                <input type="text" class="form-control" name="cust_b_name" value="{{ $billingaddress ? $billingaddress->cust_b_name : $customer->cust_name}}" required>
                              </div>
                              <div class="form-group">
                                 <label for="">Company Name</label>
-                                <input type="text" class="form-control" name="cust_b_cname" value="{{ $billingaddress ? $billingaddress->cust_b_cname : $customer->cust_cname}}">
+                                <input type="text" class="form-control" name="cust_b_cname" value="{{ $billingaddress ? $billingaddress->cust_b_cname : $customer->cust_cname}}" required>
                              </div>
                              <div class="form-group">
                                 <label for="">Phone Number</label>
-                                <input type="text" class="form-control" name="cust_b_phone" value="{{ $billingaddress ? $billingaddress->cust_b_phone : $customer->cust_phone}}">
+                                <input type="text" class="form-control" name="cust_b_phone" value="{{ $billingaddress ? $billingaddress->cust_b_phone : $customer->cust_phone}}" required>
                              </div>
                              <div class="form-group">
                                 <label for="">Country</label>
-                                <select name="cust_b_country" class="form-control">
+                                <select name="cust_b_country" class="form-control" required>
                                    <option value="{{ $billingaddress ? $billingaddress->cust_b_country : $customer->cust_country}}" selected>{{ $billingaddress ? $billingaddress->cust_b_country : $customer->cust_country}}</option>
                                    
                                    @foreach ($countries as $country)
@@ -69,38 +69,38 @@ Billing Details
                              </div>
                              <div class="form-group">
                                 <label for="">Address</label>
-                                <textarea name="cust_b_address" class="form-control" cols="30" rows="10" style="height:100px;">{{ $billingaddress ? $billingaddress->cust_b_address : $customer->cust_address}}</textarea>
+                                <textarea name="cust_b_address" class="form-control" cols="30" rows="10" style="height:100px;" required>{{ $billingaddress ? $billingaddress->cust_b_address : $customer->cust_address}}</textarea>
                              </div>
                              <div class="form-group">
                                 <label for="">City</label>
-                                <input type="text" class="form-control" name="cust_b_city" value="{{ $billingaddress ? $billingaddress->cust_b_city : $customer->cust_city}}">
+                                <input type="text" class="form-control" name="cust_b_city" value="{{ $billingaddress ? $billingaddress->cust_b_city : $customer->cust_city}}" required>
                              </div>
                              <div class="form-group">
                                 <label for="">State</label>
-                                <input type="text" class="form-control" name="cust_b_state" value="{{ $billingaddress ? $billingaddress->cust_b_state : $customer->cust_state}}">
+                                <input type="text" class="form-control" name="cust_b_state" value="{{ $billingaddress ? $billingaddress->cust_b_state : $customer->cust_state}}" required>
                              </div>
                              <div class="form-group">
                                 <label for="">Zip Code</label>
-                                <input type="text" class="form-control" name="cust_b_zip" value="{{ $billingaddress ? $billingaddress->cust_b_zip : $customer->cust_zip}}">
+                                <input type="text" class="form-control" name="cust_b_zip" value="{{ $billingaddress ? $billingaddress->cust_b_zip : $customer->cust_zip}}" required>
                              </div>
                           </div>
                           <div class="col-md-6">
                              <h3>Update Shipping Address</h3>
                              <div class="form-group">
                                 <label for="">Full Name</label>
-                                <input type="text" class="form-control" name="cust_s_name" value="{{ $shippingaddress ? $shippingaddress->cust_s_name : $customer->cust_name}}">
+                                <input type="text" class="form-control" name="cust_s_name" value="{{ $shippingaddress ? $shippingaddress->cust_s_name : $customer->cust_name}}" required>
                              </div>
                              <div class="form-group">
                                 <label for="">Company Name</label>
-                                <input type="text" class="form-control" name="cust_s_cname" value="{{ $shippingaddress ? $shippingaddress->cust_s_cname : $customer->cust_cname}}">
+                                <input type="text" class="form-control" name="cust_s_cname" value="{{ $shippingaddress ? $shippingaddress->cust_s_cname : $customer->cust_cname}}" required>
                              </div>
                              <div class="form-group">
                                 <label for="">Phone Number</label>
-                                <input type="text" class="form-control" name="cust_s_phone" value="{{ $shippingaddress ? $shippingaddress->cust_s_phone : $customer->cust_phone}}">
+                                <input type="text" class="form-control" name="cust_s_phone" value="{{ $shippingaddress ? $shippingaddress->cust_s_phone : $customer->cust_phone}}" required>
                              </div>
                              <div class="form-group">
                                 <label for="">Country</label>
-                                <select name="cust_s_country" class="form-control">
+                                <select name="cust_s_country" class="form-control" required>
                                  <option value="{{ $shippingaddress ? $shippingaddress->cust_s_country : $customer->cust_country}}" selected>{{ $shippingaddress ? $shippingaddress->cust_s_country : $customer->cust_country}}</option>
                                    
                                  @foreach ($countries as $country)
@@ -115,19 +115,19 @@ Billing Details
                              </div>
                              <div class="form-group">
                                 <label for="">Address</label>
-                                <textarea name="cust_s_address" class="form-control" cols="30" rows="10" style="height:100px;">{{ $shippingaddress ? $shippingaddress->cust_s_address : $customer->cust_address}}</textarea>
+                                <textarea name="cust_s_address" class="form-control" cols="30" rows="10" style="height:100px;" required>{{ $shippingaddress ? $shippingaddress->cust_s_address : $customer->cust_address}}</textarea>
                              </div>
                              <div class="form-group">
                                 <label for="">City</label>
-                                <input type="text" class="form-control" name="cust_s_city" value="{{ $shippingaddress ? $shippingaddress->cust_s_city : $customer->cust_city}}">
+                                <input type="text" class="form-control" name="cust_s_city" value="{{ $shippingaddress ? $shippingaddress->cust_s_city : $customer->cust_city}}" required>
                              </div>
                              <div class="form-group">
                                 <label for="">State</label>
-                                <input type="text" class="form-control" name="cust_s_state" value="{{ $shippingaddress ? $shippingaddress->cust_s_state : $customer->cust_state}}">
+                                <input type="text" class="form-control" name="cust_s_state" value="{{ $shippingaddress ? $shippingaddress->cust_s_state : $customer->cust_state}}" required>
                              </div>
                              <div class="form-group">
                                 <label for="">Zip Code</label>
-                                <input type="text" class="form-control" name="cust_s_zip" value="{{ $shippingaddress ? $shippingaddress->cust_s_zip : $customer->cust_zip}}">
+                                <input type="text" class="form-control" name="cust_s_zip" value="{{ $shippingaddress ? $shippingaddress->cust_s_zip : $customer->cust_zip}}" required>
                              </div>
                           </div>
                        </div>

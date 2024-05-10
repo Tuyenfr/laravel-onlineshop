@@ -361,6 +361,21 @@ class ClientController extends Controller
         return view('client.password');
     }
 
+    public function updatepassword(Request $request, $id) {
+
+        $this->validate($request, [
+            'cust_password' => 'required|confirmed'
+        ]);
+
+        $customer = Customer::find($id);
+
+        $customer->cust_password = bcrypt($request->input('cust_password'));
+
+        $customer->update();
+
+        return back()->with('status', 'Your password has been updated with success !');
+    }
+
     public function viewhistorypage() {
         return view('client.history');
     }

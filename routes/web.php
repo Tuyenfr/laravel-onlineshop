@@ -49,6 +49,7 @@ Route::get('/productbytopcategory/{tcatid}', [ClientController::class, 'productb
 Route::get('/productbymidcategory/{tcatid}/{mcatid}', [ClientController::class, 'productbymidcategory']);
 Route::get('/productbyendcategory/{tcatid}/{mcatid}/{ecatid}', [ClientController::class, 'productbyendcategory']);
 Route::get('/password', [ClientController::class, 'viewpasswordpage']);
+Route::put('/updatepassword/{id}', [ClientController::class, 'updatepassword']);
 Route::get('/history', [ClientController::class, 'viewhistorypage']);
 Route::get('/searchproduct', [ClientController::class, 'viewsearchproductpage']);
 Route::get('/productdetails/{id}', [ClientController::class, 'viewproductdetails']);

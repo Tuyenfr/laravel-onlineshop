@@ -20,23 +20,37 @@ Update Password
                   
                </div>
             </div>
+
+            @if(Session::has('status'))
+            <section class="content" style="min-height:auto;margin-bottom: -30px;">        
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="alert alert-success">
+                        <p>{{Session::get('status')}}</p>
+                     </div>
+                  </div>
+               </div>
+            </section>
+            @endif
+
             <div class="col-md-12">
                <div class="user-content">
                   <h3 class="text-center">
-                     Update Password                    
+                     Update Password
                   </h3>
-                  <form action="" method="post">
-                     <input type="hidden" name="_csrf" value="305e2e05d29f55b50a14ad09db8b623c" />                        
+                  <form action="{{url('updatepassword', [Session::get('customer')->id])}}" method="post">
+                     @csrf
+                     @method('PUT')
                      <div class="row">
                         <div class="col-md-4"></div>
                         <div class="col-md-4">
                            <div class="form-group">
                               <label for="">New Password *</label>
-                              <input type="password" class="form-control" name="cust_password">
+                              <input type="password" class="form-control" name="cust_password" id="password" required>
                            </div>
                            <div class="form-group">
                               <label for="">Retype New Password *</label>
-                              <input type="password" class="form-control" name="cust_re_password">
+                              <input type="password" class="form-control" name="cust_password_confirmation" oninput="check(this)">
                            </div>
                            <input type="submit" class="btn btn-primary" value="Update" name="form1">
                         </div>
