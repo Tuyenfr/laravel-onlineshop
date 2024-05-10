@@ -48,32 +48,35 @@ Checkout
                            <th>Quantity</th>
                            <th class="text-right">Total</th>
                         </tr>
+                        @foreach (Session::get('topCart') as $item)
                         <tr>
-                           <td>1</td>
+                  
+                           <td>{{$increment++}}</td>
                            <td>
-                              <img src="{{asset('frontend/assets/uploads/product-featured-95.jpg')}}" alt="">
+                              <img src="{{asset('storage/productimages/'.$item['product_image'])}}" alt="">
                            </td>
-                           <td>Bose QuietComfort 45 Bluetooth Wireless Headphones</td>
-                           <td>One Size for All</td>
-                           <td>Black</td>
-                           <td>$279</td>
-                           <td>1</td>
+                           <td>{{$item['product_name']}}</td>
+                           <td>{{$item['size']}}</td>
+                           <td>{{$item['color']}}</td>
+                           <td>${{$item['product_price']}}</td>
+                           <td>{{$item['qty']}}</td>
                            <td class="text-right">
-                              $279                            
+                              ${{$item['product_price']*$item['qty']}}
                            </td>
                         </tr>
+                        @endforeach
                         <tr>
                            <th colspan="7" class="total-text">Sub Total</th>
-                           <th class="total-amount">$279</th>
+                           <th class="total-amount">${{Session::get('cart')->totalPrice}}</th>
                         </tr>
                         <tr>
                            <td colspan="7" class="total-text">Shipping Cost</td>
-                           <td class="total-amount">$100</td>
+                           <td class="total-amount">${{$shippingcost->amount}}</td>
                         </tr>
                         <tr>
                            <th colspan="7" class="total-text">Total</th>
                            <th class="total-amount">
-                              $379                            
+                              ${{Session::get('cart')->totalPrice + $shippingcost->amount}}
                            </th>
                         </tr>
                      </table>
@@ -85,39 +88,39 @@ Checkout
                            <table class="table table-responsive table-bordered table-hover table-striped bill-address">
                               <tr>
                                  <td>Full Name</td>
-                                 <td>Héritier N'kele</p></td>
+                                 <td>{{$billingaddress->cust_b_name}}</p></td>
                               </tr>
                               <tr>
                                  <td>Company Name</td>
-                                 <td>Udemy</td>
+                                 <td>{{$billingaddress->cust_b_cname}}</td>
                               </tr>
                               <tr>
                                  <td>Phone Number</td>
-                                 <td>0824754958</td>
+                                 <td>{{$billingaddress->cust_b_phone}}</td>
                               </tr>
                               <tr>
                                  <td>Country</td>
                                  <td>
-                                    Afghanistan                                    
+                                    {{$billingaddress->cust_b_country}}
                                  </td>
                               </tr>
                               <tr>
                                  <td>Address</td>
                                  <td>
-                                    Av. Malula num 12 Lemba/Righini                                    
+                                    {{$billingaddress->cust_b_address}}
                                  </td>
                               </tr>
                               <tr>
                                  <td>City</td>
-                                 <td>Kinshasa</td>
+                                 <td>{{$billingaddress->cust_b_city}}</td>
                               </tr>
                               <tr>
                                  <td>State</td>
-                                 <td>Kinshasa</td>
+                                 <td>{{$billingaddress->cust_b_state}}</td>
                               </tr>
                               <tr>
                                  <td>Zip Code</td>
-                                 <td>3287</td>
+                                 <td>{{$billingaddress->cust_b_zip}}</td>
                               </tr>
                            </table>
                         </div>
@@ -126,39 +129,39 @@ Checkout
                            <table class="table table-responsive table-bordered table-hover table-striped bill-address">
                               <tr>
                                  <td>Full Name</td>
-                                 <td>Héritier N'kele</p></td>
+                                 <td>{{$shippingaddress->cust_s_name}}</p></td>
                               </tr>
                               <tr>
                                  <td>Company Name</td>
-                                 <td>Udemy</td>
+                                 <td>{{$shippingaddress->cust_s_cname}}</td>
                               </tr>
                               <tr>
                                  <td>Phone Number</td>
-                                 <td>0824754958</td>
+                                 <td>{{$shippingaddress->cust_s_phone}}</td>
                               </tr>
                               <tr>
                                  <td>Country</td>
                                  <td>
-                                    Afghanistan                                    
+                                    {{$shippingaddress->cust_s_country}}
                                  </td>
                               </tr>
                               <tr>
                                  <td>Address</td>
                                  <td>
-                                    Av. Malula num 12 Lemba/Righini                                    
+                                    {{$shippingaddress->cust_s_address}}
                                  </td>
                               </tr>
                               <tr>
                                  <td>City</td>
-                                 <td>Kinshasa</td>
+                                 <td>{{$shippingaddress->cust_s_city}}</td>
                               </tr>
                               <tr>
                                  <td>State</td>
-                                 <td>Kinshasa</td>
+                                 <td>{{$shippingaddress->cust_s_state}}</td>
                               </tr>
                               <tr>
                                  <td>Zip Code</td>
-                                 <td>3287</td>
+                                 <td>{{$shippingaddress->cust_s_zip}}</td>
                               </tr>
                            </table>
                         </div>
@@ -174,53 +177,16 @@ Checkout
                   <div class="row">
                      <div class="col-md-4">
                         <div class="row">
-                           <div class="col-md-12 form-group">
-                              <label for="">Select Payment Method *</label>
-                              <select name="payment_method" class="form-control select2" id="advFieldsStatus">
-                                 <option value="">Select a Method</option>
-                                 <option value="PayPal">PayPal</option>
-                                 <option value="Bank Deposit">Bank Deposit</option>
-                              </select>
-                           </div>
-                           <form class="paypal" action="payment/paypal/payment_process.php" method="post" id="paypal_form" target="_blank">
-                              <input type="hidden" name="cmd" value="_xclick" />
-                              <input type="hidden" name="no_note" value="1" />
-                              <input type="hidden" name="lc" value="UK" />
-                              <input type="hidden" name="currency_code" value="USD" />
-                              <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
-                              <input type="hidden" name="final_total" value="379">
+                           <form class="paypal" action="{{url('paynow')}}" method="post">
+                              @csrf
                               <div class="col-md-12 form-group">
-                                 <input type="submit" class="btn btn-primary" value="Pay Now" name="form1">
-                              </div>
-                           </form>
-                           <form action="payment/bank/init.php" method="post" id="bank_form">
-                              <input type="hidden" name="amount" value="379">
-                              <div class="col-md-12 form-group">
-                                 <label for="">Send to this Details</span></label><br>
-                                 Bank Name: WestView Bank<br />
-                                 Account Number: CA100270589600<br />
-                                 Branch Name: CA Branch<br />
-                                 Country: USABank Name: WestView Bank<br />
-                                 Account Number: CA100270589600<br />
-                                 Branch Name: CA Branch<br />
-                                 Country: USABank Name: WestView Bank<br />
-                                 Account Number: CA100270589600<br />
-                                 Branch Name: CA Branch<br />
-                                 Country: USA                                        
-                              </div>
-                              <div class="col-md-12 form-group">
-                                 <label for="">Transaction Information <br><span style="font-size:12px;font-weight:normal;">(Include transaction id and other information correctly)</span></label>
-                                 <textarea name="transaction_info" class="form-control" cols="30" rows="10"></textarea>
-                              </div>
-                              <div class="col-md-12 form-group">
-                                 <input type="submit" class="btn btn-primary" value="Pay Now" name="form3">
+                                 <input type="submit" class="btn btn-primary" value="Pay with Paypal" name="form1">
                               </div>
                            </form>
                         </div>
                      </div>
                   </div>
                </div>
-
             @endif
          </div>
       </div>

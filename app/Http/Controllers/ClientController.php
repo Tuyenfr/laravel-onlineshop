@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Customer;
 use App\Models\Shippingaddress;
 use App\Models\Billingaddress;
+use App\Models\Shippingcost;
 use Illuminate\Support\Facades\Hash;
 
 class ClientController extends Controller
@@ -176,8 +177,7 @@ class ClientController extends Controller
     }
 
 
-    public function viewcartpage() {
-        
+    public function viewcartpage() {  
         return view('client.cart');
     }
 
@@ -186,7 +186,39 @@ class ClientController extends Controller
     }
 
     public function viewcheckoutpage() {
-        return view('client.checkout');
+        $increment = 1;
+        $shippingaddress = Shippingaddress::where('cust_s_email', Session::get('customer')->cust_email)->first();
+        $billingaddress = Billingaddress::where('cust_b_email', Session::get('customer')->cust_email)->first();
+        $shippingcost = Shippingcost::where('country_id', Session::get('customer')->cust_country)->first();
+
+        return view('client.checkout')
+            ->with('increment', $increment)
+            ->with('shippingaddress', $shippingaddress)
+            ->with('billingaddress', $billingaddress)
+            ->with('shippingcost', $shippingcost);
+    }
+
+    public function paynow() {
+
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+
+        $order = new Order();
+
+        $order->cust_name = Session::get('customer')->cust_name;
+        $order->cust_email = Session::get('customer')->cust_email;
+        $order->cust_order = serialize($cart);
+        $order->cust_transactionid = "tr_id_".timer();
+        $order->cust_paidamount = Session::get('cart')->totalPrice;
+        $order->cust_paymentmethod = "Paypal";
+        $order->cust_paymentid = "cust_id_".timer();
+
+        $order->save();
+
+        Session::forget('cart');
+        Session::forget('topCart');
+
+        return redirect('/paymentsuccess')->with('status', 'Your payment has been processed with success !');
     }
 
     public function viewprofilepage() {

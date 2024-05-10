@@ -41,6 +41,7 @@ Route::delete('removeproduct/{id}', [ClientController::class, 'removeproduct']);
 Route::get('/cart', [ClientController::class, 'viewcartpage']);
 Route::get('/dashboard', [ClientController::class, 'viewdashboardpage']);
 Route::get('/checkout', [ClientController::class, 'viewcheckoutpage']);
+Route::post('/paynow', [ClientController::class, 'paynow']);
 Route::get('/profile', [ClientController::class, 'viewprofilepage']);
 Route::put('/updateprofile/{id}', [ClientController::class, 'updateprofile']);
 Route::get('/billingdetails', [ClientController::class, 'viewbillingdetailspage']);

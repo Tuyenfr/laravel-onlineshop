@@ -24,7 +24,7 @@ Update Password
             @if(Session::has('status'))
             <section class="content" style="min-height:auto;margin-bottom: -30px;">        
                <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-md-6 col-md-offset-3">
                      <div class="alert alert-success">
                         <p>{{Session::get('status')}}</p>
                      </div>
