@@ -222,6 +222,10 @@ class ClientController extends Controller
         return redirect('/paymentsuccess')->with('status', 'Your payment has been processed with success !');
     }
 
+    public function paymentsuccess() {
+        return view('client.paymentsuccess');
+    }
+
     public function viewprofilepage() {
         $customer = Customer::find(Session::get('customer')->id);
         $countries = Country::get();
