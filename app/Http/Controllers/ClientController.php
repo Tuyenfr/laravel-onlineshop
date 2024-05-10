@@ -208,10 +208,10 @@ class ClientController extends Controller
         $order->cust_name = Session::get('customer')->cust_name;
         $order->cust_email = Session::get('customer')->cust_email;
         $order->cust_order = serialize($cart);
-        $order->cust_transactionid = "tr_id_".timer();
+        $order->cust_transactionid = "tr_id_".time();
         $order->cust_paidamount = Session::get('cart')->totalPrice;
         $order->cust_paymentmethod = "Paypal";
-        $order->cust_paymentid = "cust_id_".timer();
+        $order->cust_paymentid = "cust_id_".time();
 
         $order->save();
 
