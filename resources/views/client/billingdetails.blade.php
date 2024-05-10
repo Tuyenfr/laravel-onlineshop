@@ -60,9 +60,9 @@ Billing Details
                                    <option value="{{ $billingaddress ? $billingaddress->cust_b_country : $customer->cust_country}}" selected>{{ $billingaddress ? $billingaddress->cust_b_country : $customer->cust_country}}</option>
                                    
                                    @foreach ($countries as $country)
-                                   
+                                    @if($country->country_name !== $billingaddress->cust_b_country)
                                        <option value="{{$country->country_name}}" >{{$country->country_name}}</option>
-
+                                    @endif
                                    @endforeach
                                  
                                 </select>
@@ -104,9 +104,9 @@ Billing Details
                                  <option value="{{ $shippingaddress ? $shippingaddress->cust_s_country : $customer->cust_country}}" selected>{{ $shippingaddress ? $shippingaddress->cust_s_country : $customer->cust_country}}</option>
                                    
                                  @foreach ($countries as $country)
-                              
+                                    @if($country->country_name !== $shippingaddress->cust_s_country)
                                      <option value="{{$country->country_name}}" >{{$country->country_name}}</option>
-
+                                    @endif
                                  @endforeach
                                    
 
