@@ -44,6 +44,7 @@ Route::get('/checkout', [ClientController::class, 'viewcheckoutpage']);
 Route::get('/profile', [ClientController::class, 'viewprofilepage']);
 Route::put('/updateprofile/{id}', [ClientController::class, 'updateprofile']);
 Route::get('/billingdetails', [ClientController::class, 'viewbillingdetailspage']);
+Route::put('/updateaddresses/{id}', [ClientController::class, 'updateaddresses']);
 Route::get('/productbytopcategory/{tcatid}', [ClientController::class, 'productbytopcategory']);
 Route::get('/productbymidcategory/{tcatid}/{mcatid}', [ClientController::class, 'productbymidcategory']);
 Route::get('/productbyendcategory/{tcatid}/{mcatid}/{ecatid}', [ClientController::class, 'productbyendcategory']);

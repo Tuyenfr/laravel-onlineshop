@@ -14,6 +14,8 @@ use App\Models\Cart;
 use App\Models\Country;
 use Illuminate\Support\Facades\Session;
 use App\Models\Customer;
+use App\Models\Shippingaddress;
+use App\Models\Billingaddress;
 use Illuminate\Support\Facades\Hash;
 
 class ClientController extends Controller
@@ -217,7 +219,7 @@ class ClientController extends Controller
             $customer->cust_state = $request->input('cust_state');
             $customer->cust_zip = $request->input('cust_zip');
 
-            $customer->save();
+            $customer->update();
 
             Session::put('customer', $customer);
 
@@ -225,7 +227,83 @@ class ClientController extends Controller
     }
 
     public function viewbillingdetailspage() {
-        return view('client.billingdetails');
+
+        $countries = Country::get();
+        $customer = Customer::find(Session::get('customer')->id);
+
+        $shippingaddress = Shippingaddress::where('cust_s_email', Session::get('customer')->cust_email)->first();
+
+        if(!$shippingaddress) {
+
+            $shippingDefaultAddress = new Shippingaddress();
+
+            $shippingDefaultAddress->cust_s_name = $customer->cust_name;
+            $shippingDefaultAddress->cust_s_cname = $customer->cust_cname;
+            $shippingDefaultAddress->cust_s_phone = $customer->cust_phone;
+            $shippingDefaultAddress->cust_s_email = $customer->cust_email;
+            $shippingDefaultAddress->cust_s_address = $customer->cust_address;
+            $shippingDefaultAddress->cust_s_country = $customer->cust_country;
+            $shippingDefaultAddress->cust_s_city = $customer->cust_city;
+            $shippingDefaultAddress->cust_s_state = $customer->cust_state;
+            $shippingDefaultAddress->cust_s_zip = $customer->cust_zip;
+
+            $shippingDefaultAddress->save();
+
+        }
+
+        $billingaddress = Billingaddress::where('cust_b_email', Session::get('customer')->cust_email)->first();
+
+        if(!$billingaddress) {
+
+            $billingDefaultAddress = new Billingaddress();
+
+            $billingDefaultAddress->cust_b_name = $customer->cust_name;
+            $billingDefaultAddress->cust_b_cname = $customer->cust_cname;
+            $billingDefaultAddress->cust_b_phone = $customer->cust_phone;
+            $billingDefaultAddress->cust_b_email = $customer->cust_email;
+            $billingDefaultAddress->cust_b_address = $customer->cust_address;
+            $billingDefaultAddress->cust_b_country = $customer->cust_country;
+            $billingDefaultAddress->cust_b_city = $customer->cust_city;
+            $billingDefaultAddress->cust_b_state = $customer->cust_state;
+            $billingDefaultAddress->cust_b_zip = $customer->cust_zip;
+
+            $billingDefaultAddress->save();
+
+        }
+
+        return view('client.billingdetails')->with('customer', $customer)->with('countries', $countries)->with('shippingaddress', $shippingaddress)->with('billingaddress', $billingaddress);
+    }
+
+    public function updateaddresses(Request $request, $id) {
+
+        $billingaddress = Billingaddress::find($id);
+
+        $billingaddress->cust_b_name = $request->input('cust_b_name');
+        $billingaddress->cust_b_cname = $request->input('cust_b_cname');
+        $billingaddress->cust_b_phone = $request->input('cust_b_phone');
+        $billingaddress->cust_b_address = $request->input('cust_b_address');
+        $billingaddress->cust_b_country = $request->input('cust_b_country');
+        $billingaddress->cust_b_city = $request->input('cust_b_city');
+        $billingaddress->cust_b_state = $request->input('cust_b_state');
+        $billingaddress->cust_b_zip = $request->input('cust_b_zip');
+
+        $billingaddress->update();
+
+        $shippingaddress = Shippingaddress::find($id);
+
+        $shippingaddress->cust_s_name = $request->input('cust_s_name');
+        $shippingaddress->cust_s_cname = $request->input('cust_s_cname');
+        $shippingaddress->cust_s_phone = $request->input('cust_s_phone');
+        $shippingaddress->cust_s_address = $request->input('cust_s_address');
+        $shippingaddress->cust_s_country = $request->input('cust_s_country');
+        $shippingaddress->cust_s_city = $request->input('cust_s_city');
+        $shippingaddress->cust_s_state = $request->input('cust_s_state');
+        $shippingaddress->cust_s_zip = $request->input('cust_s_zip');
+
+        $shippingaddress->update();
+
+        return back()->with('status', 'The shipping and billing addresses have been updated with success !');
+
     }
 
     public function productbytopcategory($tcatid) {

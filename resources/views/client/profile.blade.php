@@ -24,9 +24,7 @@ Profile
               </div>
 
                @if(Session::has('status'))
-            
-               <section class="content" style="min-height:auto;margin-bottom: -30px;">
-               
+               <section class="content" style="min-height:auto;margin-bottom: -30px;">        
                   <div class="row">
                      <div class="col-md-12">
                         <div class="alert alert-success">
@@ -35,7 +33,6 @@ Profile
                      </div>
                   </div>
                </section>
-               
                @endif
 
               <div class="col-md-12">
