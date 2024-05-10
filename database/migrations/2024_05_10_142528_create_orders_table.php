@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('cust_name', 50);
             $table->string('cust_email', 50);
-            $table->string('cust_order', 50);
+            $table->mediumText('cust_order');
             $table->string('cust_transactionid', 50);
             $table->string('cust_paidamount', 50);
             $table->integer('cust_paymentstatus')->default(0);

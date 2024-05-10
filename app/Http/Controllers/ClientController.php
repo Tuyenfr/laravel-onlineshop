@@ -17,6 +17,7 @@ use App\Models\Customer;
 use App\Models\Shippingaddress;
 use App\Models\Billingaddress;
 use App\Models\Shippingcost;
+use App\Models\Order;
 use Illuminate\Support\Facades\Hash;
 
 class ClientController extends Controller
