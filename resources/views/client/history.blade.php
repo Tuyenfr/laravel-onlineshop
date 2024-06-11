@@ -36,6 +36,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    
+                                    @foreach ($orders as $order)
+                                    
+                                    <tr>
+                                        <td>{{$increment++}}</td>
+                                        <td>
+                                            @foreach ($order->cust_order->items as $item)
+                                                <b>Product:</b> {{ $item['product_name'] }}
+                                                HDD<br>(<b>Size:</b> {{ $item['size'] }}, <b>Color:</b>
+                                                {{ $item['color'] }} )<br>(<b>Quantity:</b> {{ $item['qty'] }},
+                                                <b>Unit
+                                                    Price:</b> {{ $item['product_price'] }} )<br><br>
+                                            @endforeach
+                                        </td>
+                                        <td>{{$order->created_at}}</td>
+                                        <td>{{$order->cust_transactionid}}</td>
+                                        <td>{{$order->cust_paidamount}}</td>
+                                        <td>{{$order->cust_paymentstatus}}</td>
+                                        <td>{{$order->cust_paymentmethod}}</td>
+                                        <td>{{$order->cust_paymentid}}</td>
+
+                                    </tr>
+
+                                    @endforeach
+
+
                                 </tbody>
                             </table>
                             <div class="pagination" style="overflow: hidden;">
