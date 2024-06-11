@@ -56,7 +56,6 @@
                                         <td>{{$order->cust_paymentstatus == 1 ? "Completed" : "Awaiting payment"}}</td>
                                         <td>{{$order->cust_paymentmethod}}</td>
                                         <td>{{$order->cust_paymentid}}</td>
-
                                     </tr>
 
                                     @endforeach

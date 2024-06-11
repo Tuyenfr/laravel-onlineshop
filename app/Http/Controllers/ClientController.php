@@ -431,7 +431,7 @@ class ClientController extends Controller
 
     public function viewhistorypage()
     {
-        $orders = Order::get();
+        $orders = Order::where('cust_email', Session::get('customer')->cust_email)->get();
         $increment = 1;
         $orders->transform(
             function ($order, $key) {
