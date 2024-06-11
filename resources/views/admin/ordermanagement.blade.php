@@ -12,6 +12,20 @@
                 <h1>View Orders</h1>
             </div>
         </section>
+
+        @if (Session::has('status'))
+            <section class="content" style="min-height:auto;margin-bottom: -30px;">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="callout callout-success">
+                            <p>{{ Session::get('status') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endif
+
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
@@ -33,323 +47,122 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="bg-g">
-                                        <td>1</td>
-                                        <td>
-                                            <b>Id:</b> 10<br>
-                                            <b>Name:</b><br> Will Williams<br>
-                                            <b>Email:</b><br> williams@mail.com<br><br>
-                                            <a href="#" data-toggle="modal"
-                                                data-target="#model-1"class="btn btn-warning btn-xs"
-                                                style="width:100%;margin-bottom:4px;">Send Message</a>
-                                            <div id="model-1" class="modal fade" role="dialog">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close"
-                                                                data-dismiss="modal">&times;</button>
-                                                            <h4 class="modal-title" style="font-weight: bold;">Send Message
-                                                            </h4>
-                                                        </div>
-                                                        <div class="modal-body" style="font-size: 14px">
-                                                            <form action="" method="post">
-                                                                <input type="hidden" name="cust_id" value="10">
-                                                                <input type="hidden" name="payment_id" value="1647800902">
-                                                                <table class="table table-bordered">
-                                                                    <tr>
-                                                                        <td>Subject</td>
-                                                                        <td>
-                                                                            <input type="text" name="subject_text"
-                                                                                class="form-control" style="width: 100%;">
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Message</td>
-                                                                        <td>
-                                                                            <textarea name="message_text" class="form-control" cols="30" rows="10" style="width:100%;height: 200px;"></textarea>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td></td>
-                                                                        <td><input type="submit" value="Send Message"
-                                                                                name="form1"></td>
-                                                                    </tr>
-                                                                </table>
-                                                            </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default"
-                                                                data-dismiss="modal">Close</button>
+                                    @foreach ($orders as $order)
+                                        <tr class="bg-g">
+                                            <td>{{ $increment++ }}</td>
+                                            <td>
+                                                <b>Id:</b>{{ $order->id }}<br>
+                                                <b>Name:</b><br>{{ $order->cust_name }}<br>
+                                                <b>Email:</b><br>{{ $order->cust_email }}<br><br>
+                                                <a href="#" data-toggle="modal"
+                                                    data-target="#model-".{{ $increment }} class="btn btn-warning btn-xs"
+                                                    style="width:100%;margin-bottom:4px;">Send Message</a>
+                                                <div id="model-".{{ $increment }} class="modal fade" role="dialog">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close"
+                                                                    data-dismiss="modal">&times;</button>
+                                                                <h4 class="modal-title" style="font-weight: bold;">Send
+                                                                    Message
+                                                                </h4>
+                                                            </div>
+                                                            <div class="modal-body" style="font-size: 14px">
+                                                                <form action="" method="post">
+                                                                    <input type="hidden" name="cust_id" value="10">
+                                                                    <input type="hidden" name="payment_id"
+                                                                        value="1647800902">
+                                                                    <table class="table table-bordered">
+                                                                        <tr>
+                                                                            <td>Subject</td>
+                                                                            <td>
+                                                                                <input type="text" name="subject_text"
+                                                                                    class="form-control"
+                                                                                    style="width: 100%;">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Message</td>
+                                                                            <td>
+                                                                                <textarea name="message_text" class="form-control" cols="30" rows="10" style="width:100%;height: 200px;"></textarea>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td></td>
+                                                                            <td><input type="submit" value="Send Message"
+                                                                                    name="form1"></td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">Close</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <b>Product:</b> WD 5TB Elements Portable External Hard Drive
-                                            HDD<br>(<b>Size:</b> 5T, <b>Color:</b> Black)<br>(<b>Quantity:</b> 1, <b>Unit
-                                                Price:</b> 149)<br><br>
-                                        </td>
-                                        <td>
-                                            <b>Payment Method:</b> <span style="color:red;"><b>Bank Deposit</b></span><br>
-                                            <b>Payment Id:</b> 1647800902<br>
-                                            <b>Date:</b> 2022-03-20 11:28:22<br>
-                                            <b>Transaction Information:</b> <br>Transaction Id: CA01003177945009
-                                            Transaction Date: 3/20/2022
-                                            Bank: WestView Bank, CA Branch
-                                            Sender A/C: NQ1011050160WV<br>
-                                        </td>
-                                        <td>$149</td>
-                                        <td>
-                                            Completed <br><br>
-                                        </td>
-                                        <td>
-                                            Completed <br><br>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn btn-danger btn-xs"
+                                            </td>
+                                            <td>
+                                                @foreach ($order->cust_order->items as $item)
+                                                    <b>Product:</b> {{ $item['product_name'] }}
+                                                    HDD<br>(<b>Size:</b> {{ $item['size'] }}, <b>Color:</b>
+                                                    {{ $item['color'] }} )<br>(<b>Quantity:</b> {{ $item['qty'] }},
+                                                    <b>Unit
+                                                        Price:</b> {{ $item['product_price'] }} )<br><br>
+                                                @endforeach
+
+                                            </td>
+                                            <td>
+                                                <b>Payment Method:</b> <span
+                                                    style="color:red;"><b>{{ $order->cust_paymentmethod }}</b></span><br>
+                                                <b>Payment Id:</b> {{ $order->cust_paymentid }} <br>
+                                                <b>Date:</b> {{ $order->created_at }}<br>
+                                                <b>Transaction Information:</b> <br>Transaction Id:
+                                                {{ $order->cust_transactionid }}
+                                                Transaction Date: {{ $order->created_at }}<br>
+                                            </td>
+                                            <td>{{ $order->cust_paidamount }}</td>
+                                            <td>
+                                                @if ($order->cust_paymentstatus == 1)
+                                                    Completed <br><br>
+                                                @else
+                                                    <form action="{{ url('completepaymentstatus', [$order->id]) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <input type="submit" class="btn btn-warning btn-xs"
+                                                            style="width: 100%; margin-bottom: 4px" value="Mark Complete">
+                                                    </form>
+                                                @endif
+
+                                            </td>
+                                            <td>
+                                                @if ($order->cust_shippingstatus == 1)
+                                                    Completed <br><br>
+                                                @else
+                                                    <form action="{{ url('completeshippingstatus', [$order->id]) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <input type="submit" class="btn btn-warning btn-xs"
+                                                            style="width: 100%; margin-bottom: 4px" value="Mark Complete">
+                                                    </form>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <form action="{{ url('deleteorder', [$order->id]) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="submit" class="btn btn-danger btn-xs"
+                                                        style="width: 100%; margin-bottom: 4px" value="Delete">
+                                                </form>
+                                                {{-- <a href="#" class="btn btn-danger btn-xs"
                                                 data-href="order-delete.php?id=55" data-toggle="modal"
-                                                data-target="#confirm-delete" style="width:100%;">Delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="bg-g">
-                                        <td>2</td>
-                                        <td>
-                                            <b>Id:</b> 6<br>
-                                            <b>Name:</b><br> August F. Freels<br>
-                                            <b>Email:</b><br> august@mail.com<br><br>
-                                            <a href="#" data-toggle="modal"
-                                                data-target="#model-2"class="btn btn-warning btn-xs"
-                                                style="width:100%;margin-bottom:4px;">Send Message</a>
-                                            <div id="model-2" class="modal fade" role="dialog">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close"
-                                                                data-dismiss="modal">&times;</button>
-                                                            <h4 class="modal-title" style="font-weight: bold;">Send Message
-                                                            </h4>
-                                                        </div>
-                                                        <div class="modal-body" style="font-size: 14px">
-                                                            <form action="" method="post">
-                                                                <input type="hidden" name="cust_id" value="6">
-                                                                <input type="hidden" name="payment_id" value="1647799174">
-                                                                <table class="table table-bordered">
-                                                                    <tr>
-                                                                        <td>Subject</td>
-                                                                        <td>
-                                                                            <input type="text" name="subject_text"
-                                                                                class="form-control" style="width: 100%;">
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Message</td>
-                                                                        <td>
-                                                                            <textarea name="message_text" class="form-control" cols="30" rows="10" style="width:100%;height: 200px;"></textarea>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td></td>
-                                                                        <td><input type="submit" value="Send Message"
-                                                                                name="form1"></td>
-                                                                    </tr>
-                                                                </table>
-                                                            </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default"
-                                                                data-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <b>Product:</b> Digital Infrared Thermometer for Adults and
-                                            Kids<br>(<b>Size:</b> One Size for All, <b>Color:</b>
-                                            White)<br>(<b>Quantity:</b> 1, <b>Unit Price:</b> 70)<br><br>
-                                        </td>
-                                        <td>
-                                            <b>Payment Method:</b> <span style="color:red;"><b>Bank Deposit</b></span><br>
-                                            <b>Payment Id:</b> 1647799174<br>
-                                            <b>Date:</b> 2022-03-20 10:59:34<br>
-                                            <b>Transaction Information:</b> <br>Transaction Id: CA01101198945600
-                                            Transaction Date: 3/20/2022
-                                            Bank: WestView Bank, CA Branch
-                                            Sender A/C: 1100047860WV<br>
-                                        </td>
-                                        <td>$70</td>
-                                        <td>
-                                            Completed <br><br>
-                                        </td>
-                                        <td>
-                                            Pending <br><br>
-                                            <a href="shipping-change-status.php?id=54&task=Completed"
-                                                class="btn btn-warning btn-xs" style="width:100%;margin-bottom:4px;">Mark
-                                                Complete</a>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn btn-danger btn-xs"
-                                                data-href="order-delete.php?id=54" data-toggle="modal"
-                                                data-target="#confirm-delete" style="width:100%;">Delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="bg-g">
-                                        <td>3</td>
-                                        <td>
-                                            <b>Id:</b> 3<br>
-                                            <b>Name:</b><br> Jean Collins<br>
-                                            <b>Email:</b><br> jean@mail.com<br><br>
-                                            <a href="#" data-toggle="modal"
-                                                data-target="#model-3"class="btn btn-warning btn-xs"
-                                                style="width:100%;margin-bottom:4px;">Send Message</a>
-                                            <div id="model-3" class="modal fade" role="dialog">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close"
-                                                                data-dismiss="modal">&times;</button>
-                                                            <h4 class="modal-title" style="font-weight: bold;">Send
-                                                                Message</h4>
-                                                        </div>
-                                                        <div class="modal-body" style="font-size: 14px">
-                                                            <form action="" method="post">
-                                                                <input type="hidden" name="cust_id" value="3">
-                                                                <input type="hidden" name="payment_id"
-                                                                    value="1647798593">
-                                                                <table class="table table-bordered">
-                                                                    <tr>
-                                                                        <td>Subject</td>
-                                                                        <td>
-                                                                            <input type="text" name="subject_text"
-                                                                                class="form-control" style="width: 100%;">
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Message</td>
-                                                                        <td>
-                                                                            <textarea name="message_text" class="form-control" cols="30" rows="10" style="width:100%;height: 200px;"></textarea>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td></td>
-                                                                        <td><input type="submit" value="Send Message"
-                                                                                name="form1"></td>
-                                                                    </tr>
-                                                                </table>
-                                                            </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default"
-                                                                data-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <b>Product:</b> Travelpro Laptop Carry-on Travel Tote Bag<br>(<b>Size:</b> One
-                                            Size for All, <b>Color:</b> Midnight Blue)<br>(<b>Quantity:</b> 1, <b>Unit
-                                                Price:</b> 91)<br><br>
-                                        </td>
-                                        <td>
-                                            <b>Payment Method:</b> <span style="color:red;"><b>PayPal</b></span><br>
-                                            <b>Payment Id:</b> 1647798593<br>
-                                            <b>Date:</b> 2022-03-20 10:49:53<br>
-                                            <b>Transaction Id:</b> <br>
-                                        </td>
-                                        <td>$91</td>
-                                        <td>
-                                            Completed <br><br>
-                                        </td>
-                                        <td>
-                                            Completed <br><br>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn btn-danger btn-xs"
-                                                data-href="order-delete.php?id=52" data-toggle="modal"
-                                                data-target="#confirm-delete" style="width:100%;">Delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="bg-g">
-                                        <td>4</td>
-                                        <td>
-                                            <b>Id:</b> 2<br>
-                                            <b>Name:</b><br> Chad N. Carney<br>
-                                            <b>Email:</b><br> chad@mail.com<br><br>
-                                            <a href="#" data-toggle="modal"
-                                                data-target="#model-4"class="btn btn-warning btn-xs"
-                                                style="width:100%;margin-bottom:4px;">Send Message</a>
-                                            <div id="model-4" class="modal fade" role="dialog">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close"
-                                                                data-dismiss="modal">&times;</button>
-                                                            <h4 class="modal-title" style="font-weight: bold;">Send
-                                                                Message</h4>
-                                                        </div>
-                                                        <div class="modal-body" style="font-size: 14px">
-                                                            <form action="" method="post">
-                                                                <input type="hidden" name="cust_id" value="2">
-                                                                <input type="hidden" name="payment_id"
-                                                                    value="1647629329">
-                                                                <table class="table table-bordered">
-                                                                    <tr>
-                                                                        <td>Subject</td>
-                                                                        <td>
-                                                                            <input type="text" name="subject_text"
-                                                                                class="form-control" style="width: 100%;">
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Message</td>
-                                                                        <td>
-                                                                            <textarea name="message_text" class="form-control" cols="30" rows="10" style="width:100%;height: 200px;"></textarea>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td></td>
-                                                                        <td><input type="submit" value="Send Message"
-                                                                                name="form1"></td>
-                                                                    </tr>
-                                                                </table>
-                                                            </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default"
-                                                                data-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <b>Product:</b> Men's Ultra Cotton T-Shirt, Multipack<br>(<b>Size:</b> XL,
-                                            <b>Color:</b> Gray)<br>(<b>Quantity:</b> 1, <b>Unit Price:</b> 19)<br><br>
-                                        </td>
-                                        <td>
-                                            <b>Payment Method:</b> <span style="color:red;"><b>Bank Deposit</b></span><br>
-                                            <b>Payment Id:</b> 1647629329<br>
-                                            <b>Date:</b> 2022-03-18 22:48:49<br>
-                                            <b>Transaction Information:</b> <br>Transaction Id: CA01010158967840
-                                            Transaction Date: 3/19/2022
-                                            Bank: WestView Bank, CA Branch
-                                            Sender A/C: 102458965WV<br>
-                                        </td>
-                                        <td>$19</td>
-                                        <td>
-                                            Completed <br><br>
-                                        </td>
-                                        <td>
-                                            Completed <br><br>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn btn-danger btn-xs"
-                                                data-href="order-delete.php?id=51" data-toggle="modal"
-                                                data-target="#confirm-delete" style="width:100%;">Delete</a>
-                                        </td>
-                                    </tr>
+                                                data-target="#confirm-delete" style="width:100%;">Delete</a> --}}
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

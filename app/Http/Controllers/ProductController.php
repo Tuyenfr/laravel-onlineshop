@@ -13,26 +13,29 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function viewproductmanagementpage() {
+    public function viewproductmanagementpage()
+    {
         $products = Product::all();
         $increment = 1;
         return view('admin.productmanagement')->with('products', $products)->with('increment', $increment);
     }
 
-    public function viewaddproductpage() {
+    public function viewaddproductpage()
+    {
         $toplevelcategories = Toplevelcategory::get();
         $midlevelcategories = Midlevelcategory::get();
         $endlevelcategories = Endlevelcategory::get();
         $sizes = Size::get();
         $colors = Color::get();
         return view('admin.addproduct')->with('toplevelcategories', $toplevelcategories)
-                                        ->with('midlevelcategories', $midlevelcategories)
-                                        ->with('endlevelcategories', $endlevelcategories)
-                                        ->with('sizes', $sizes)
-                                        ->with('colors', $colors);
+            ->with('midlevelcategories', $midlevelcategories)
+            ->with('endlevelcategories', $endlevelcategories)
+            ->with('sizes', $sizes)
+            ->with('colors', $colors);
     }
 
-    public function vieweditproductpage($id) {
+    public function vieweditproductpage($id)
+    {
         $product = Product::find($id);
         $toplevelcategories = Toplevelcategory::where('tcat_name', '!=', $product->tcat_id)->get();
         $midlevelcategories = Midlevelcategory::where('mcat_name', '!=', $product->mcat_id)->get();
@@ -49,7 +52,7 @@ class ProductController extends Controller
         $sizes1 = Size::get();
 
         foreach ($sizes1 as $size1) {
-            if(!(in_array($size1->size_name, $selectedsizes))) {
+            if (!(in_array($size1->size_name, $selectedsizes))) {
                 array_push($sizes, $size1->size_name);
             }
         }
@@ -58,23 +61,24 @@ class ProductController extends Controller
         $colors1 = Color::get();
 
         foreach ($colors1 as $color1) {
-            if(!(in_array($color1->color_name, $selectedcolors))) {
+            if (!(in_array($color1->color_name, $selectedcolors))) {
                 array_push($colors, $color1->color_name);
             }
         }
 
         return view('admin.editproduct')->with('product', $product)
-                                        ->with('toplevelcategories', $toplevelcategories)
-                                        ->with('midlevelcategories', $midlevelcategories)
-                                        ->with('endlevelcategories', $endlevelcategories)
-                                        ->with('selectedsizes', $selectedsizes)
-                                        ->with('selectedcolors', $selectedcolors)
-                                        ->with('selectedphotos', $selectedphotos)
-                                        ->with('sizes', $sizes)
-                                        ->with('colors', $colors);
+            ->with('toplevelcategories', $toplevelcategories)
+            ->with('midlevelcategories', $midlevelcategories)
+            ->with('endlevelcategories', $endlevelcategories)
+            ->with('selectedsizes', $selectedsizes)
+            ->with('selectedcolors', $selectedcolors)
+            ->with('selectedphotos', $selectedphotos)
+            ->with('sizes', $sizes)
+            ->with('colors', $colors);
     }
 
-    public function saveproduct(Request $request) {
+    public function saveproduct(Request $request)
+    {
 
         $this->validate($request, [
             'tcat_id' => 'required|string',
@@ -109,58 +113,57 @@ class ProductController extends Controller
         $increment = 0;
 
         // Getting sizes
-        foreach($sizes as $size) {
-            $sizedata = $sizedata.$size."*";
+        foreach ($sizes as $size) {
+            $sizedata = $sizedata . $size . "*";
         }
 
         // Getting colors
-        foreach($colors as $color) {
-        $colordata = $colordata.$color."*";
-    }
+        foreach ($colors as $color) {
+            $colordata = $colordata . $color . "*";
+        }
 
         // Getting photo
-        if($photos != null) {
-        foreach($photos as $photo) {
-            // 1 : file name with extension
+        if ($photos != null) {
+            foreach ($photos as $photo) {
+                // 1 : file name with extension
 
-        $fileNameWithExt = $photo->getClientOriginalName();
-        
-        // print('<h1>'.$fileNameWithExt.'</h1>')
+                $fileNameWithExt = $photo->getClientOriginalName();
 
-        // 2 : file name
+                // print('<h1>'.$fileNameWithExt.'</h1>')
 
-        $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+                // 2 : file name
 
-        // print('<h1>'.$fileName.'</h1>');
+                $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
 
-        // 3 : file extension
+                // print('<h1>'.$fileName.'</h1>');
 
-        $ext = $photo->getClientOriginalExtension();
+                // 3 : file extension
 
-        // print('<h1>'.$ext.'</h1>');
+                $ext = $photo->getClientOriginalExtension();
 
-        // 4 : file name to store
+                // print('<h1>'.$ext.'</h1>');
 
-        $fileNameToStore = $fileName.'-'.time().$increment.'.'.$ext;
+                // 4 : file name to store
 
-        // print('<h1>'.$fileNameToStore.'</h1>')
+                $fileNameToStore = $fileName . '-' . time() . $increment . '.' . $ext;
 
-        $imagedata = $imagedata.$fileNameToStore."*";
+                // print('<h1>'.$fileNameToStore.'</h1>')
 
-        // 5 : upload image dans le projet laravel sous storage/app/public et dans la bdd
+                $imagedata = $imagedata . $fileNameToStore . "*";
 
-        $path = $photo->storeAs('public/productimages', $fileNameToStore);
+                // 5 : upload image dans le projet laravel sous storage/app/public et dans la bdd
 
-        $increment++;
+                $path = $photo->storeAs('public/productimages', $fileNameToStore);
 
+                $increment++;
+            }
         }
-    }
-        
+
 
         // 1 : file name with extension
 
         $fileNameWithExt = $request->file('p_featured_photo')->getClientOriginalName();
-        
+
         // print('<h1>'.$fileNameWithExt.'</h1>');
 
         // 2 : file name
@@ -177,7 +180,7 @@ class ProductController extends Controller
 
         // 4 : file name to store
 
-        $fileNameToStore = $fileName.'-'.time().'.'.$ext;
+        $fileNameToStore = $fileName . '-' . time() . '.' . $ext;
 
         // print('<h1>'.$fileNameToStore.'</h1>')
 
@@ -208,11 +211,12 @@ class ProductController extends Controller
         $product->p_is_active = $request->input('p_is_active');
 
         $product->save();
-        
+
         return back()->with('status', 'The product has been saved with success !');
     }
 
-    public function updateproduct(Request $request, $id) {
+    public function updateproduct(Request $request, $id)
+    {
 
         $this->validate($request, [
             'tcat_id' => 'required|string',
@@ -240,42 +244,42 @@ class ProductController extends Controller
 
         $product = Product::find($id);
 
-        if($request->file("p_featured_photo")) {
+        if ($request->file("p_featured_photo")) {
 
             $this->validate($request, [
-            'p_featured_photo' => 'image|nullable|max:1999',
+                'p_featured_photo' => 'image|nullable|max:1999',
             ]);
 
-                // 1 : file name with extension
+            // 1 : file name with extension
 
-                $fileNameWithExt = $request->file('p_featured_photo')->getClientOriginalName();
-                
-                // print('<h1>'.$fileNameWithExt.'</h1>');
+            $fileNameWithExt = $request->file('p_featured_photo')->getClientOriginalName();
 
-                // 2 : file name
+            // print('<h1>'.$fileNameWithExt.'</h1>');
 
-                $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            // 2 : file name
 
-                // print('<h1>'.$fileName.'</h1>');
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
 
-                // 3 : file extension
+            // print('<h1>'.$fileName.'</h1>');
 
-                $ext = $request->file('p_featured_photo')->getClientOriginalExtension();
+            // 3 : file extension
 
-                // print('<h1>'.$ext.'</h1>');
+            $ext = $request->file('p_featured_photo')->getClientOriginalExtension();
 
-                // 4 : file name to store
+            // print('<h1>'.$ext.'</h1>');
 
-                $fileNameToStore = $fileName.'-'.time().'.'.$ext;
+            // 4 : file name to store
 
-                // print('<h1>'.$fileNameToStore.'</h1>')
+            $fileNameToStore = $fileName . '-' . time() . '.' . $ext;
 
-                // delete old image
-                Storage::delete("public/productimages/$product->p_featured_photo");
+            // print('<h1>'.$fileNameToStore.'</h1>')
 
-                // 5 : upload image dans le projet laravel sous storage/app/public et dans la bdd
+            // delete old image
+            Storage::delete("public/productimages/$product->p_featured_photo");
 
-                $path = $request->file('p_featured_photo')->storeAs('public/productimages', $fileNameToStore);
+            // 5 : upload image dans le projet laravel sous storage/app/public et dans la bdd
+
+            $path = $request->file('p_featured_photo')->storeAs('public/productimages', $fileNameToStore);
 
             $product->p_featured_photo = $fileNameToStore;
         }
@@ -289,55 +293,54 @@ class ProductController extends Controller
         $increment = 0;
 
         foreach ($sizes as $size) {
-            $sizedata = $sizedata.$size."*";
+            $sizedata = $sizedata . $size . "*";
         }
 
         foreach ($colors as $color) {
-            $colordata = $colordata.$color."*";
+            $colordata = $colordata . $color . "*";
         }
 
-        if($photos) {
+        if ($photos) {
             $this->validate($request, [
                 'photo' => 'array|nullable',
                 'photo.*' => 'image|nullable|max:1999'
-                ]);
+            ]);
 
-                foreach ($photos as $photo) {
-                    // 1 : file name with extension
+            foreach ($photos as $photo) {
+                // 1 : file name with extension
 
-                    $fileNameWithExt = $photo->getClientOriginalName();
-                    
-                    // print('<h1>'.$fileNameWithExt.'</h1>')
+                $fileNameWithExt = $photo->getClientOriginalName();
 
-                    // 2 : file name
+                // print('<h1>'.$fileNameWithExt.'</h1>')
 
-                    $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+                // 2 : file name
 
-                    // print('<h1>'.$fileName.'</h1>');
+                $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
 
-                    // 3 : file extension
+                // print('<h1>'.$fileName.'</h1>');
 
-                    $ext = $photo->getClientOriginalExtension();
+                // 3 : file extension
 
-                    // print('<h1>'.$ext.'</h1>');
+                $ext = $photo->getClientOriginalExtension();
 
-                    // 4 : file name to store
+                // print('<h1>'.$ext.'</h1>');
 
-                    $fileNameToStore = $fileName.'-'.time().$increment.'.'.$ext;
+                // 4 : file name to store
 
-                    // print('<h1>'.$fileNameToStore.'</h1>')
+                $fileNameToStore = $fileName . '-' . time() . $increment . '.' . $ext;
 
-                    $imagedata = $imagedata.$fileNameToStore."*";
+                // print('<h1>'.$fileNameToStore.'</h1>')
 
-                    // 5 : upload image dans le projet laravel sous storage/app/public et dans la bdd
+                $imagedata = $imagedata . $fileNameToStore . "*";
 
-                    $path = $photo->storeAs('public/productimages', $fileNameToStore);
+                // 5 : upload image dans le projet laravel sous storage/app/public et dans la bdd
 
-                    $increment++;
+                $path = $photo->storeAs('public/productimages', $fileNameToStore);
 
-                }
-                
-                $product->photo = $product->photo.$imagedata;
+                $increment++;
+            }
+
+            $product->photo = $product->photo . $imagedata;
         }
 
         $product->tcat_id = $request->input('tcat_id');
@@ -358,19 +361,20 @@ class ProductController extends Controller
         $product->p_is_active = $request->input('p_is_active');
 
         $product->update();
-        
+
         return back()->with('status', 'The product has been updated with success !');
     }
 
-    public function deletephoto($id, $photo) {
+    public function deletephoto($id, $photo)
+    {
         $product = Product::find($id);
         $imagedata = "";
-        $updatedphotos = explode($photo."*", $product->photo); //retire la photo de l'array mais reste le numéro de l'array vide
+        $updatedphotos = explode($photo . "*", $product->photo); //retire la photo de l'array mais reste le numéro de l'array vide
 
         //retire le numéro de l'array vide
-        foreach($updatedphotos as $updatedphoto) {
-            if($updatedphoto) {
-                $imagedata = $imagedata.$updatedphoto;
+        foreach ($updatedphotos as $updatedphoto) {
+            if ($updatedphoto) {
+                $imagedata = $imagedata . $updatedphoto;
             }
         }
 
@@ -381,14 +385,15 @@ class ProductController extends Controller
         return back();
     }
 
-    public function deleteproduct($id) {
+    public function deleteproduct($id)
+    {
 
         $product = Product::find($id);
         Storage::delete("public/productimages/$product->p_featured_photo");
 
         $photos = explode("*", $product->photo);
-        
-        foreach($photos as $photo) {
+
+        foreach ($photos as $photo) {
             Storage::delete("public/productimages/$photo");
         }
 
@@ -396,5 +401,4 @@ class ProductController extends Controller
 
         return back()->with('status', 'The product has been deleted with success !');
     }
-
 }
