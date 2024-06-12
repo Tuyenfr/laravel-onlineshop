@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers;
 
-
-use Illuminate\Http\Request;
-use App\Models\Logo;
+use App\Models\Banner;
+use App\Models\Color;
+use App\Models\Country;
+use App\Models\Customer;
+use App\Models\Faq;
 use App\Models\Favicon;
 use App\Models\Featuredproduct;
 use App\Models\Information;
 use App\Models\Latestproduct;
+use App\Models\Logo;
 use App\Models\Message;
 use App\Models\Metasection;
 use App\Models\Newsletter;
 use App\Models\Onoffsection;
+use App\Models\Order;
+use App\Models\Paymentsetting;
 use App\Models\Popularproduct;
 use App\Models\ProductSetting;
-use App\Models\Banner;
-use App\Models\Paymentsetting;
-use App\Models\Size;
-use App\Models\Color;
-use App\Models\Country;
-use App\Models\Faq;
-use App\Models\Order;
 use App\Models\Service;
 use App\Models\Shippingcost;
+use App\Models\Size;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
@@ -141,7 +141,7 @@ class AdminController extends Controller
         return back();
     }
 
-    public function deleteorder($id) 
+    public function deleteorder($id)
     {
         $order = Order::find($id);
         $order->delete();
@@ -207,7 +207,7 @@ class AdminController extends Controller
         if ($request->file('photo')) {
 
             $this->validate($request, [
-                'photo' => 'image|nullable|max:1999'
+                'photo' => 'image|nullable|max:1999',
             ]);
 
             $photoFileName = $request->file('photo')->getClientOriginalName();
@@ -287,7 +287,32 @@ class AdminController extends Controller
 
     public function viewregisteredcustomer()
     {
-        return view('admin.registeredcustomer');
+        $customers = Customer::get();
+        $increment = 1;
+        return view('admin.registeredcustomer')->with('customers', $customers)->with('increment', $increment);
+    }
+
+    public function changecustomerstatus($id)
+    {
+        $customer = Customer::find($id);
+
+        if ($customer->status == 1) {
+            $customer->status = 0;
+        } else {
+            $customer->status = 1;
+        }
+
+        $customer->update();
+
+        return back();
+    }
+
+    public function deletecustomer($id)
+    {
+        $customer = Customer::find($id);
+        $customer->delete();
+
+        return back();
     }
 
     public function viewadminpagesettings()
