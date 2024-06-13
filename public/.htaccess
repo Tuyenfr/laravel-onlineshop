@@ -19,7 +19,7 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 
-    # Send Requests To Front Controller...// PLANETHOSTER (plus nécessaire après leur intervention)
+    # Send Requests To Front Controller...// PLANETHOSTER (mettre le fichier à la racine du projet)
     # RewriteCond %{REQUEST_URI} !^/public/
     # RewriteRule ^(.*)$ /public/$1 [L]
 

@@ -69,6 +69,7 @@ Route::get('admin/country', [AdminController::class, 'viewcountrypage']);
 Route::get('admin/addcountry', [AdminController::class, 'viewaddcountrypage']);
 Route::get('admin/shippingcost', [AdminController::class, 'viewshippingcostpage']);
 Route::get('admin/ordermanagement', [AdminController::class, 'viewordermanagementpage']);
+Route::post('admin/sendemail/{id}/{email}', [AdminController::class, 'sendemail']);
 Route::patch('completepaymentstatus/{id}', [AdminController::class, 'completepaymentstatus']);
 Route::patch('completeshippingstatus/{id}', [AdminController::class, 'completeshippingstatus']);
 Route::delete('deleteorder/{id}', [AdminController::class, 'deleteorder']);

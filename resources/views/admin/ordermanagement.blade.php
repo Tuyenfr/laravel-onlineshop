@@ -54,6 +54,7 @@
                                                 <b>Id:</b>{{ $order->id }}<br>
                                                 <b>Name:</b><br>{{ $order->cust_name }}<br>
                                                 <b>Email:</b><br>{{ $order->cust_email }}<br><br>
+
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#model-".{{ $increment }} class="btn btn-warning btn-xs"
                                                     style="width:100%;margin-bottom:4px;">Send Message</a>
@@ -61,47 +62,41 @@
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <button type="button" class="close"
-                                                                    data-dismiss="modal">&times;</button>
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                                 <h4 class="modal-title" style="font-weight: bold;">Send
                                                                     Message
                                                                 </h4>
                                                             </div>
                                                             <div class="modal-body" style="font-size: 14px">
-                                                                <form action="" method="post">
-                                                                    <input type="hidden" name="cust_id" value="10">
-                                                                    <input type="hidden" name="payment_id"
-                                                                        value="1647800902">
+                                                                <form action="{{url('admin/sendemail', [$order->id, $order->cust_email])}}" method="post">
+                                                                    @csrf
                                                                     <table class="table table-bordered">
                                                                         <tr>
                                                                             <td>Subject</td>
                                                                             <td>
-                                                                                <input type="text" name="subject_text"
-                                                                                    class="form-control"
-                                                                                    style="width: 100%;">
+                                                                                <input type="text" name="subject_text" class="form-control" style="width: 100%;" required>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Message</td>
                                                                             <td>
-                                                                                <textarea name="message_text" class="form-control" cols="30" rows="10" style="width:100%;height: 200px;"></textarea>
+                                                                                <textarea name="message_text" class="form-control" cols="30" rows="10" style="width:100%;height: 200px;" required></textarea>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td></td>
-                                                                            <td><input type="submit" value="Send Message"
-                                                                                    name="form1"></td>
+                                                                            <td><input type="submit" value="Send Message" name="form1"></td>
                                                                         </tr>
                                                                     </table>
                                                                 </form>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default"
-                                                                    data-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             </td>
                                             <td>
                                                 @foreach ($order->cust_order->items as $item)
@@ -157,9 +152,6 @@
                                                     <input type="submit" class="btn btn-danger btn-xs"
                                                         style="width: 100%; margin-bottom: 4px" value="Delete">
                                                 </form>
-                                                {{-- <a href="#" class="btn btn-danger btn-xs"
-                                                data-href="order-delete.php?id=55" data-toggle="modal"
-                                                data-target="#confirm-delete" style="width:100%;">Delete</a> --}}
                                             </td>
                                         </tr>
                                     @endforeach

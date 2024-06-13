@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderShipped;
 use App\Models\Banner;
 use App\Models\Color;
 use App\Models\Country;
@@ -24,6 +25,7 @@ use App\Models\Service;
 use App\Models\Shippingcost;
 use App\Models\Size;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
@@ -121,6 +123,13 @@ class AdminController extends Controller
             }
         );
         return view('admin.ordermanagement')->with('orders', $orders)->with('increment', $increment);
+    }
+
+    public function sendemail(Request $request, $id, $email)
+    {
+        Mail::to($email)->send(new OrderShipped($id, $request->input('subject_text'), $request->input('message_text')));
+    
+        return back()->with('status', 'Your message has been sent to the customer with success');
     }
 
     public function completepaymentstatus($id)
