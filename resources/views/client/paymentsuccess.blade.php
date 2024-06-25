@@ -20,11 +20,11 @@
     <div class="page">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 col-md-offset-5">
-                    <h4>
+                <div class="col-md-12">
+                    <h4 class="text-center">
                         Your payment is successful !
                     </h4>
-                    <p>
+                    <p class="text-center">
                         <a href="{{ url('dashboard') }}" class="btn btn-success">Return back to Dashboard</a>
                     </p>
                 </div>
