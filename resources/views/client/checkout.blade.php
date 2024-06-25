@@ -192,7 +192,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="row">
-                                    <form class="paypal" action="{{ url('paynow') }}" method="post">
+                                    <form class="paypal" action="{{ url('paypal') }}" method="post">
                                         @csrf
                                         <div class="col-md-12 form-group">
                                             <input type="submit" class="btn btn-primary" value="Pay with Paypal"

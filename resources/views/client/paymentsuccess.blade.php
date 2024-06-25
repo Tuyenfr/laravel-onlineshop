@@ -20,7 +20,7 @@
     <div class="page">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 col-md-offset-5">
                     <h4>
                         Your payment is successful !
                     </h4>

@@ -94,7 +94,7 @@ Route::get('/category', [ClientController::class, 'viewcategorypage']);
 
 // PaypalController
 
-Route::post('paynow', [PaypalController::class, 'paynow'])->name('paypal');
+Route::post('paypal', [PaypalController::class, 'paypal'])->name('paypal');
 Route::get('/paymentsuccess', [PaypalController::class, 'success'])->name('paypal_success');
 Route::get('/paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal_cancel');
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Shippingcost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
@@ -11,18 +12,23 @@ use Srmklive\PayPal\Traits\PayPalAPI;
 
 class PaypalController extends Controller
 {
-    public function paynow()
+    public function paypal()
     {
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
 
         $order = new Order();
 
+        $shippingcountry = Shippingcost::where('country_id', Session::get('customer')->cust_country)->first();
+        $shippingcost = $shippingcountry->amount;
+        $cartTotalPrice = Session::get('cart')->totalPrice;
+        $paidAmount = $shippingcost + $cartTotalPrice;
+
         $order->cust_name = Session::get('customer')->cust_name;
         $order->cust_email = Session::get('customer')->cust_email;
         $order->cust_order = serialize($cart);
         $order->cust_transactionid = "tr_id_" . time();
-        $order->cust_paidamount = Session::get('cart')->totalPrice;
+        $order->cust_paidamount = $paidAmount;
         $order->cust_paymentmethod = "Paypal";
         $order->cust_paymentid = "cust_id_" . time();
 
@@ -51,7 +57,7 @@ class PaypalController extends Controller
                     [
                         "amount" => [
                             "currency_code" => "EUR",
-                            "value" => Session::get('cart')->totalPrice
+                            "value" => $paidAmount
                         ]
                     ]
                 ]
