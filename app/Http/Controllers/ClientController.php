@@ -18,7 +18,10 @@ use App\Models\Slidermanager;
 use App\Models\Toplevelcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Srmklive\PayPal\Services\ExpressCheckout;
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class ClientController extends Controller
 {
@@ -207,35 +210,7 @@ class ClientController extends Controller
             ->with('shippingcost', $shippingcost);
     }
 
-    public function paynow()
-    {
-
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
-
-        $order = new Order();
-
-        $order->cust_name = Session::get('customer')->cust_name;
-        $order->cust_email = Session::get('customer')->cust_email;
-        $order->cust_order = serialize($cart);
-        $order->cust_transactionid = "tr_id_" . time();
-        $order->cust_paidamount = Session::get('cart')->totalPrice;
-        $order->cust_paymentmethod = "Paypal";
-        $order->cust_paymentid = "cust_id_" . time();
-
-        $order->save();
-
-        Session::forget('cart');
-        Session::forget('topCart');
-
-        return redirect('/paymentsuccess')->with('status', 'Your payment has been processed with success !');
-    }
-
-    public function paymentsuccess()
-    {
-        return view('client.paymentsuccess');
-    }
-
+    
     public function viewprofilepage()
     {
         $customer = Customer::find(Session::get('customer')->id);

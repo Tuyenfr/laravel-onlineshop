@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ShopController;
@@ -23,39 +24,6 @@ use App\Http\Controllers\SliderController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-
-//ClientController
-
-Route::get('/', [ClientController::class, 'viewhomepage']);
-Route::get('/about', [ClientController::class, 'viewaboutpage']);
-Route::get('/faq', [ClientController::class, 'viewfaqpage']);
-Route::get('/contact', [ClientController::class, 'viewcontactpage']);
-Route::get('/login', [ClientController::class, 'viewloginpage']);
-Route::get('/logout', [ClientController::class, 'logout']);
-Route::post('/connect', [ClientController::class, 'connect']);
-Route::get('/register', [ClientController::class, 'viewregisterpage']);
-Route::post('/registercustomer', [ClientController::class, 'registercustomer']);
-Route::post('/addproducttocart/{id}', [ClientController::class, 'addproducttocart']);
-Route::put('/updateproductqty/{id}', [ClientController::class, 'updateproductqty']);
-Route::delete('removeproduct/{id}', [ClientController::class, 'removeproduct']);
-Route::get('/cart', [ClientController::class, 'viewcartpage']);
-Route::get('/dashboard', [ClientController::class, 'viewdashboardpage']);
-Route::get('/checkout', [ClientController::class, 'viewcheckoutpage']);
-Route::post('/paynow', [ClientController::class, 'paynow']);
-Route::get('/paymentsuccess', [ClientController::class, 'paymentsuccess']);
-Route::get('/profile', [ClientController::class, 'viewprofilepage']);
-Route::put('/updateprofile/{id}', [ClientController::class, 'updateprofile']);
-Route::get('/billingdetails', [ClientController::class, 'viewbillingdetailspage']);
-Route::put('/updateaddresses/{id}', [ClientController::class, 'updateaddresses']);
-Route::get('/productbytopcategory/{tcatid}', [ClientController::class, 'productbytopcategory']);
-Route::get('/productbymidcategory/{tcatid}/{mcatid}', [ClientController::class, 'productbymidcategory']);
-Route::get('/productbyendcategory/{tcatid}/{mcatid}/{ecatid}', [ClientController::class, 'productbyendcategory']);
-Route::get('/password', [ClientController::class, 'viewpasswordpage']);
-Route::put('/updatepassword/{id}', [ClientController::class, 'updatepassword']);
-Route::get('/history', [ClientController::class, 'viewhistorypage']);
-Route::get('/searchproduct', [ClientController::class, 'viewsearchproductpage']);
-Route::get('/productdetails/{id}', [ClientController::class, 'viewproductdetails']);
-Route::get('/category', [ClientController::class, 'viewcategorypage']);
 
 //AdminController
 
@@ -91,9 +59,44 @@ Route::delete('deletecustomer/{id}', [AdminController::class, 'deletecustomer'])
 Route::get('admin/socialmedia', [AdminController::class, 'viewsocialmediapage']);
 Route::get('admin/subscriber', [AdminController::class, 'viewsubscriberpage']);
 Route::get('admin/adminprofile', [AdminController::class, 'viewadminprofilepage']);
-
 Route::get('admin/pagesettings', [AdminController::class, 'viewadminpagesettings']);
 
+//ClientController
+
+Route::get('/', [ClientController::class, 'viewhomepage']);
+Route::get('/about', [ClientController::class, 'viewaboutpage']);
+Route::get('/faq', [ClientController::class, 'viewfaqpage']);
+Route::get('/contact', [ClientController::class, 'viewcontactpage']);
+Route::get('/login', [ClientController::class, 'viewloginpage']);
+Route::get('/logout', [ClientController::class, 'logout']);
+Route::post('/connect', [ClientController::class, 'connect']);
+Route::get('/register', [ClientController::class, 'viewregisterpage']);
+Route::post('/registercustomer', [ClientController::class, 'registercustomer']);
+Route::post('/addproducttocart/{id}', [ClientController::class, 'addproducttocart']);
+Route::put('/updateproductqty/{id}', [ClientController::class, 'updateproductqty']);
+Route::delete('removeproduct/{id}', [ClientController::class, 'removeproduct']);
+Route::get('/cart', [ClientController::class, 'viewcartpage']);
+Route::get('/dashboard', [ClientController::class, 'viewdashboardpage']);
+Route::get('/checkout', [ClientController::class, 'viewcheckoutpage']);
+Route::get('/profile', [ClientController::class, 'viewprofilepage']);
+Route::put('/updateprofile/{id}', [ClientController::class, 'updateprofile']);
+Route::get('/billingdetails', [ClientController::class, 'viewbillingdetailspage']);
+Route::put('/updateaddresses/{id}', [ClientController::class, 'updateaddresses']);
+Route::get('/productbytopcategory/{tcatid}', [ClientController::class, 'productbytopcategory']);
+Route::get('/productbymidcategory/{tcatid}/{mcatid}', [ClientController::class, 'productbymidcategory']);
+Route::get('/productbyendcategory/{tcatid}/{mcatid}/{ecatid}', [ClientController::class, 'productbyendcategory']);
+Route::get('/password', [ClientController::class, 'viewpasswordpage']);
+Route::put('/updatepassword/{id}', [ClientController::class, 'updatepassword']);
+Route::get('/history', [ClientController::class, 'viewhistorypage']);
+Route::get('/searchproduct', [ClientController::class, 'viewsearchproductpage']);
+Route::get('/productdetails/{id}', [ClientController::class, 'viewproductdetails']);
+Route::get('/category', [ClientController::class, 'viewcategorypage']);
+
+// PaypalController
+
+Route::post('paynow', [PaypalController::class, 'paynow'])->name('paypal');
+Route::get('/paymentsuccess', [PaypalController::class, 'success'])->name('paypal_success');
+Route::get('/paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal_cancel');
 
 //CategoryController
 

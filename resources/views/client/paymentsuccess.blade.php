@@ -21,13 +21,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
+                    <h4>
+                        Your payment is successful !
+                    </h4>
                     <p>
-                        @if (Session::has('status'))
-                            <div class="alert alert-success">
-                                <h3 style="margin-top: 20px">{{ Session::get('status') }}</h3>
-                            </div>
-                            <a href="{{ url('dashboard') }}" class="btn btn-success">Return back to Dashboard</a>
-                        @endif
+                        <a href="{{ url('dashboard') }}" class="btn btn-success">Return back to Dashboard</a>
                     </p>
                 </div>
             </div>
