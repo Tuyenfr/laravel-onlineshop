@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Models;
+use App\Models\Shippingcost;
+use Illuminate\Support\Facades\Session;
+
 
 class Cart
 {
@@ -46,7 +49,7 @@ class Cart
         $storedItem['size'] = $size;
         $storedItem['color'] = $color;
         $this->totalQty += $qty;
-        $this->totalPrice += $item->p_current_price * $qty;
+        $this->totalPrice += ($item->p_current_price * $qty);
         $this->items[$item->id] = $storedItem;
     }
 
@@ -56,7 +59,6 @@ class Cart
         $this->totalQty -= $this->items[$id]['qty'];
         $this->totalPrice -= $this->items[$id]['product_price'] * $this->items[$id]['qty'];
         $this->items[$id]['qty'] = $qty;
-        $this->totalQty += $qty;
         $this->totalPrice += $this->items[$id]['product_price'] * $qty;
     }
 
