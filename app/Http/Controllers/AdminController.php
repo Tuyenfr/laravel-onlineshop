@@ -33,8 +33,8 @@ class AdminController extends Controller
 {
     public function viewadmindashboard()
     {
-        if (empty(Session::get('customer')) || Session::get('customer')->cust_email != 'dev@tuyen-nguyen.com') {
-            return view('client.login')->with('error', 'Please log in as an administrator to access to this page !');
+        if (empty(Session::get('customer')) || Session::get('customer')->cust_email != 'tuyen.nguyen.fr@gmail.com') {
+            return view('client.login')->with('error', 'Please log in as an administrator to access this page !');
         } else {
             return view('admin.dashboard');
         }
