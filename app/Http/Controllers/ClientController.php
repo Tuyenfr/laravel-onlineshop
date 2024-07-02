@@ -134,6 +134,44 @@ class ClientController extends Controller
 
         Session::put('customer', $customer);
 
+        $billingaddress = Billingaddress::where('cust_b_email', Session::get('customer')->cust_email)->first();
+
+        if (!$billingaddress) {
+
+            $billingDefaultAddress = new Billingaddress();
+
+            $billingDefaultAddress->cust_b_name = $customer->cust_name;
+            $billingDefaultAddress->cust_b_cname = $customer->cust_cname;
+            $billingDefaultAddress->cust_b_phone = $customer->cust_phone;
+            $billingDefaultAddress->cust_b_email = $customer->cust_email;
+            $billingDefaultAddress->cust_b_address = $customer->cust_address;
+            $billingDefaultAddress->cust_b_country = $customer->cust_country;
+            $billingDefaultAddress->cust_b_city = $customer->cust_city;
+            $billingDefaultAddress->cust_b_state = $customer->cust_state;
+            $billingDefaultAddress->cust_b_zip = $customer->cust_zip;
+
+            $billingDefaultAddress->save();
+        }
+
+        $shippingaddress = Shippingaddress::where('cust_s_email', Session::get('customer')->cust_email)->first();
+
+        if (!$shippingaddress) {
+
+            $shippingDefaultAddress = new Shippingaddress();
+
+            $shippingDefaultAddress->cust_s_name = $customer->cust_name;
+            $shippingDefaultAddress->cust_s_cname = $customer->cust_cname;
+            $shippingDefaultAddress->cust_s_phone = $customer->cust_phone;
+            $shippingDefaultAddress->cust_s_email = $customer->cust_email;
+            $shippingDefaultAddress->cust_s_address = $customer->cust_address;
+            $shippingDefaultAddress->cust_s_country = $customer->cust_country;
+            $shippingDefaultAddress->cust_s_city = $customer->cust_city;
+            $shippingDefaultAddress->cust_s_state = $customer->cust_state;
+            $shippingDefaultAddress->cust_s_zip = $customer->cust_zip;
+
+            $shippingDefaultAddress->save();
+        }
+
         return back()->with('status', 'Your account has been created with success !');
     }
 

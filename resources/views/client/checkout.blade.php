@@ -195,7 +195,7 @@
                                     <form class="paypal" action="{{ url('paypal') }}" method="post">
                                         @csrf
                                         <div class="col-md-12 form-group">
-                                            <input type="submit" class="btn btn-primary" value="Pay with Paypal"
+                                            <input type="submit" class="btn btn-primary" value="Pay with Paypal account or credit card"
                                                 name="form1">
                                         </div>
                                     </form>
