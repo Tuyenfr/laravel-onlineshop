@@ -64,8 +64,9 @@ class ClientController extends Controller
 
     public function sendmessage(Request $request)
     {
+        $adminEmail = "dev@tuyen-nguyen.com";
 
-        Mail::to('dev@tuyen-nguyen.com')->send(
+        Mail::to($adminEmail)->send(
             new ContactMessage(
                 $request->input('name'),
                 $request->input('email'),
