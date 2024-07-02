@@ -134,7 +134,7 @@ class AdminController extends Controller
     {
         Mail::to($email)->send(new OrderShipped($id, $request->input('subject_text'), $request->input('message_text')));
 
-        return back()->with('status', 'Your message has been sent to the customer with success');
+        return back()->with('status', 'Your message has been sent to the customer with success !');
     }
 
     public function completepaymentstatus($id)

@@ -67,6 +67,7 @@ Route::get('/', [ClientController::class, 'viewhomepage']);
 Route::get('/about', [ClientController::class, 'viewaboutpage']);
 Route::get('/faq', [ClientController::class, 'viewfaqpage']);
 Route::get('/contact', [ClientController::class, 'viewcontactpage']);
+Route::post('/sendmessage', [ClientController::class, 'sendmessage']);
 Route::get('/login', [ClientController::class, 'viewloginpage']);
 Route::get('/logout', [ClientController::class, 'logout']);
 Route::post('/connect', [ClientController::class, 'connect']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactMessage;
 use App\Models\Billingaddress;
 use App\Models\Cart;
 use App\Models\Country;
@@ -18,10 +19,8 @@ use App\Models\Slidermanager;
 use App\Models\Toplevelcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-use Srmklive\PayPal\Services\ExpressCheckout;
-use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class ClientController extends Controller
 {
@@ -61,6 +60,22 @@ class ClientController extends Controller
     public function viewcontactpage()
     {
         return view('client.contact');
+    }
+
+    public function sendmessage(Request $request)
+    {
+
+        Mail::to('dev@tuyen-nguyen.com')->send(
+            new ContactMessage(
+                $request->input('name'),
+                $request->input('email'),
+                $request->input('phone'),
+                $request->input('message'),
+                $request->input('customerId')
+            )
+        );
+
+        return back()->with('status', 'Your message has been sent with success !');
     }
 
     public function viewloginpage()
@@ -248,7 +263,6 @@ class ClientController extends Controller
             ->with('shippingcost', $shippingcost);
     }
 
-    
     public function viewprofilepage()
     {
         $customer = Customer::find(Session::get('customer')->id);

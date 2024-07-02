@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OrderShipped extends Mailable
+class ContactMessage extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -19,10 +19,9 @@ class OrderShipped extends Mailable
      *
      * @return void
      */
-    public function __construct(public $orderid, public $subject, public $message)
+    public function __construct(public $name, public $email, public $phone, public $message, public $customerId)
     {
         //
-
     }
 
     /**
@@ -33,8 +32,8 @@ class OrderShipped extends Mailable
     public function envelope()
     {
         return new Envelope(
-            from: new Address('contact@tuyen-nguyen.com', 'Tuyen Nguyen'),
-            subject: $this->subject
+            from: new Address('contact@tuyen-nguyen.com', 'Admin'),
+            subject: 'Contact Message'
         );
     }
 
@@ -46,10 +45,13 @@ class OrderShipped extends Mailable
     public function content()
     {
         return new Content(
-            view: 'emails.orders.shipped',
+            view: 'emails.contact.message',
             with: [
+                'name' => $this->name,
+                'email' => $this->email,
+                'phone' => $this->phone,
                 'content' => $this->message,
-                'orderid' => $this->orderid
+                'customerId' => $this->customerId
             ]
         );
     }

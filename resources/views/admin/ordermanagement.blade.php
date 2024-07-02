@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="callout callout-success">
-                            <p>{{ Session::get('status') }}</p>
+                            <p class="text-center">{{ Session::get('status') }}</p>
                         </div>
                     </div>
                 </div>
@@ -49,16 +49,16 @@
                                 <tbody>
                                     @foreach ($orders as $order)
                                         <tr class="bg-g">
-                                            <td>{{ $increment++ }}</td>
+                                            <td>{{ $increment }}</td>
                                             <td>
-                                                <b>Id:</b>{{ $order->id }}<br>
+                                                <b>OrderId:</b>{{ $order->id }}<br>
                                                 <b>Name:</b><br>{{ $order->cust_name }}<br>
                                                 <b>Email:</b><br>{{ $order->cust_email }}<br><br>
 
                                                 <a href="#" data-toggle="modal"
-                                                    data-target="#model-".{{ $increment }} class="btn btn-warning btn-xs"
+                                                    data-target="#model-{{ $increment }}" class="btn btn-warning btn-xs"
                                                     style="width:100%;margin-bottom:4px;">Send Message</a>
-                                                <div id="model-".{{ $increment }} class="modal fade" role="dialog">
+                                                <div id="model-{{ $increment }}" class="modal fade" role="dialog">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -106,7 +106,6 @@
                                                     <b>Unit
                                                         Price:</b> {{ $item['product_price'] }} )<br><br>
                                                 @endforeach
-
                                             </td>
                                             <td>
                                                 <b>Payment Method:</b> <span
@@ -154,6 +153,7 @@
                                                 </form>
                                             </td>
                                         </tr>
+                                        <?php $increment++; // permet de debugger l'envoi d'email sinon pb sur la boucle ?>
                                     @endforeach
                                 </tbody>
                             </table>

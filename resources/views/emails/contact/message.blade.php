@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <p> Order nr : {{$orderid}}</p>
-    <p> {{$content}}</p>
+    <p>From : {{$name}} <br> Email : {{$email}} <br> Phone : {{$phone}} <br> CustomerId : {{$customerId}}</p>
+    <p>Message : {{$content}}</p>
 </body>
 </html>
