@@ -77,34 +77,34 @@ class PaypalController extends Controller
         }
     }
 
-    private function checkoutData()
-    {
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
+    // private function checkoutData()
+    // {
+    //     $oldCart = Session::has('cart') ? Session::get('cart') : null;
+    //     $cart = new Cart($oldCart);
 
-        $data['items'] = [];
+    //     $data['items'] = [];
 
-        foreach ($cart->items as $item) {
-            $itemDetails = [
-                'name' => $item['product_name'],
-                'price' => $item['product_price'],
-                'qty' => $item['qty']
-            ];
+    //     foreach ($cart->items as $item) {
+    //         $itemDetails = [
+    //             'name' => $item['product_name'],
+    //             'price' => $item['product_price'],
+    //             'qty' => $item['qty']
+    //         ];
 
-            $data['items'][] = $itemDetails;
-        }
+    //         $data['items'][] = $itemDetails;
+    //     }
 
-        $checkoutData = [
-            'items' => $data['items'],
-            'return_url' => url('/paymentSuccessPaypal'),
-            'cancel_url' => url('/cart'),
-            'invoice_id' => uniqid(),
-            'invoice_description' => "order description",
-            'total' => Session::get('cart')->totalPrice
-        ];
+    //     $checkoutData = [
+    //         'items' => $data['items'],
+    //         'return_url' => url('/paymentSuccessPaypal'),
+    //         'cancel_url' => url('/cart'),
+    //         'invoice_id' => uniqid(),
+    //         'invoice_description' => "order description",
+    //         'total' => Session::get('cart')->totalPrice
+    //     ];
 
-        return $checkoutData;
-    }
+    //     return $checkoutData;
+    // }
 
     public function success(Request $request)
     {
@@ -124,6 +124,8 @@ class PaypalController extends Controller
 
             Session::forget('cart');
             Session::forget('topCart');
+
+            Order::where('id', Session::get('order')->id)->update(['cust_paymentstatus' => 1]);
 
             if (isset($response['status']) && $response['status'] == 'COMPLETED') {
                 return view('client.paymentsuccess');
