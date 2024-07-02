@@ -33,7 +33,7 @@ class OrderShipped extends Mailable
     public function envelope()
     {
         return new Envelope(
-            from: new Address('tuyen.novixir@gmail.com', 'Tuyen Nguyen'),
+            from: new Address('dev@tuyen-nguyen.com', 'Tuyen Nguyen'),
             subject: $this->subject,
         );
     }
