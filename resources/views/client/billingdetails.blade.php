@@ -24,7 +24,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="alert alert-success">
-                                    <p>{{ Session::get('status') }}</p>
+                                    <p class="text-center">{{ Session::get('status') }}</p>
                                 </div>
                             </div>
                         </div>

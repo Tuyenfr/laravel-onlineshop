@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="callout callout-danger">
-                                <p>{{ Session::get('error') }}</p>
+                                <p class="text-center">{{ Session::get('error') }}</p>
                             </div>
                         </div>
                     </div>
