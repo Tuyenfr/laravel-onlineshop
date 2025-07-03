@@ -45,8 +45,8 @@ class SliderController extends Controller
         return back()->with('status', 'The slider has been saved with success!');
     }
 
-    public function updateslider(Request $request, $id) {
-
+    public function updateslider(Request $request, $id) 
+    {
         $this->validate($request, [
             'heading' => 'string|required',
             'content' => 'string|required',
@@ -58,19 +58,22 @@ class SliderController extends Controller
 
         $slider = Slidermanager::find($id);
 
-        if($request->file("photo")) {
+        if (!$request->file('photo')->isValid()) {
+            return back()->with('error', 'Le fichier n\'est pas valide.');
+        } else {
             $this->validate($request, [
                 'photo' => 'image|nullable|max:1999',
-            ]);
+                ]
+            );
 
-        $photoFileName = $request->file('photo')->getClientOriginalName();
-        $photoFilePath = pathinfo($photoFileName, PATHINFO_FILENAME);
-        $photoFileExt = $request->file('photo')->getClientOriginalExtension();
-        $photoFileNameToStore = $photoFilePath.'-'.time().$photoFileExt;
-        Storage::delete("public/sliders/$slider->photo");
-        $path = $request->file('photo')->storeAs('public/sliders', $photoFileNameToStore);
+            $photoFileName = $request->file('photo')->getClientOriginalName();
+            $photoFilePath = pathinfo($photoFileName, PATHINFO_FILENAME);
+            $photoFileExt = $request->file('photo')->getClientOriginalExtension();
+            $photoFileNameToStore = $photoFilePath.'-'.time() . '.'. $photoFileExt;
+            Storage::delete("public/sliders/$slider->photo");
+            $path = $request->file('photo')->storeAs('public/sliders', $photoFileNameToStore);
 
-        $slider->photo = $photoFileNameToStore;
+            $slider->photo = $photoFileNameToStore;
 
         }
         
